@@ -1,0 +1,124 @@
+﻿@* Views/Shared/_Layout.cshtml *@
+@{
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Shark Tank</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="76x76"
+          href="@Url.Content("~/Content/favicon/apple-touch-icon.png")" />
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="@Url.Content("~/Content/favicon/favicon-32x32.png")" />
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="@Url.Content("~/Content/favicon/favicon-16x16.png")" />
+    <link rel="manifest" href="@Url.Content("~/Content/favicon/site.webmanifest")" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/fonts/stylesheet.css")" />
+
+    <!-- Styles -->
+    <style>
+        .slidezy-slide {
+            text-align: center;
+        }
+    </style>
+    <link href="@Url.Content("~/Content/css/slidezy.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/main.css")" rel="stylesheet" />
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    @RenderSection("Head", required: false)
+</head>
+<body>
+    @Html.AntiForgeryToken()
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+        <div class="snowflake">🌸</div>
+    </div>
+
+    <div class="navbar-sticky show" id="navbar-sticky" data-sticky>
+        <div id="header-top">
+            @Html.Partial("_HeaderTop")
+        </div>
+        <header id="header" class="header">
+            @Html.Partial("_Header")
+        </header>
+    </div>
+
+    <div id="ad-sentinel"></div>
+
+    @RenderBody()
+
+    <footer id="footer" class="footer">
+        @Html.Partial("_Footer")
+    </footer>
+
+    <!-- Scripts -->
+    <script src="@Url.Content("~/Content/js/scripts.js")?v=@DateTime.Now.Ticks"></script>
+
+    <script src="@Url.Content("~/Content/js/tabzy.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/slidezy.js")"></script>
+    <script src="@Url.Content("~/Content/js/my-slider.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/app.js")"></script>
+    <script src="@Url.Content("~/Content/js/checkout.js")"></script>
+    <script src="@Url.Content("~/Content/js/sticky.js")"></script>
+    <script src="@Url.Content("~/Content/js/auth-local.js")?v=@DateTime.Now.Ticks"></script>
+    <script src="@Url.Content("~/Content/js/footer.js")"></script>
+
+    <script>
+        window.addEventListener("load", function () {
+            window.dispatchEvent(new Event("template-loaded"));
+        });
+    </script>
+    <script>
+        window.appConfig = {
+            contentPath: '@Url.Content("~/Content")',
+            assetsPath: '@Url.Content("~/Content")', // Alias cho contentPath
+            loginUrl: '@Url.Action("Login", "Account")',
+            registerUrl: '@Url.Action("Register", "Account")',
+            homeUrl: '@Url.Action("Index", "Home")',
+            checkoutUrl: '@Url.Action("Index", "Checkout")',
+            shippingUrl: '@Url.Action("Index", "Shipping")',
+            addressesUrl: '@Url.Action("Addresses", "Profile")',
+            profileUrl: '@Url.Action("Index", "Profile")',
+            profileEditUrl: '@Url.Action("EditPersonalInfo", "Profile")',
+            changePasswordUrl: '@Url.Action("ChangePassword", "Profile")',
+            cartGetUrl: '@Url.Action("GetCart", "Cart")',
+            cartAddUrl: '@Url.Action("AddItem", "Cart")',
+            cartUpdateUrl: '@Url.Action("UpdateItem", "Cart")',
+            cartRemoveUrl: '@Url.Action("RemoveItem", "Cart")',
+            getCurrentUserUrl: '@Url.Action("GetCurrentUser", "Account")',
+            productGetAllUrl: '@Url.Action("GetAll", "Product")',
+            productGetDetailUrl: '@Url.Action("GetDetail", "Product")',
+            productGetSpecsUrl: '@Url.Action("GetSpecs", "Product")',
+            productGetDescriptionUrl: '@Url.Action("GetDescription", "Product")',
+            productGetSimilarUrl: '@Url.Action("GetSimilar", "Product")'
+        };
+        // Trigger render lại sau khi appConfig được định nghĩa
+        document.dispatchEvent(new Event('app-config-ready'));
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

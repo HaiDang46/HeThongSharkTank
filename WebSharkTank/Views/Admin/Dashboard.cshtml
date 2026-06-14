@@ -1,0 +1,253 @@
+@using WebSharkTank.Models
+@{
+    ViewBag.Title = "Bảng điều khiển";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item"><a href="#"><b>Bảng điều khiển</b></a></li>
+            </ul>
+            <div id="clock"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!--Left-->
+    <div class="col-md-12 col-lg-6">
+        <div class="row">
+            <!-- col-6 -->
+            <div class="col-md-6">
+                <div class="widget-small primary coloured-icon">
+                    <i class='icon bx bxs-user-account fa-3x'></i>
+                    <div class="info">
+                        <h4>Tổng khách hàng</h4>
+                        <p><b>@(ViewBag.TotalCustomers ?? 0) khách hàng</b></p>
+                        <p class="info-tong">Tổng số khách hàng được quản lý.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- col-6 -->
+            <div class="col-md-6">
+                <div class="widget-small info coloured-icon">
+                    <i class='icon bx bxs-data fa-3x'></i>
+                    <div class="info">
+                        <h4>Tổng sản phẩm</h4>
+                        <p><b>@ViewBag.TotalProducts sản phẩm</b></p>
+                        <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- col-6 -->
+            <div class="col-md-6">
+                <div class="widget-small warning coloured-icon">
+                    <i class='icon bx bxs-shopping-bags fa-3x'></i>
+                    <div class="info">
+                        <h4>Tổng đơn hàng</h4>
+                        <p><b>@(ViewBag.TotalOrders ?? 0) đơn hàng</b></p>
+                        <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng (@DateTime.Now.ToString("MM/yyyy")).</p>
+                    </div>
+                </div>
+            </div>
+            <!-- col-6 -->
+            <div class="col-md-6">
+                <div class="widget-small danger coloured-icon">
+                    <i class='icon bx bxs-error-alt fa-3x'></i>
+                    <div class="info">
+                        <h4>Sắp hết hàng</h4>
+                        <p><b>4 sản phẩm</b></p>
+                        <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- col-12 -->
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Tình trạng đơn hàng</h3>
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID đơn hàng</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var recentOrdersList = ViewBag.RecentOrders as List<WebSharkTank.Models.OrderWithItemsViewModel>;
+                                }
+                                @if (recentOrdersList != null && recentOrdersList.Count > 0)
+                                {
+                                    foreach (var orderData in recentOrdersList)
+                                    {
+                                        var order = orderData.Order;
+                                        string statusClass = "";
+                                        string statusText = "";
+                                        switch (order.Status)
+                                        {
+                                            case "Pending":
+                                                statusClass = "bg-info";
+                                                statusText = "Chờ xử lý";
+                                                break;
+                                            case "Processing":
+                                                statusClass = "bg-primary";
+                                                statusText = "Đang xử lý";
+                                                break;
+                                            case "Shipped":
+                                                statusClass = "bg-warning";
+                                                statusText = "Đang vận chuyển";
+                                                break;
+                                            case "Delivered":
+                                                statusClass = "bg-success";
+                                                statusText = "Đã hoàn thành";
+                                                break;
+                                            case "Cancelled":
+                                                statusClass = "bg-danger";
+                                                statusText = "Đã hủy";
+                                                break;
+                                            default:
+                                                statusClass = "bg-secondary";
+                                                statusText = order.Status;
+                                                break;
+                                        }
+                                        <tr>
+                                            <td>#@order.Id</td>
+                                            <td>@orderData.UserName</td>
+                                            <td>@string.Format("{0:N0}", order.TotalAmount)₫</td>
+                                            <td><span class="badge @statusClass">@statusText</span></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">Chưa có đơn hàng nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- / col-12 -->
+            <!-- col-12 -->
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Khách hàng mới</h3>
+                    <div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đăng ký</th>
+                                    <th>Số điện thoại</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var recentCustomersList = ViewBag.RecentCustomers;
+                                }
+                                @if (recentCustomersList != null)
+                                {
+                                    foreach (RecentCustomerViewModel customer in recentCustomersList)
+                                    {
+                                        var user = customer.User;
+                                        string phone = customer.Phone ?? "";
+                                        
+                                        <tr>
+                                            <td>#@user.Id</td>
+                                            <td>@user.Name</td>
+                                            <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(phone))
+                                                {
+                                                    <span class="tag tag-success">@phone</span>
+                                                }
+                                                else if (!string.IsNullOrEmpty(user.Email))
+                                                {
+                                                    <span class="tag tag-info">@user.Email</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="tag tag-secondary">Chưa có</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">Chưa có khách hàng nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- / col-12 -->
+        </div>
+    </div>
+    <!--END left-->
+    <!--Right-->
+    <div class="col-md-12 col-lg-6">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END right-->
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var data = {
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
+            datasets: [{
+                label: "Dữ liệu đầu tiên",
+                fillColor: "rgba(255, 213, 59, 0.767)",
+                strokeColor: "rgb(255, 212, 59)",
+                pointColor: "rgb(255, 212, 59)",
+                pointStrokeColor: "rgb(255, 212, 59)",
+                pointHighlightFill: "rgb(255, 212, 59)",
+                pointHighlightStroke: "rgb(255, 212, 59)",
+                data: [20, 59, 90, 51, 56, 100]
+            },
+            {
+                label: "Dữ liệu kế tiếp",
+                fillColor: "rgba(9, 109, 239, 0.651)",
+                pointColor: "rgb(9, 109, 239)",
+                strokeColor: "rgb(9, 109, 239)",
+                pointStrokeColor: "rgb(9, 109, 239)",
+                pointHighlightFill: "rgb(9, 109, 239)",
+                pointHighlightStroke: "rgb(9, 109, 239)",
+                data: [48, 48, 49, 39, 86, 10]
+            }]
+        };
+        var ctxl = $("#lineChartDemo").get(0).getContext("2d");
+        var lineChart = new Chart(ctxl).Line(data);
+
+        var ctxb = $("#barChartDemo").get(0).getContext("2d");
+        var barChart = new Chart(ctxb).Bar(data);
+    </script>
+}
+

@@ -1,0 +1,40 @@
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model WebSharkTank.Models.Product
+
+<div class="container" style="margin-top: 20px;">
+    <h2>Xóa sản phẩm</h2>
+
+    <h3>Bạn có chắc chắn muốn xóa sản phẩm này?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>ID:</dt>
+            <dd>@Model.ProductId</dd>
+
+            <dt>Tên sản phẩm:</dt>
+            <dd>@Model.Title</dd>
+
+            <dt>Giá:</dt>
+            <dd>@Model.Price</dd>
+
+            <dt>Category:</dt>
+            <dd>@Model.Category</dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                <a href="@Url.Action("Index")" class="btn btn-default">Hủy</a>
+            </div>
+        }
+    </div>
+</div>
+

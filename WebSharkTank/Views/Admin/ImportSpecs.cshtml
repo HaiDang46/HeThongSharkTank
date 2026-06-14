@@ -1,0 +1,55 @@
+@{
+    ViewBag.Title = "Import thông số sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin-top: 20px;">
+    <h2>Import thông số sản phẩm từ JSON</h2>
+
+    <div class="alert alert-info">
+        <p>Chức năng này sẽ import tất cả thông số từ file <code>App_Data/specs.json</code> vào database.</p>
+    </div>
+
+    <div>
+        <button id="btnImport" class="btn btn-primary">Bắt đầu Import</button>
+        <a href="@Url.Action("Index")" class="btn btn-default">Quay lại</a>
+    </div>
+
+    <div id="result" style="margin-top: 20px;"></div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('btnImport').addEventListener('click', function() {
+            const btn = this;
+            const resultDiv = document.getElementById('result');
+            
+            btn.disabled = true;
+            btn.textContent = 'Đang import...';
+            resultDiv.innerHTML = '<div class="alert alert-info">Đang xử lý...</div>';
+
+            fetch('@Url.Action("ImportSpecsData", "Admin")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    resultDiv.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="alert alert-danger">' + data.message + '</div>';
+                }
+                btn.disabled = false;
+                btn.textContent = 'Bắt đầu Import';
+            })
+            .catch(error => {
+                resultDiv.innerHTML = '<div class="alert alert-danger">Lỗi: ' + error.message + '</div>';
+                btn.disabled = false;
+                btn.textContent = 'Bắt đầu Import';
+            });
+        });
+    </script>
+}
+

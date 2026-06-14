@@ -1,0 +1,351 @@
+@using WebSharkTank.Models
+@{
+    ViewBag.Title = "Quản lý nhân viên";
+    ViewBag.ActiveMenu = "Users";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    
+    var users = ViewBag.Users as List<User> ?? new List<User>();
+    bool canManageRoles = ViewBag.CanManageRoles ?? false;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title">Quản lý nhân viên</h3>
+            @if (!canManageRoles)
+            {
+                <div class="alert alert-warning">
+                    <i class="fa fa-exclamation-triangle"></i> Bạn không có quyền cấp quyền cho người khác. Chỉ Super Admin (Role 99) mới có quyền này.
+                </div>
+            }
+            <div class="tile-body">
+                <table class="table table-hover table-bordered" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Quyền hiện tại</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in users)
+                        {
+                            string roleText = "";
+                            string roleBadgeClass = "";
+                            if (user.Role == 99)
+                            {
+                                roleText = "Super Admin (Full quyền)";
+                                roleBadgeClass = "bg-danger";
+                            }
+                            else if (user.Role == 50)
+                            {
+                                roleText = "Admin (Không cấp quyền)";
+                                roleBadgeClass = "bg-warning";
+                            }
+                            else
+                            {
+                                roleText = "User";
+                                roleBadgeClass = "bg-secondary";
+                            }
+                            
+                            <tr>
+                                <td>#@user.Id</td>
+                                <td>@user.Name</td>
+                                <td>@user.Email</td>
+                                <td>@user.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    <span class="badge @roleBadgeClass">@roleText</span>
+                                </td>
+                                <td>
+                                    @if (canManageRoles)
+                                    {
+                                        <div class="btn-group" style="margin-right: 5px;">
+                                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-cog"></i> Cấp quyền
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item update-role" href="#" data-user-id="@user.Id" data-role="0" data-user-name="@user.Name">
+                                                    <i class="fa fa-user"></i> User (0)
+                                                </a>
+                                                <a class="dropdown-item update-role" href="#" data-user-id="@user.Id" data-role="50" data-user-name="@user.Name">
+                                                    <i class="fa fa-user-shield"></i> Admin (50) - Không cấp quyền
+                                                </a>
+                                                <a class="dropdown-item update-role" href="#" data-user-id="@user.Id" data-role="99" data-user-name="@user.Name">
+                                                    <i class="fa fa-user-crown"></i> Super Admin (99) - Full quyền
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-warning reset-password-btn" data-user-id="@user.Id" data-user-name="@user.Name" title="Reset mật khẩu">
+                                            <i class="fa fa-key"></i> Reset MK
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Không có quyền</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Khởi tạo DataTable
+            $('#usersTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Vietnamese.json"
+                },
+                "pageLength": 25,
+                "order": [[0, "desc"]]
+            });
+
+            // Xử lý cập nhật role
+            $('.update-role').on('click', function(e) {
+                e.preventDefault();
+                
+                var userId = $(this).data('user-id');
+                var role = $(this).data('role');
+                var userName = $(this).data('user-name');
+                
+                var roleText = role == 99 ? "Super Admin (Full quyền)" : (role == 50 ? "Admin (Không cấp quyền)" : "User");
+                
+                swal({
+                    title: "Xác nhận cấp quyền",
+                    text: `Bạn có chắc muốn cấp quyền "${roleText}" cho ${userName}?`,
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "Hủy",
+                            value: null,
+                            visible: true,
+                            className: "btn-secondary"
+                        },
+                        confirm: {
+                            text: "Xác nhận",
+                            value: true,
+                            visible: true,
+                            className: "btn-primary"
+                        }
+                    },
+                    dangerMode: role == 99
+                })
+                .then((willUpdate) => {
+                    if (willUpdate) {
+                        updateUserRole(userId, role);
+                    }
+                });
+            });
+
+            // Xử lý reset mật khẩu
+            $('.reset-password-btn').on('click', function(e) {
+                e.preventDefault();
+                
+                var userId = $(this).data('user-id');
+                var userName = $(this).data('user-name');
+                
+                swal({
+                    title: "Reset mật khẩu",
+                    text: `Nhập mật khẩu mới cho ${userName}:`,
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Mật khẩu mới (tối thiểu 6 ký tự)",
+                            type: "password",
+                            id: "new-password-input"
+                        },
+                    },
+                    icon: "info",
+                    buttons: {
+                        cancel: {
+                            text: "Hủy",
+                            value: null,
+                            visible: true,
+                            className: "btn-secondary"
+                        },
+                        confirm: {
+                            text: "Reset",
+                            value: true,
+                            visible: true,
+                            className: "btn-warning"
+                        }
+                    },
+                    dangerMode: true
+                })
+                .then((willReset) => {
+                    if (willReset) {
+                        var newPassword = document.getElementById('new-password-input').value;
+                        if (!newPassword || newPassword.length < 6) {
+                            swal({
+                                title: "Lỗi!",
+                                text: "Mật khẩu phải có ít nhất 6 ký tự",
+                                icon: "error",
+                                button: "OK"
+                            });
+                            return;
+                        }
+                        resetUserPassword(userId, newPassword, userName);
+                    }
+                });
+            });
+        });
+
+        function updateUserRole(userId, role) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            
+            $.ajax({
+                url: '@Url.Action("UpdateUserRole", "Admin")',
+                type: 'POST',
+                data: {
+                    __RequestVerificationToken: token,
+                    userId: userId,
+                    role: role
+                },
+                success: function(response) {
+                    if (response.success) {
+                        swal({
+                            title: "Thành công!",
+                            text: response.message,
+                            icon: "success",
+                            button: "OK"
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "Lỗi!",
+                            text: response.message,
+                            icon: "error",
+                            button: "OK"
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('UpdateUserRole error:', error);
+                    swal({
+                        title: "Lỗi!",
+                        text: "Có lỗi xảy ra khi cập nhật quyền. Vui lòng thử lại.",
+                        icon: "error",
+                        button: "OK"
+                    });
+                }
+            });
+        }
+
+        function resetUserPassword(userId, newPassword, userName) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            
+            console.log('[ResetPassword] Starting reset for userId:', userId);
+            console.log('[ResetPassword] Token:', token ? 'Found' : 'Not found');
+            
+            $.ajax({
+                url: '@Url.Action("ResetUserPassword", "Admin")',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: {
+                    __RequestVerificationToken: token,
+                    userId: userId,
+                    newPassword: newPassword
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('[ResetPassword] Success response:', response);
+                    if (response && response.success) {
+                        swal({
+                            title: "Thành công!",
+                            text: response.message + "\n\nMật khẩu mới: " + newPassword,
+                            icon: "success",
+                            button: "OK"
+                        });
+                    } else {
+                        swal({
+                            title: "Lỗi!",
+                            text: response ? response.message : "Có lỗi xảy ra",
+                            icon: "error",
+                            button: "OK"
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('[ResetPassword] AJAX error:', {
+                        status: status,
+                        error: error,
+                        statusCode: xhr.status,
+                        responseText: xhr.responseText ? xhr.responseText.substring(0, 500) : 'No response'
+                    });
+                    
+                    var errorMessage = "Có lỗi xảy ra khi reset mật khẩu. Vui lòng thử lại.";
+                    if (xhr.status === 404) {
+                        errorMessage = "Không tìm thấy trang reset mật khẩu.";
+                    } else if (xhr.status === 401 || xhr.status === 403) {
+                        errorMessage = "Bạn không có quyền reset mật khẩu.";
+                    } else if (xhr.status === 500) {
+                        errorMessage = "Lỗi server. Vui lòng thử lại sau.";
+                    } else if (xhr.responseText) {
+                        try {
+                            var errorResponse = JSON.parse(xhr.responseText);
+                            if (errorResponse.message) {
+                                errorMessage = errorResponse.message;
+                            }
+                        } catch (e) {
+                            // Không parse được JSON, dùng message mặc định
+                        }
+                    }
+                    
+                    swal({
+                        title: "Lỗi!",
+                        text: errorMessage,
+                        icon: "error",
+                        button: "OK"
+                    });
+                }
+            });
+        }
+    </script>
+}
+
+<style>
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+    
+    .badge {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    
+    .btn-group .dropdown-menu {
+        min-width: 250px;
+    }
+    
+    .dropdown-item {
+        padding: 8px 15px;
+    }
+    
+    .dropdown-item i {
+        margin-right: 8px;
+        width: 20px;
+    }
+    
+    .alert {
+        margin-bottom: 20px;
+    }
+</style>
+

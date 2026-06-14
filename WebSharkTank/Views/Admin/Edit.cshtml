@@ -1,0 +1,404 @@
+@{
+    ViewBag.Title = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+@model WebSharkTank.Models.Product
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Admin")">Danh sách sản phẩm</a></li>
+        <li class="breadcrumb-item"><a href="#">Chỉnh sửa sản phẩm</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title">Chỉnh sửa sản phẩm</h3>
+            <div class="tile-body">
+                <div class="row element-button">
+                    <div class="col-sm-2">
+                        <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc">
+                            <i class="fas fa-folder-plus"></i> Thêm danh mục
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang">
+                            <i class="fas fa-folder-plus"></i> Thêm tình trạng
+                        </a>
+                    </div>
+                </div>
+                
+                @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { @class = "row", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Mã sản phẩm</label>
+                        @Html.EditorFor(model => model.ProductId, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Tên sản phẩm</label>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Số lượng</label>
+                        @Html.EditorFor(model => model.Sold, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: 20 hoặc 11,7k" } })
+                        @Html.ValidationMessageFor(model => model.Sold, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="status" class="control-label">Tình trạng</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="">-- Chọn tình trạng --</option>
+                            <option value="Còn hàng" @(Model != null && Model.Sold != null ? "selected" : "")>Còn hàng</option>
+                            <option value="Hết hàng">Hết hàng</option>
+                            <option value="Đang nhập hàng">Đang nhập hàng</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="category" class="control-label">Danh mục</label>
+                        @Html.DropDownListFor(model => model.Category, new SelectList(new[] {
+                            new SelectListItem { Text = "-- Chọn danh mục --", Value = "" },
+                            new SelectListItem { Text = "Bàn ăn", Value = "Bàn ăn" },
+                            new SelectListItem { Text = "Bàn thông minh", Value = "Bàn thông minh" },
+                            new SelectListItem { Text = "Tủ", Value = "Tủ" },
+                            new SelectListItem { Text = "Ghế gỗ", Value = "Ghế gỗ" },
+                            new SelectListItem { Text = "Ghế sắt", Value = "Ghế sắt" },
+                            new SelectListItem { Text = "Giường người lớn", Value = "Giường người lớn" },
+                            new SelectListItem { Text = "Giường trẻ em", Value = "Giường trẻ em" },
+                            new SelectListItem { Text = "Bàn trang điểm", Value = "Bàn trang điểm" },
+                            new SelectListItem { Text = "Giá đỡ", Value = "Giá đỡ" }
+                        }, "Value", "Text", Model?.Category), new { @class = "form-control", @id = "category" })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Giá bán</label>
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: 5.600.000" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Giá vốn</label>
+                        @Html.EditorFor(model => model.OldPrice, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: 4.500.000" } })
+                        @Html.ValidationMessageFor(model => model.OldPrice, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Giảm giá</label>
+                        @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: -11%" } })
+                        @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Đánh giá</label>
+                        @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: 4.3" } })
+                        @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Link sản phẩm</label>
+                        @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "VD: /product/abc" } })
+                        @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Ảnh sản phẩm (URL)</label>
+                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", @type = "text", @placeholder = "Nhập URL ảnh" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                        @if (!string.IsNullOrEmpty(Model.Image))
+                        {
+                            <div style="margin-top: 10px;">
+                                <img src="@Model.Image" alt="@Model.Title" style="max-width: 200px; max-height: 200px;" />
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Ảnh sản phẩm (Upload)</label>
+                        <div id="myfileupload">
+                            <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                        </div>
+                        <div id="thumbbox">
+                            <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: @(string.IsNullOrEmpty(Model.Image) ? "none" : "block"); @(string.IsNullOrEmpty(Model.Image) ? "" : "src=\"" + Model.Image + "\"")" />
+                            <a class="removeimg" href="javascript:" style="display: @(string.IsNullOrEmpty(Model.Image) ? "none" : "block");"></a>
+                        </div>
+                        <div id="boxchoice">
+                            <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                            <p style="clear:both"></p>
+                        </div>
+                        <input type="hidden" id="imageUrl" name="Image" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Mô tả sản phẩm</label>
+                        <textarea class="form-control" name="description" id="description" rows="5">@(Model != null ? "" : "")</textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Images (JSON Array)</label>
+                        @{
+                            List<string> images = new List<string>();
+                            if (!string.IsNullOrEmpty(Model.Images))
+                            {
+                                try
+                                {
+                                    images = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(Model.Images);
+                                }
+                                catch { }
+                            }
+                        }
+                        <textarea name="imagesJson" class="form-control" rows="3" placeholder='["url1", "url2"]'>@Newtonsoft.Json.JsonConvert.SerializeObject(images)</textarea>
+                        <small>Nhập mảng JSON các URL hình ảnh</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Tags (JSON Array)</label>
+                        @{
+                            List<string> tags = new List<string>();
+                            if (!string.IsNullOrEmpty(Model.Tags))
+                            {
+                                try
+                                {
+                                    tags = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(Model.Tags);
+                                }
+                                catch { }
+                            }
+                        }
+                        <textarea name="tagsJson" class="form-control" rows="2" placeholder='["tag1", "tag2"]'>@Newtonsoft.Json.JsonConvert.SerializeObject(tags)</textarea>
+                        <small>Nhập mảng JSON các tags</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-save" type="submit">Lưu lại</button>
+                        <a class="btn btn-cancel" href="@Url.Action("Index", "Admin")">Hủy bỏ</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm danh mục -->
+<div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="adddanhmucTitle" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Thêm mới danh mục</h5>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nhập tên danh mục mới</label>
+                        <input class="form-control" type="text" id="newCategory" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Danh mục sản phẩm hiện đang có</label>
+                        <ul style="padding-left: 20px;">
+                            <li>Bàn ăn</li>
+                            <li>Bàn thông minh</li>
+                            <li>Tủ</li>
+                            <li>Ghế gỗ</li>
+                            <li>Ghế sắt</li>
+                            <li>Giường người lớn</li>
+                            <li>Giường trẻ em</li>
+                            <li>Bàn trang điểm</li>
+                            <li>Giá đỡ</li>
+                        </ul>
+                    </div>
+                </div>
+                <BR>
+                <button class="btn btn-save" type="button" onclick="addCategory()">Lưu lại</button>
+                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                <BR>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm tình trạng -->
+<div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="addtinhtrangTitle" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Thêm mới tình trạng</h5>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label">Nhập tình trạng mới</label>
+                        <input class="form-control" type="text" id="newStatus" required>
+                    </div>
+                </div>
+                <BR>
+                <button class="btn btn-save" type="button" onclick="addStatus()">Lưu lại</button>
+                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                <BR>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/Giao diện admin/ckeditor/ckeditor.js")"></script>
+    <script>
+        // CKEditor cho mô tả
+        CKEDITOR.replace('description');
+
+        // Upload ảnh
+        function readURL(input, thumbimage) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#thumbimage").attr('src', e.target.result);
+                    $("#imageUrl").val(e.target.result); // Lưu base64 hoặc URL
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $("#thumbimage").attr('src', input.value);
+            }
+            $("#thumbimage").show();
+            $('.filename').text($("#uploadfile").val());
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'default');
+            $(".removeimg").show();
+            $(".Choicefile").unbind('click');
+        }
+
+        $(document).ready(function () {
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+            });
+            $(".removeimg").click(function () {
+                $("#thumbimage").attr('src', '').hide();
+                $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />');
+                $(".removeimg").hide();
+                $(".Choicefile").bind('click', function () {
+                    $("#uploadfile").click();
+                });
+                $('.Choicefile').css('background', '#14142B');
+                $('.Choicefile').css('cursor', 'pointer');
+                $(".filename").text("");
+                $("#imageUrl").val("");
+            });
+        });
+
+        function addCategory() {
+            var newCat = $("#newCategory").val();
+            if (newCat) {
+                var select = $("#category");
+                select.append('<option value="' + newCat + '">' + newCat + '</option>');
+                select.val(newCat);
+                $('#adddanhmuc').modal('hide');
+                swal("Thành công!", "Đã thêm danh mục mới", "success");
+            }
+        }
+
+        function addStatus() {
+            var newStatus = $("#newStatus").val();
+            if (newStatus) {
+                var select = $("#status");
+                select.append('<option value="' + newStatus + '">' + newStatus + '</option>');
+                select.val(newStatus);
+                $('#addtinhtrang').modal('hide');
+                swal("Thành công!", "Đã thêm tình trạng mới", "success");
+            }
+        }
+    </script>
+    
+    <style>
+        .Choicefile {
+            display: block;
+            background: #14142B;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 0px;
+            border-radius: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+        }
+        .Choicefile:hover {
+            text-decoration: none;
+            color: white;
+        }
+        #uploadfile, .removeimg {
+            display: none;
+        }
+        #thumbbox {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .removeimg {
+            height: 25px;
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 5px;
+            left: 5px;
+            background-size: 25px;
+            width: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .removeimg::before {
+            box-sizing: border-box;
+            content: '';
+            border: 1px solid red;
+            background: red;
+            text-align: center;
+            display: block;
+            margin-top: 11px;
+            transform: rotate(45deg);
+        }
+        .removeimg::after {
+            content: '';
+            background: red;
+            border: 1px solid red;
+            text-align: center;
+            display: block;
+            transform: rotate(-45deg);
+            margin-top: -2px;
+        }
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+        .thong-tin-thanh-toan h5 {
+            color: #001C40;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .element-button {
+            margin-bottom: 20px;
+        }
+        .element-button .btn {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+}

@@ -1,0 +1,1595 @@
+{
+  "macbook-air-m4-13-2024": {
+    "Hệ điều hành": "macOS",
+    "Bộ xử lý": "Apple M4",
+    "Số hiệu CPU": "Apple M4",
+    "RAM": "16 GB Unified Memory",
+    "Ổ cứng": "256 GB SSD",
+    "Màn hình": "13.6 inch Liquid Retina, 2560 x 1664",
+    "Kết nối không dây": "Wi-Fi 6E, Bluetooth 5.3",
+    "Kích thước": "304.1 x 215 x 11.3 mm",
+    "Trọng lượng": "1.24 kg"
+  },
+  "dell-inspiron-3520": {
+    "Công nghệ CPU": "Intel Core i9",
+    "Số hiệu CPU": "i9-13900HX",
+    "RAM": "32 GB DDR5",
+    "Khả năng nâng cấp RAM": "2x SO-DIMM socket, tối đa 32GB tổng 2 khe",
+    "Ổ cứng mặc định": "2 TB SSD",
+    "Card đồ họa rời": "NVIDIA GeForce RTX 4080",
+    "Màn hình": "16 inch, 2560 x 1600",
+    "Kết nối không dây": "Wi-Fi 6E, Bluetooth 5.2",
+    "Kích thước": "357.78 x 278.74 x 24.90/26.90 mm",
+    "Trọng lượng": "2.6 kg"
+  },
+  "asus-vivobook-a1405va-km257w": {
+    "Công nghệ CPU": "Intel Core i5",
+    "Số hiệu CPU": "i5-13500H",
+    "Xung nhịp cơ bản": "2.6 GHz",
+    "RAM": "16 GB DDR4",
+    "Khả năng nâng cấp RAM": "16 GB",
+    "Ổ cứng mặc định": "512 GB SSD",
+    "Khả năng nâng cấp ổ cứng": "Tháo ra, thay tối đa 2 TB",
+    "Card đồ họa": "GPU tích hợp",
+    "Màn hình": "14 inch, 2880 × 1800",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6E, Bluetooth 5",
+    "Kích thước": "31.71 × 22.20 × 1.99 cm",
+    "Trọng lượng": "1.6 kg"
+  },
+  "lenovo-v14-g4-iru-83a000bhvn": {
+    "Công nghệ CPU": "Intel Core i5",
+    "Số hiệu CPU": "i5-13420H",
+    "Xung nhịp cơ bản": "2.1 GHz",
+    "RAM": "16 GB DDR4",
+    "Khả năng nâng cấp RAM": "Không hỗ trợ nâng cấp",
+    "Ổ cứng mặc định": "512 GB SSD",
+    "Card đồ họa": "GPU tích hợp",
+    "Màn hình": "14 inch, 1920 × 1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 5, Bluetooth 5.1",
+    "Kích thước": "324.2 × 215.2 × 19.9 mm",
+    "Trọng lượng": "1.43 kg"
+  },
+  "msi-modern-14-c7m-220vn": {
+    "Công nghệ CPU": "AMD Ryzen 5",
+    "Số hiệu CPU": "R5-7530U",
+    "Xung nhịp cơ bản": "2.0 GHz",
+    "RAM": "8 GB DDR4",
+    "Khả năng nâng cấp RAM": "Có thể nâng cấp tối đa 64 GB",
+    "Ổ cứng mặc định": "512 GB SSD",
+    "Khả năng nâng cấp ổ cứng": "1 khe SSD M.2 PCIe Gen3",
+    "Card đồ họa": "GPU tích hợp (AMD Radeon Graphics)",
+    "Màn hình": "14 inch, 1920 × 1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth 5.1",
+    "Kích thước": "319.9 × 223 × 19.35 mm",
+    "Trọng lượng": "1.4 kg"
+  },
+  "acer-predator-helios-neo-16s-ai-phn16s-71-94t0": {
+    "Công nghệ CPU": "Intel Core Ultra 9",
+    "Số hiệu CPU": "U9-275HX",
+    "Xung nhịp cơ bản": "Không công bố",
+    "RAM": "32 GB DDR5",
+    "Khả năng nâng cấp RAM": "2x SO-DIMM socket, up to 96 GB SDRAM",
+    "Ổ cứng mặc định": "2 TB SSD",
+    "Khả năng nâng cấp ổ cứng": "2 khe SSD (không có thông tin cụ thể)",
+    "Card đồ họa": "NVIDIA GeForce RTX 5070 Ti 12 GB",
+    "Màn hình": "16 inch, 2560 × 1600 OLED",
+    "Hệ điều hành": "Windows 11 Home SL",
+    "Kết nối không dây": "Wi-Fi 6E Killer 1675i, Bluetooth 5.4 (LE Audio hỗ trợ LC3)",
+    "Kích thước": "356.78 × 275.5 × 12–19.97 mm",
+    "Trọng lượng": "2.3 kg"
+  },
+  "laptop-i5-13420h-rtx3050-16inch": {
+    "Công nghệ CPU": "Intel Core i5",
+    "Số hiệu CPU": "i5-13420H",
+    "Xung nhịp cơ bản": "Không công bố",
+    "RAM": "16 GB DDR5 4800 MHz",
+    "Khả năng nâng cấp RAM": "Hỗ trợ tối đa 56 GB",
+    "Ổ cứng mặc định": "512 GB SSD PCIe NVMe",
+    "Khả năng nâng cấp ổ cứng": "Hỗ trợ tối đa 2 TB Gen4",
+    "Card đồ họa": "NVIDIA GeForce RTX 3050 6 GB GDDR6",
+    "Màn hình": "16 inch, 1920 × 1200, IPS, 165 Hz",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Thunderbolt 4, HDMI 2.1, USB-C",
+    "Kích thước": "Không công bố",
+    "Trọng lượng": "1.95 kg (thiết kế mỏng nhẹ)",
+    "Màu sắc": "Pearl White (Trắng ngọc trai)"
+  },
+  "pc-build-i5-12400f-rtx3060": {
+    "CPU": "Intel Core i5-12400F (Upto 4.4GHz, 6 nhân 12 luồng, 18MB Cache, 65W, Socket LGA 1700, Tray)",
+    "Mainboard": "Asus Prime B760M-K DDR4",
+    "RAM": "OCPC XT II 16GB DDR4 3200MHz (Black)",
+    "SSD": "OCPC MFL-300 512GB NVMe Gen 3x4",
+    "VGA": "ZOTAC GAMING GeForce RTX 3060 Twin Edge 12GB",
+    "PSU": "AIGO VK650 - 650W (80 PLUS, Active PFC, Single Rail)",
+    "Case": "AIGO C218M Black (kèm 4 Fan ARGB Black)",
+    "Tản nhiệt": "Jonsbo CR-1000 (RGB, tản nhiệt khí)"
+  },
+  "pc-build-i5-12400f-rtx3060-v2": {
+    "Mainboard": "MSI PRO H610M-E DDR4",
+    "CPU": "Intel Core i5-12400F (Up To 4.40GHz, 6 Nhân 12 Luồng, 18MB Cache, Socket 1700, Alder Lake, Tray)",
+    "Tản nhiệt CPU": "Jungle Leopard K400 RGB Black | Centau CT-AIR07 RGB Black",
+    "RAM": "JGINYUE/VSP 16GB (1x16GB) DDR4 3200MHz Black",
+    "VGA": "BIOSTAR GeForce RTX 3060 12GB GDDR6 Extreme Gaming",
+    "SSD": "KIOXIA 256GB BG4 NVMe PCIe Gen3x4 M.2 2230 (Đọc 2200 MB/s, Ghi 1400 MB/s)",
+    "PSU": "AIGO VK650 - 650W (85 Plus, Active PFC, Single Rail)",
+    "Fan case": "MAGIC FC-01 RGB Black (Không điều khiển)",
+    "Case": "E-DRA ECS1503 Rescue Black (M-ATX, không fan)"
+  },
+  "pc-build-i7-14700kf-rtx3060": {
+    "Mainboard": "MSI PRO Z690-A (Intel Z690, Socket 1700, ATX, 4 khe RAM DDR4)",
+    "CPU": "Intel Core i7-14700KF Tray (Up to 5.6 GHz, 20 Nhân 28 Luồng, 33MB Cache, Raptor Lake)",
+    "RAM": "OCPC XT II 16GB DDR4 3200MHz Black (x2)",
+    "Tản nhiệt CPU": "XPG Triton II 360SE ARGB Black (Tản nhiệt nước LED vô cực)",
+    "SSD": "WD Blue SN5000 500GB NVMe Gen 4x4 (Đọc 5000 MB/s - Ghi 4000 MB/s)",
+    "VGA": "BIOSTAR GeForce RTX 3060 12GB GDDR6 Extreme Gaming",
+    "PSU": "VSP VGP750BRU Pro (750W, 80 Plus Bronze, ATX, Black)",
+    "Case": "Kenoo Esport FK800 (Case bể cá, ATX, màu đen)",
+    "Fan case": "Fan LED RGB Tomato M5 | Leopard S1 Auto | Magic Auto Black (cắm nguồn trực tiếp)"
+  },
+  "pc-build-i9-14900k-rtx3060": {
+    "Mainboard": "MSI Z790 Gaming Plus WiFi DDR5 (WiFi + Bluetooth, Intel Z790, Socket 1700, ATX, 4 khe RAM DDR5)",
+    "CPU": "Intel Core i9-14900K Tray (Up to 6.0 GHz, 24 Nhân 32 Luồng, 36MB Cache, Socket 1700, Alder Lake)",
+    "Tản nhiệt CPU": "ASUS Prime LC 360 ARGB LCD (Tản nhiệt nước)",
+    "VGA": "BIOSTAR GeForce RTX 3060 12GB GDDR6 Extreme Gaming",
+    "RAM": "Corsair Vengeance RGB 32GB (2x16GB) DDR5 6000MHz Black",
+    "SSD": "WD Blue SN5000 500GB NVMe Gen 4x4 (Đọc 5000 MB/s - Ghi 4000 MB/s)",
+    "PSU": "ACER AC750 FR 750W PCIe 5.0 (80 Plus Bronze, Full Range, Full Modular)",
+    "Case": "Kenoo Esport EM700-3F Black (E-ATX, sẵn 3 fan)"
+  },
+  "pc-build-i3-10105f-gtx1060": {
+    "Mainboard": "ASUS Prime H510M-F",
+    "CPU": "Intel Core i3-10105F Tray (3.7GHz up to 4.4GHz, 4C/8T, 6MB Cache)",
+    "Tản nhiệt CPU": "Jungle Leopard A200 Plus (Tản nhiệt khí)",
+    "RAM": "OCPC XT II 16GB DDR4 3200MHz Black",
+    "VGA": "NVIDIA GeForce GTX 1060 6GB DDR5 (JGINYUE/PC WINMAX, 2 Fan)",
+    "SSD": "Hiksemi 256GB SATA III 2.5 inch (HS-SSD-WAVE(S) 256G, Đọc 530MB/s - Ghi 400MB/s)",
+    "Case": "Vitra Ceres V305-G 3FRGB Black (Mid Tower, màu đen, kèm sẵn 3 Fan RGB)",
+    "PSU": "AIGO VK550 - 550W (Black)"
+  },
+  "pc-build-i5-12400f-rtx30600": {
+    "Mainboard": "JGINYUE H610M-Gaming WiFi DDR4 (WiFi / Bluetooth)",
+    "CPU": "Intel Core i5-12400F Tray (Up to 4.40GHz, 6C/12T, 18MB Cache, Socket 1700, Alder Lake)",
+    "Tản nhiệt CPU": "Tomato AM6300 RGB Vô Cực White (Hỗ trợ Socket 1200/1700/2011, tản khí)",
+    "RAM": "XSTAR DDR4 16GB 3200MHz LED RGB White",
+    "VGA": "Colorful iGame GeForce RTX 3060 Ultra W OC 12G-V",
+    "SSD": "AGI AI198 512GB NVMe M.2 Gen3x4 (Đọc 3000MB/s - Ghi 2200MB/s, mã AGI512G83A1198)",
+    "Case": "Viettech X19W Pano White (m-ATX, kính cong, không kèm fan)",
+    "PSU": "AIGO VK650 - 650W (85 Plus / Active PFC / Single Rail)",
+    "Fan Case": "Magic FC-01 RGB Black (không điều khiển)"
+  },
+  "pc-build-i5-14600kf-rtx5060ti": {
+    "Mainboard": "Asus TUF Gaming B760M-E DDR4",
+    "CPU": "Intel Core i5-14600KF Tray (Up to 5.3GHz, 14C/20T, 24MB Cache, 125W, Socket LGA1700, Raptor Lake)",
+    "RAM": "OCPC XT II DDR4 16GB 3200MHz Black x2 (32GB tổng)",
+    "Tản nhiệt CPU": "Leopard Stellar Realm Rad 240 AIO ARGB Digital Black (Màn hình hiển thị nhiệt độ)",
+    "SSD": "AGI AI198 512GB NVMe M.2 Gen3x4 (Đọc 3000MB/s, Ghi 2200MB/s, mã AGI512G83A1198)",
+    "VGA": "Manli Nebula GeForce RTX 5060 Ti 16GB GDDR7 (2 Fan)",
+    "PSU": "VSP VGP750BRU Pro 750W (80 Plus Bronze, ATX, Black)",
+    "Fan Case": "Tomato M5 RGB | Leopard S1 Auto | Magic Auto Black (Cắm nguồn trực tiếp) x3",
+    "Case": "AIGO C218M M-ATX Black (Không kèm fan)"
+  },
+  "pc-build-i5-12400f-rtx306000": {
+    "Mainboard": "MSI PRO H610M-E DDR4",
+    "CPU": "Intel Core i5-12400F Tray (Up to 4.4GHz, 6C/12T, 18MB Cache, Socket LGA1700, Alder Lake)",
+    "VGA": "Biostar GeForce RTX 3060 12GB GDDR6 Extreme Gaming",
+    "RAM": "OCPC XT II DDR4 16GB 3200MHz Black x2 (32GB tổng)",
+    "Tản nhiệt CPU": "Spatan P2300 Black (tản khí, 6 tháng BH)",
+    "SSD": "Kioxia BG4 256GB NVMe M.2 2230 Gen3x4 (Đọc 2200MB/s, Ghi 1400MB/s)",
+    "PSU": "AIGO VK650 650W (85 Plus, Active PFC, Single Rail)",
+    "Case": "MAGIC Cubi M Back (M-ATX/ITX, hỗ trợ rad 240, không kèm fan)",
+    "Fan Case": "Magic FC-01 RGB Black (không điều khiển)"
+  },
+  "pc-build-i9-14900kf-rtx3060": {
+    "Mainboard": "MSI Z790 Gaming Plus WiFi DDR5 (WiFi + Bluetooth, Intel Z790, Socket 1700, ATX, 4 khe RAM DDR5)",
+    "CPU": "Intel Core i9-14900KF Tray (Up to 6.0GHz, 24 Nhân 32 Luồng, 36MB Cache, 125W, Socket LGA1700)",
+    "RAM": "G.Skill Ripjaws M5 32GB (2x16GB) DDR5 6000MHz RGB (F5-6000J3636F16GX2-RM5RK)",
+    "Tản nhiệt CPU": "ASUS Prime LC 360 ARGB LCD (tản nước)",
+    "VGA": "BIOSTAR GeForce RTX 3060 12GB GDDR6 Extreme Gaming",
+    "SSD": "WD Blue SN5000 500GB NVMe M.2 Gen4x4 (Đọc 5000MB/s, Ghi 4000MB/s)",
+    "PSU": "ACER AC750 FR 750W PCIe 5.0 (80 Plus Bronze, Full Range, Full Modular)",
+    "Case": "Leopard AC-01 Black (Kính cong, không kèm fan)",
+    "Fan Case": "Leopard Galaxy ARGB Gió Xuôi (Màu đen)"
+  },
+  "pc-build-ryzen5-5600x-rtx2060super": {
+    "Mainboard": "Asrock B450M-HDV R4.0",
+    "CPU": "AMD Ryzen 5 5600X Tray (3.7GHz up to 4.6GHz, 6C/12T, 35MB Cache, 65W, Socket AM4)",
+    "RAM": "OCPC XT II DDR4 16GB 3200MHz Black",
+    "VGA": "JGINYUE RTX 2060 Super 8GB GDDR6 256-bit Dual Fan",
+    "Tản nhiệt CPU": "Jonsbo CR-1000 EVO RGB Black (tản khí)",
+    "SSD": "Kioxia BG4 256GB NVMe M.2 Gen3x4 (Đọc 2200MB/s, Ghi 1400MB/s)",
+    "PSU": "AIGO VK650 650W (85 Plus, Active PFC, Single Rail)",
+    "Case": "MAGIC Aqua-M Ultra Black (M-ATX, không kèm fan)"
+  },
+  "laptop-i7-12700h-rtx3050": {
+    "CPU": "Intel Core i7-12700H (Xung nhịp cơ bản 2.3GHz)",
+    "RAM": "8GB DDR5 (2 khe, 1 khe 8GB + 1 khe trống, hỗ trợ nâng cấp tối đa 32GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ thêm 1 khe M.2 PCIe mở rộng (tối đa 1TB)",
+    "Card đồ họa": "NVIDIA RTX 3050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth 5.2",
+    "Kích thước": "354 x 251 x 24.9 mm",
+    "Trọng lượng": "2.3 kg"
+  },
+  "laptop-r7-6800h-rtx3050": {
+    "CPU": "AMD Ryzen 7 6800H (Xung nhịp cơ bản 3.2GHz)",
+    "RAM": "8GB DDR5 (hỗ trợ nâng cấp tối đa 32GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ thay thế tối đa 1TB",
+    "Card đồ họa": "NVIDIA RTX 3050",
+    "Màn hình": "15 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6 (802.11ax), Bluetooth v5.1",
+    "Kích thước": "354 x 259 x 22.6 ~ 27.2 mm",
+    "Trọng lượng": "2.1 kg"
+  },
+  "laptop-r5-7535hs-rx6550m": {
+    "CPU": "AMD Ryzen 5 7535HS (Xung nhịp cơ bản 3.3GHz)",
+    "RAM": "16GB DDR5 (hỗ trợ nâng cấp tối đa 64GB)",
+    "Ổ cứng": "512GB SSD, 2 khe M.2 (1 khe đã lắp sẵn, hỗ trợ nâng cấp thêm)",
+    "Card đồ họa": "AMD RX 6550M",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6E, Bluetooth v5.3",
+    "Kích thước": "359 x 259 x 24.95 mm",
+    "Trọng lượng": "2.35 kg"
+  },
+  "laptop-i5-12450hx-rtx4050": {
+    "CPU": "Intel Core i5-12450HX",
+    "RAM": "16GB DDR5 (2x SO-DIMM, hỗ trợ nâng cấp tối đa 32GB)",
+    "Ổ cứng": "512GB SSD, 2 khe M.2 (2242 PCIe 4.0 x4 / 2280 PCIe 4.0 x4)",
+    "Card đồ họa": "NVIDIA RTX 4050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home Single Language",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth v5.2",
+    "Kích thước": "359.86 x 258.7 x 21.9-23.9 mm",
+    "Trọng lượng": "2.38 kg"
+  },
+  "laptop-i5-11260h-rtx2050": {
+    "CPU": "Intel Core i5-11260H (Xung nhịp cơ bản 2.6GHz)",
+    "RAM": "16GB DDR4 (hỗ trợ nâng cấp tối đa 32GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ nâng cấp dung lượng cao hơn",
+    "Card đồ họa": "NVIDIA RTX 2050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth v5.2",
+    "Kích thước": "359 x 256 x 22.8 ~ 24.5 mm",
+    "Trọng lượng": "2.3 kg"
+  },
+  "laptop-r5-5500h-rtx2050": {
+    "CPU": "AMD Ryzen 5 5500H (Xung nhịp cơ bản 3.3GHz)",
+    "RAM": "8GB DDR4 (hỗ trợ nâng cấp tối đa 16GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ tối đa 2 ổ: 2x M.2 SSD hoặc 1x 2.5 inch HDD + 1x M.2 SSD (2.5 inch tối đa 1TB, M.2 2242 tối đa 512GB, M.2 2280 tối đa 1TB)",
+    "Card đồ họa": "NVIDIA RTX 2050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth v5.1",
+    "Kích thước": "359.6 x 251.9 x 24.2 mm",
+    "Trọng lượng": "2.25 kg"
+  },
+  "laptop-i7-13650hx-rtx3050": {
+    "CPU": "Intel Core i7-13650HX (Xung nhịp cơ bản 2.6GHz)",
+    "RAM": "16GB DDR5 (2 khe cắm, hỗ trợ nâng cấp tối đa 32GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ nâng cấp tối đa 1TB",
+    "Card đồ họa": "NVIDIA RTX 3050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth v5.2",
+    "Kích thước": "357.26 x 274.52 x 21.28 - 26.15 mm",
+    "Trọng lượng": "2.81 kg"
+  },
+  "laptop-i7-12650h-rtx3050": {
+    "CPU": "Intel Core i7-12650H (10 lõi, 16 luồng, xung nhịp tối đa 4.7GHz, bộ nhớ đệm 24MB)",
+    "RAM": "16GB DDR4 3200MHz (hỗ trợ tối đa 32GB)",
+    "Ổ cứng": "512GB SSD M.2 2280 PCIe, khe cắm mở rộng lên đến 2 SSD 4TB",
+    "Card đồ họa": "NVIDIA GeForce RTX 3050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080, IPS SlimBezel, 144Hz, 45% NTSC",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Wi-Fi 6E (802.11ax 2x2), Bluetooth",
+    "Cổng kết nối": [
+      "2 x USB Type-C",
+      "2 x USB Standard-A (1 USB 2.0, 1 USB 3.2 Gen 1)",
+      "1 x HDMI 2.1",
+      "1 x headphone jack 3.5mm",
+      "DC-in jack",
+      "Mini DisplayPort 1.4"
+    ],
+    "Camera": "720p HD (1280 x 720)",
+    "Pin": "54.8Wh",
+    "Kích thước": "359.5 x 238 x 22.7 mm",
+    "Trọng lượng": "1.99 kg"
+  },
+  "laptop-i5-13500h-rtx4050": {
+    "CPU": "Intel Core i5-13500H (Xung nhịp cơ bản 1.90GHz)",
+    "RAM": "8GB DDR5 (1 khe trống, hỗ trợ nâng cấp tối đa 64GB)",
+    "Ổ cứng": "512GB SSD, hỗ trợ nâng cấp tối đa 1TB",
+    "Card đồ họa": "NVIDIA GeForce RTX 4050 6GB GDDR6",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home",
+    "Kết nối không dây": "Intel Wi-Fi 6 AX201 (2x2), Bluetooth 5",
+    "Kích thước": "360 x 238 x 22.7 mm",
+    "Trọng lượng": "2.08 kg"
+  },
+  "laptop-i5-12450h-rtx2050": {
+    "CPU": "Intel Core i5-12450H (Xung nhịp cơ bản 3.3GHz)",
+    "RAM": "8GB DDR4 (hỗ trợ nâng cấp tối đa 32GB, 4 khe cắm)",
+    "Ổ cứng": "512GB SSD, không có khe bổ sung nhưng có thể nâng cấp dung lượng khe mặc định",
+    "Card đồ họa": "NVIDIA RTX 2050",
+    "Màn hình": "15.6 inch, Full HD 1920x1080",
+    "Hệ điều hành": "Windows 11 Home SL",
+    "Kết nối không dây": "Wi-Fi 6, Bluetooth v5.3",
+    "Kích thước": "357.9 x 255 x 23.5 mm",
+    "Trọng lượng": "2.29 kg"
+  },
+  "monitor-24.5inch-fhd-300hz": {
+  "Kích thước màn hình": "24.5 inch",
+  "Độ phân giải": "1920x1080 (FHD)",
+  "Tấm nền": "Fast IPS",
+  "Độ sáng": "250 nits",
+  "Tỷ lệ tương phản": "1000:1",
+  "Tỉ lệ khung hình": "16:9",
+  "Thời gian phản hồi": "0.5ms (GtG, Min.)",
+  "Góc nhìn": "178° (H) / 178° (V)",
+  "Tần số quét": "48Hz - 300Hz",
+  "Khả năng hiển thị màu": "1.07 tỉ màu (8-bit + FRC)",
+  "Độ phủ màu": {
+    "Adobe RGB": "87%",
+    "DCI-P3": "90%",
+    "sRGB": "120%"
+  },
+  "Tính năng đặc biệt": [
+    "HDR Ready",
+    "Anti-glare",
+    "AMD FreeSync Premium"
+  ],
+  "Cổng kết nối": [
+    "1 x DisplayPort 1.4a",
+    "2 x HDMI 2.0b (FHD@240Hz)",
+    "1 x Headphone-out"
+  ]
+},
+"imac-24inch-m4": {
+  "Khả năng nâng cấp ổ cứng": "1TB hoặc 2TB",
+  "Khả năng nâng cấp RAM": "24GB",
+  "Kết nối không dây": [
+    "Wi-Fi 6E",
+    "Bluetooth 5.3"
+  ],
+  "Hệ điều hành": "macOS",
+  "Kích thước": "547 x 461 x 147 mm",
+  "Công nghệ CPU": "Apple M4",
+  "Số hiệu CPU": "Apple - M4",
+  "RAM": "16GB",
+  "Ổ cứng mặc định": "512GB SSD",
+  "Card đồ hoạ": "GPU tích hợp",
+  "Kích thước màn hình": "24 inch",
+  "Độ phân giải": "4480x2520",
+  "Trọng lượng": "4.48 kg"
+},
+"monitor-27inch-qhd-180hz": {
+  "Thiết kế": [
+    "Lỗ cắm tripod 1/4\"",
+    "Chân đế công thái học: nghiêng, xoay, quay, chỉnh độ cao"
+  ],
+  "Kích thước màn hình": "27 inch",
+  "Độ phân giải": "2560x1440",
+  "Tấm nền": "Fast IPS",
+  "Tỉ lệ": "16:9",
+  "Tần số quét": "180Hz",
+  "Thời gian phản hồi": "1ms (GTG)",
+  "Màu sắc": {
+    "sRGB": "133%",
+    "DCI-P3": "97%",
+    "Số màu": "16.7 triệu"
+  },
+  "Góc nhìn": "178° (CR≥10)",
+  "Độ sáng": {
+    "Tiêu chuẩn": "350 cd/m²",
+    "HDR tối đa": "400 cd/m²"
+  },
+  "Tính năng": [
+    "Chống lóa",
+    "Chống nhấp nháy",
+    "HDR10",
+    "Giảm ánh sáng xanh (phần cứng)",
+    "Trace Free",
+    "Game Visual",
+    "HDCP 2.2",
+    "Adaptive-Sync (VRR)",
+    "Độ mờ chuyển động cực thấp",
+    "ELMB Sync",
+    "Shadow Boost",
+    "DisplayWidget",
+    "Điều khiển phương diện"
+  ],
+  "Điều chỉnh": {
+    "Nghiêng": "-5° ~ 20°",
+    "Xoay": "-45° ~ 45°",
+    "Quay": "-90° ~ 90°",
+    "Độ cao": "0 ~ 120mm"
+  },
+  "Cổng kết nối": [
+    "1 x DisplayPort 1.4 (HBR3)",
+    "1 x HDMI 2.0",
+    "1 x USB-C (DP Alt Mode)",
+    "1 x Jack tai nghe"
+  ],
+  "Kích thước": {
+    "Có chân đế": "64.18 x 51.29 x 21.88 cm",
+    "Không chân đế": "64.18 x 36.71 x 6.01 cm"
+  },
+  "Trọng lượng": {
+    "Có chân đế": "6.61kg",
+    "Không chân đế": "3.93kg"
+  },
+  "VESA": "100 x 100 mm"
+},
+"monitor-24.5inch-fhd-310hz": {
+  "Màn hình": "24.5 inch, 16:9, Fast IPS, FHD (1920x1080), 99% sRGB, 300 nits, 1000:1, 16.7 triệu màu, chống chói, góc nhìn 178°",
+  "Hiệu năng": "310Hz, 1ms GTG (0.3ms min), HDR10, Adaptive-Sync, ELMB Sync, Shadow Boost, GameFast Input",
+  "Tính năng": "Flicker-free, lọc ánh sáng xanh, GameVisual, GamePlus, HDCP 2.3, DisplayWidget Center",
+  "Kết nối": "DisplayPort 1.4 x1, HDMI 2.0 x2, jack tai nghe",
+  "Nguồn": "<16W, <0.5W tiết kiệm, 100-240V",
+  "Thiết kế": "Nghiêng +23° ~ -5°, VESA 100x100mm, khóa Kensington",
+  "Kích thước": "Có chân: 55.9x40.1x17.4 cm; Không chân: 55.9x32.9x6.2 cm",
+  "Phụ kiện": "DP cable, tua vít L, dây nguồn, HDSD, thẻ BH"
+}
+,
+"monitor-27inch-fhd-180hz": {
+  "Màn hình": "27 inch, VA, FHD (1920x1080), 16:9, 3000:1, 250 nits, 178°/178°, 16.7 triệu màu",
+  "Hiệu năng": "180Hz, 5ms GTG (Faster), 1ms MBR, FreeSync Premium",
+  "Tính năng": "Giao diện chơi game, thiết kế 3 cạnh viền mỏng",
+  "Kết nối": "HDMI 1.4 x2, DisplayPort 1.4 x1, Audio 3.5mm"
+},
+"lg-ultragear-24gs65f-b": {
+  "Màn hình": "23.8 inch, IPS, Full HD (1920x1080), 180Hz, 1ms (GTG), 240 nits, 700:1, sRGB 99%",
+  "Thiết kế": "Viền siêu mỏng 3 cạnh, chân đế công thái học (nghiêng -5°~15°, xoay 90°, nâng 110mm)",
+  "Tính năng": "HDR10, FreeSync, tương thích G-Sync, Dynamic Action Sync, Black Stabilizer, FPS Counter, Crosshair, chế độ đọc sách, OnScreen Control",
+  "Kết nối": "DisplayPort 1.4, HDMI 2.0, Jack 3.5mm"
+},
+"monitor-23-8inch-fhd-100hz": {
+  "Màn hình": "23.8 inch, IPS, FHD (1920x1080), 100Hz, 1ms (MPRT), 250 nits, 1000:1, 16:9",
+  "Thiết kế": "Màu đen, chân đế cố định",
+  "Kết nối": "HDMI, VGA, Audio out, DC",
+  "Phụ kiện": "Cáp nguồn, Cáp HDMI"
+},
+"monitor-32inch-qhd-165hz": {
+  "Màn hình": "32 inch, VA, QHD (2560x1440), 165Hz, 1ms (MPRT), 300 nits, 2500:1, 16:9, cong 1000R",
+  "Thiết kế": "Màu đen, chân chữ V, nghiêng -2° ~ 18°, viền mỏng",
+  "Kết nối": "HDMI 2.0, DisplayPort 1.2, Jack 3.5mm",
+  "Tính năng": "HDR10, AMD FreeSync, Eye Saver Mode, Flicker-free, Auto Source Switch+, Black Equalizer",
+  "Nguồn điện": "59W tối đa, 100-240V ~ 50/60Hz",
+  "Kích thước & Trọng lượng": "SP: 710.1 x 439.4 x 135.9 mm, 4.8kg | Thùng: 793.0 x 197 x 494.0 mm, 7.5kg",
+  "Phụ kiện": "Adapter, cáp HDMI, cáp DisplayPort"
+},
+"monitor-24_5inch-fhd-180hz": {
+  "Màn hình": "24.5 inch, Fast IPS, FHD (1920x1080), 180Hz, 1ms (MPRT), 300 nits, 1000:1, 16:9",
+  "Thiết kế": "Màu đen, chân chữ V, nghiêng -5° ~ 15°",
+  "Kết nối": "2 x HDMI 1.4, 1 x DisplayPort 1.2, 1 x Audio out, 1 x Type-C (15W reverse charging)",
+  "Tính năng": "Color Temp (Cold/Warm/User), Low Blue Light, Joystick Buttons, DCR, FreeSync, Adaptive-Sync, FPS/RTS Mode, Overdrive (OD) Optional, HDR Optional",
+  "Nguồn điện": "100-240V ~ 50/60Hz / DC 12V-4A",
+  "Kích thước & Trọng lượng": "SP: 558 x 426 x 169 mm, 2.9kg",
+  "Phụ kiện": "Adapter, cáp HDMI"
+},
+"monitor-34inch-2k-240hz": {
+  "Màn hình": "34 inch, QD OLED, 2K (3440x1440), 240Hz, 0.03ms (GTG), 250 nits, 1500000:1, 21:9, cong",
+  "Thiết kế": "Màu đen, nghiêng -5° ~ 20°, xoay -30° ~ 30°, chuẩn VESA 100x100mm",
+  "Kết nối": "2 x HDMI 2.1, 1 x DisplayPort 1.4, 1 x USB-C 15W",
+  "Tính năng": "DCI-P3 99%, DisplayHDR True Black 400, Delta E<2, Khử nhấp nháy",
+  "Nguồn điện": "100-240V ~ 50/60Hz, công suất tối đa 50W",
+  "Kích thước & Trọng lượng": "SP: 812 x 130 x 361 mm, 8.9kg | Thùng: 633 x 318 x 371 mm, 12.7kg",
+  "Phụ kiện": "Dây nguồn, dây HDMI (tùy chọn), dây DisplayPort (tùy chọn)"
+}
+,
+"ram-32gb-ddr5-4800mhz": {
+  "Dung lượng": "32GB",
+  "Loại RAM": "DDR5",
+  "BUS": "4800MHz",
+  "Đèn LED": "Không"
+}
+,
+"ram-16gb-ddr5-5600mhz": {
+  "Dung lượng": "16GB",
+  "Loại RAM": "DDR5",
+  "BUS": "5600MHz",
+  "Đèn LED": "Không"
+},
+"ram-kingston-8gb-ddr4-3200mhz": {
+  "Thương hiệu": "Kingston",
+  "Dung lượng": "8GB",
+  "Loại RAM": "DDR4",
+  "Tần số": "3200MHz",
+  "Điện áp": "1.35V",
+  "CAS Latency": {
+    "Default (JEDEC)": "DDR4-2400 CL17-17-17 @ 1.2V",
+    "XMP Profile #1": "DDR4-3200 CL16-18-18 @ 1.35V",
+    "XMP Profile #2": "DDR4-3000 CL15-17-17 @ 1.35V"
+  },
+  "Chế độ": "Dual Channel",
+  "Tính năng khác": [
+    "Phù hợp với nhiều loại mainboard",
+    "Tương thích với Intel® XMP"
+  ]
+},
+"ram-gskill-32gb-ddr4-3600mhz": {
+  "Nhà sản xuất": "G.SKILL",
+  "Model": "F4-3600C18D-32GTZR",
+  "Loại RAM": "DDR4",
+  "Dung lượng": "32GB (2x16GB)",
+  "Tốc độ Bus": "3600 MHz",
+  "Overclock": "Intel XMP 2.0",
+  "Đèn nền": "LED RGB",
+  "Điện áp": "1.2V - 1.35V",
+  "CAS Latency": "CL 18-22-22-42",
+  "Bảo hành": "36 tháng chính hãng"
+},
+"ram-adata-16gb-ddr4-3200mhz": {
+  "Nhà sản xuất": "ADATA",
+  "Dung lượng": "16GB",
+  "Loại RAM": "DDR4",
+  "Bus RAM": "3200MHz",
+  "Hỗ trợ": "DIMM (PC, Desktop)",
+  "Điện áp": "1.35V - 1.5V",
+  "Kích thước": "133.35 x 40 x 8 mm",
+  "Trọng lượng": "46g"
+},
+"ram-adata-16gb-ddr4-3200mhz-laptop": {
+  "Nhà sản xuất": "ADATA",
+  "Dung lượng": "16GB",
+  "Bus RAM": "3200MHz",
+  "Hỗ trợ": "SO-DIMM (Laptop)",
+  "Voltage": "DDR4 STD 1.2V",
+  "Tính năng khác": "Không hỗ trợ LED"
+}
+,
+"ram-gskill-64gb-ddr4-3600mhz": {
+  "Nhà sản xuất": "G.SKILL",
+  "Model": "F4-3600C18D-64GTZR",
+  "Loại RAM": "DDR4",
+  "Dung lượng": "64GB (2x32GB)",
+  "Bus RAM": "3600MHz",
+  "CAS Latency": "CL 18-22-22-42",
+  "Điện áp": "1.35V",
+  "Tản nhiệt": "Có",
+  "Công nghệ RAM": "Non-ECC"
+}
+,
+"ram-spearv-16gb-ddr5-4800mhz": {
+  "Dòng sản phẩm": "SPEAR V",
+  "Form Factor": "LONG DIMM",
+  "Thế hệ DDR": "DDR5",
+  "Tốc độ (Frequency)": "4800 / 5200 (JEDEC / O.C.)",
+  "Dung lượng": "16GB",
+  "Độ trễ CAS (CL)": "CL 30 ~ 52",
+  "Điện áp hoạt động": "1.10V ~ 1.45V",
+  "Màu tản nhiệt": "Đen Đậm",
+  "Kích thước": "138 x 33.5 x 6.4 mm",
+  "Công nghệ bổ sung": "Intel® XMP 3.0 (Hỗ trợ ép xung)",
+  "Nhiệt độ hoạt động": "0°C ~ 70°C"
+}
+,
+"ram-gskill-32gb-ddr5-6000mhz": {
+  "Thương hiệu": "G.SKILL",
+  "Model": "F5-6000J3648D16GX2-RM5RW",
+  "Màu sắc": "Trắng",
+  "LED RGB": "Không",
+  "Loại RAM": "DDR5",
+  "Dung lượng": "32GB (2x16GB)",
+  "Bus RAM": "6000 MHz",
+  "Độ trễ CAS": "CL 36-48-48-96",
+  "Điện áp": "1.25V",
+  "ECC checking": "Non-ECC",
+  "Tốc độ SPD": "4800 MT/s",
+  "Đặc trưng": "Intel XMP 3.0 Ready"
+}
+,
+"ram-patriot-16gb-ddr4-3200mhz": {
+  "Loại sản phẩm": "RAM PC",
+  "Thương hiệu": "Patriot",
+  "Model": "Signature Premium (1 x 16GB | 3200MHz)",
+  "Chuẩn RAM": "DDR4",
+  "Dung lượng": "16GB (1 x 16GB)",
+  "Điện áp": "1.2V",
+  "Tốc độ": "3200MHz",
+  "Độ trễ CAS": "CL22"
+}
+,
+"vga-asus-rtx5090-32gb": {
+  "Hãng sản xuất": "ASUS",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "NVIDIA GeForce RTX 5090",
+  "Dung lượng VRAM": "32GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "512-bit",
+  "GPU Clock": {
+    "OC mode": "2610 MHz",
+    "Default mode": "2580 MHz"
+  },
+  "CUDA Cores": 21760,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Đầu cấp nguồn": "1 x 16-pin",
+  "Nguồn đề xuất": "1000W"
+}
+,
+"vga-asus-rtx5080-16gb": {
+  "Hãng sản xuất": "ASUS",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "NVIDIA GeForce RTX 5080",
+  "Dung lượng VRAM": "16GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "256-bit",
+  "GPU Clock": {
+    "OC mode": "2730 MHz",
+    "Default mode": "2700 MHz"
+  },
+  "CUDA Cores": 10752,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Đầu cấp nguồn": "1 x 16-pin",
+  "Nguồn đề xuất": "850W"
+}
+,
+"vga-asus-rtx5060ti-8gb": {
+  "Hãng sản xuất": "ASUS",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "NVIDIA GeForce RTX 5060 Ti",
+  "Dung lượng VRAM": "8GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "128-bit",
+  "GPU Clock": {
+    "OC mode": "2602 MHz",
+    "Default mode": "2572 MHz (Boost)"
+  },
+  "CUDA Cores": 4608,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Đầu cấp nguồn": "1 x 8-pin",
+  "Nguồn đề xuất": "550W"
+}
+,
+"vga-gigabyte-rtx5070ti-16g": {
+  "Hãng sản xuất": "Gigabyte",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "GeForce RTX 5070 Ti",
+  "Dung lượng VRAM": "16GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "256-bit",
+  "GPU Clock": {
+    "Boost Clock": "2542 MHz",
+    "Reference Clock": "2452 MHz"
+  },
+  "CUDA Cores": 8960,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Đầu cấp nguồn": "1 x 16-pin",
+  "Nguồn đề xuất": "750W"
+}
+,
+"vga-gigabyte-rx6500xt-4gb": {
+  "Hãng sản xuất": "Gigabyte",
+  "Chipset": "AMD",
+  "Loại GPU": "Radeon RX 6500 XT",
+  "Dung lượng VRAM": "4GB",
+  "Kiểu bộ nhớ": "GDDR6",
+  "Giao diện bộ nhớ": "64-bit",
+  "GPU Clock": {
+    "Boost Clock": "2815 MHz",
+    "Game Clock": "2610 MHz"
+  },
+  "Đơn vị xử lý": 1024,
+  "Giao tiếp PCI": "PCI Express 4.0",
+  "Đầu cấp nguồn": "1 x 6-pin",
+  "Nguồn đề xuất": "400W"
+}
+,
+"vga-msi-rtx5070-12gb": {
+  "Hãng sản xuất": "MSI",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "GeForce RTX 5070",
+  "Dung lượng VRAM": "12GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "192-bit",
+  "GPU Clock": {
+    "Hiệu suất cực cao (MSI Center)": "2557 MHz",
+    "Boost Clock": "2542 MHz"
+  },
+  "Đơn vị xử lý": 6144,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Tản nhiệt": "2 quạt TORX 5.0 (cánh quạt liên kết bằng vòng cung, ổn định luồng khí áp suất cao)",
+  "Đầu cấp nguồn": "1 x 16-pin (ATX 3.1 khuyến nghị)",
+  "Nguồn đề xuất": "650W"
+}
+,
+"vga-gigabyte-rtx4070-12gb": {
+  "Hãng sản xuất": "Gigabyte",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "GeForce RTX 4070",
+  "Dung lượng VRAM": "12GB",
+  "Kiểu bộ nhớ": "GDDR6",
+  "Giao diện bộ nhớ": "192-bit",
+  "GPU Clock": {
+    "Boost Clock": "2490 MHz",
+    "Reference": "2475 MHz"
+  },
+  "CUDA Cores": 5888,
+  "Giao tiếp PCI": "PCI Express 4.0",
+  "Tản nhiệt": "3 quạt",
+  "Đầu cấp nguồn": "1 x 8-pin",
+  "Nguồn đề xuất": "650W"
+}
+,
+"vga-sapphire-rx7700xt-12gb": {
+  "Hãng sản xuất": "SAPPHIRE",
+  "Chipset": "AMD",
+  "Loại GPU": "Radeon RX 7700 XT",
+  "Dung lượng VRAM": "12GB",
+  "Kiểu bộ nhớ": "GDDR6",
+  "Giao diện bộ nhớ": "192-bit",
+  "GPU Clock": {
+    "Game Clock": "2171 MHz",
+    "Boost Clock": "2560 MHz"
+  },
+  "Stream Processors": 3456,
+  "Giao tiếp PCI": "PCI Express 4.0",
+  "Tản nhiệt": "3 quạt",
+  "Đầu cấp nguồn": "2 x 8-pin",
+  "Nguồn đề xuất": "700W"
+}
+,
+"vga-asus-rtx5060ti-8gbz": {
+  "Hãng sản xuất": "ASUS",
+  "Chipset": "NVIDIA",
+  "Loại GPU": "GeForce RTX 5060 Ti",
+  "Dung lượng VRAM": "8GB",
+  "Kiểu bộ nhớ": "GDDR7",
+  "Giao diện bộ nhớ": "128-bit",
+  "GPU Clock": {
+    "OC Mode": "2632 MHz",
+    "Boost Clock (Default)": "2602 MHz"
+  },
+  "CUDA Cores": 4608,
+  "Giao tiếp PCI": "PCI Express 5.0",
+  "Đầu cấp nguồn": "1 x 8-pin",
+  "Nguồn đề xuất": "550W"
+},
+"vga-asrock-rx6600-8gb": {
+  "Hãng sản xuất": "ASRock",
+  "Chipset": "AMD",
+  "Loại GPU": "Radeon RX 6600",
+  "Dung lượng VRAM": "8GB",
+  "Kiểu bộ nhớ": "GDDR6",
+  "Giao diện bộ nhớ": "128-bit",
+  "GPU Clock": {
+    "Base Clock": "1626 MHz",
+    "Game Clock": "Up to 2044 MHz",
+    "Boost Clock": "Up to 2491 MHz"
+  },
+  "Đơn vị xử lý": 1792,
+  "Giao tiếp PCI": "PCI Express 4.0 x8",
+  "Cổng xuất hình": {
+    "HDMI": "1 x HDMI 2.1",
+    "DisplayPort": "3 x DisplayPort 1.4",
+    "HDCP": "Supported"
+  },
+  "Đầu cấp nguồn": "1 x 8-pin",
+  "Nguồn đề xuất": "500W"
+},
+"macbook-m2-13_6inch": {
+  "Loại card đồ họa": "8 nhân GPU, 16 nhân Neural Engine",
+  "Dung lượng RAM": "16GB",
+  "Ổ cứng": "256GB",
+  "Kích thước màn hình": "13.6 inches",
+  "Công nghệ màn hình": "Liquid Retina Display",
+  "Độ phân giải màn hình": "2560 x 1664 pixels",
+  "Pin": "52.6 Wh",
+  "Hệ điều hành": "MacOS",
+  "Loại CPU": "Apple M2 8 nhân",
+  "Cổng giao tiếp": [
+    "2 x Thunderbolt 3",
+    "Jack tai nghe 3.5 mm",
+    "MagSafe 3"
+  ]
+}
+,
+"macbook-m3max-14_2inch": {
+  "Loại card đồ họa": "30 nhân GPU, 16 nhân Neural Engine",
+  "Dung lượng RAM": "96GB",
+  "Ổ cứng": "512GB",
+  "Kích thước màn hình": "14.2 inches",
+  "Công nghệ màn hình": [
+    "Độ sáng XDR: 1000 nit liên tục ở chế độ toàn màn hình",
+    "Độ sáng đỉnh 1600 nit (chỉ nội dung HDR)",
+    "True Tone",
+    "ProMotion"
+  ],
+  "Độ phân giải màn hình": "3024 x 1964 pixels",
+  "Pin": "72.4 Wh",
+  "Hệ điều hành": "macOS",
+  "Loại CPU": "Apple M3 Max 14 nhân",
+  "Cổng giao tiếp": [
+    "3 x Thunderbolt 4 (USB-C)",
+    "HDMI",
+    "Khe thẻ nhớ SDXC",
+    "Jack 3.5mm"
+  ]
+}
+,
+"keyboard-aula-mini-671": {
+  "Loại bàn phím": "Mini-size",
+  "Số phím": 67,
+  "Tương thích": "Tất cả các hệ điều hành Windows (WINXP, WIN7, WIN8, WIN10). Win95, Win98 có thể cần trình điều khiển",
+  "Kết nối": [
+    "Có dây Type-C",
+    "Không dây 2.4G",
+    "Bluetooth"
+  ],
+  "Khoảng cách kết nối": "10 m",
+  "Đèn LED": "LED RGB",
+  "Thời gian dùng": {
+    "Hiệu ứng ánh sáng mặc định": "Khoảng 40 giờ",
+    "Tắt LED": "Khoảng 106 giờ"
+  },
+  "Hãng sản xuất": "Aula"
+}
+,
+"keyboard-logitech-tenkeyless-96": {
+  "Loại bàn phím": "Tenkeyless",
+  "Số phím": 96,
+  "Tương thích": [
+    "Windows 10/11",
+    "MacOS",
+    "iOS/iPadOS",
+    "Chrome OS",
+    "Android 4.3 trở lên"
+  ],
+  "Kết nối": [
+    "Wired USB-C",
+    "Bluetooth",
+    "Wireless 2.4GHz"
+  ],
+  "Khoảng cách kết nối": {
+    "Có dây": "1.8 m",
+    "Không dây": "10 m"
+  },
+  "Đèn LED": "LED RGB LIGHTSYNC",
+  "Thời gian dùng": {
+    "Có đèn nền": "Lên đến 42 giờ",
+    "Không đèn nền": "Lên đến 1000 giờ"
+  },
+  "Hãng sản xuất": "Logitech"
+}
+,
+"keyboard-acer-tenkeyless-80": {
+  "Loại bàn phím": "Tenkeyless 80%",
+  "Số phím": 87,
+  "Tương thích": [
+    "Windows"
+  ],
+  "Kết nối": [
+    "USB Port"
+  ],
+  "Đèn LED": {
+    "Loại": "LED RGB",
+    "Chế độ đèn nền": "8 chế độ được cài đặt sẵn",
+    "Độ sáng": "7 mức điều chỉnh"
+  },
+  "Hãng sản xuất": "Acer"
+}
+,
+"keyboard-aula-mini-67": {
+  "Loại bàn phím": "Mini-size",
+  "Số phím": 67,
+  "Tương thích": [
+    "Windows XP",
+    "Windows 7",
+    "Windows 8",
+    "Windows 10",
+    "Windows 95 (cần driver)",
+    "Windows 98 (cần driver)"
+  ],
+  "Kết nối": [
+    "USB Type-C (có dây)",
+    "Wireless 2.4G",
+    "Bluetooth"
+  ],
+  "Khoảng cách kết nối": "10 m",
+  "Đèn LED": "LED RGB",
+  "Thời gian dùng": {
+    "Hiệu ứng ánh sáng mặc định": "40 giờ",
+    "Tắt LED": "106 giờ"
+  },
+  "Hãng sản xuất": "Aula"
+}
+,
+"keyboard-corsair-104": {
+  "Số phím": 104,
+  "Khoảng cách kết nối": "1.8 m",
+  "Đèn LED": "LED RGB (có thể điều chỉnh)",
+  "Tiện ích": [
+    "Tính năng NKRO và Anti-Ghosting",
+    "Nút gạt Tournament Switch",
+    "Tích hợp phím Media tiện lợi",
+    "Dây cáp Type-C có thể tháo rời"
+  ],
+  "Hãng sản xuất": "Corsair"
+}
+,
+"keyboard-corsair-81": {
+  "Số phím": 81,
+  "Đèn LED": "LED RGB",
+  "Tiện ích": [
+    "Pin Lithium-Ion có thể sạc lại",
+    "Núm xoay volume kim loại tiện lợi",
+    "Tích hợp Foam tiêu âm",
+    "N-key with 100% Anti-Ghosting"
+  ],
+  "Hãng sản xuất": "Corsair"
+}
+,
+"keyboard-asus-rog-azoth-extreme": {
+  "Thương hiệu": "Asus",
+  "Tên sản phẩm": "ASUS ROG Azoth Extreme",
+  "Mã Model": "90MP03MA-BKUA01",
+  "Layout": "75%",
+  "Số lượng phím": 81,
+  "Chất liệu vỏ": "Nhôm",
+  "Màu sắc": "Đen",
+  "Keycap": "PBT DoubleShot",
+  "Switch": "ROG NX Snow (Linear)",
+  "LED": "RGB AuraSync",
+  "Kết nối": [
+    "Wireless 2.4GHz",
+    "Bluetooth 5.1",
+    "Dây USB"
+  ],
+  "Loại dây": "USB-A to USB-C",
+  "Kích thước (mm)": "332 x 139 x 40",
+  "Dung lượng/Thời lượng pin": "Lên đến 1600h sử dụng (Chế độ Wireless 2.4GHz - Tắt LED)",
+  "Tính năng": {
+    "Tốc độ phản hồi": "Lên đến 8000Hz với ROG Polling Rate Booster (Chế độ dây + 2.4GHz)",
+    "Foam tiêu âm": "Có",
+    "Màn hình": "OLED 1.47 inch",
+    "HotSwap Switch": "Có"
+  }
+}
+,
+"keyboard-logitech-60": {
+  "Thiết kế": "60% chuyên nghiệp",
+  "Tính năng chính": [
+    "KEYCONTROL",
+    "Ánh sáng RGB LIGHTSYNC",
+    "Cấu hình chiếu sáng trên bo mạch",
+    "Dây cáp có thể tháo rời 6 ft",
+    "Tốc độ báo cáo 1 ms"
+  ],
+  "Kết nối": [
+    "Không dây 2.4GHz LIGHTSPEED",
+    "Bluetooth",
+    "USB có dây"
+  ],
+  "Tuổi thọ pin": "Lên tới 65 giờ (có thể sạc lại)",
+  "Phạm vi không dây": "Lên tới 10 m",
+  "Ghi chú": "Các tính năng nâng cao yêu cầu phần mềm Logitech G HUB"
+}
+,
+"keyboard-asus-rog-65-68": {
+  "Model": [
+    "90MP03ED-BKUA10 (RX Red Switch)",
+    "90MP03EC-BKUA10 (RX Blue Switch)"
+  ],
+  "Kết nối": [
+    "USB 2.0 (Type-C to Type-A)",
+    "Bluetooth 5.1",
+    "RF 2.4GHz"
+  ],
+  "Chất liệu phím": "ABS phủ lớp chống tia UV",
+  "Số phím": 68,
+  "Profile": "Đang cập nhật",
+  "Đèn nền": "RGB per-key",
+  "Keyswitch": "ROG RX Low-Profile Switch Blue/Red",
+  "Độ bền Switch": "Đang cập nhật",
+  "Keyboard Rollover": "N-key, Anti-Ghosting",
+  "Kích thước (mm)": "306 x 110 x 26.5",
+  "Trọng lượng": "595g (không dây cáp)",
+  "Khả năng tương thích": [
+    "macOS 10.11 or later",
+    "Windows 11"
+  ],
+  "Tính năng": [
+    "Bảng điều khiển cảm ứng",
+    "Macro Keys"
+  ],
+  "Dạng bàn phím": "65%",
+  "Bảo hành": "24 tháng"
+}
+,
+"keyboard-logitech-tenkeyless-87": {
+  "Loại bàn phím": "Tenkeyless",
+  "Số phím": 87,
+  "Tương thích": [
+    "Chrome OS",
+    "Windows 10 trở lên",
+    "macOS 10.15 trở lên"
+  ],
+  "Kết nối": [
+    "Bluetooth",
+    "USB Receiver"
+  ],
+  "Khoảng cách kết nối": "1.8 m",
+  "Đèn LED": "LED RGB LIGHTSYNC",
+  "Thời gian dùng": "Lên đến 30 giờ",
+  "Hãng sản xuất": "Logitech"
+}
+,
+"keyboard-akko-tenkeyless-87": {
+  "Loại bàn phím": "Tenkeyless",
+  "Số phím": 87,
+  "Tương thích": [
+    "Windows",
+    "MacOS",
+    "Linux"
+  ],
+  "Chú thích tương thích MacOS": "Ctrl -> Control | Windows -> Command | Alt -> Option, Mojave OS trở lên sẽ điều chỉnh được thứ tự các phím",
+  "Kết nối": {
+    "Có dây": "USB (Type-A to Type-C tháo rời)",
+    "Không dây": "USB 2.4GHz"
+  },
+  "Khoảng cách kết nối": "Lên đến 10 m",
+  "Đèn LED": "Không LED",
+  "Thời gian dùng": "Lên đến 3-5 tháng",
+  "Hãng sản xuất": "AKKO"
+}
+,
+"mouse-logitech-g304": {
+  "Độ phân giải (DPI)": "200 - 12000 DPI",
+  "Cảm biến": "HERO",
+  "Nút nhấn": "6 nút",
+  "Đèn LED": "Không",
+  "Kết nối & Tương thích": {
+    "Kết nối": "Không dây Lightspeed (độ trễ 1ms)"
+  },
+  "Thiết kế & Trọng lượng": {
+    "Kích thước": "116.6 x 62.15 x 38.2 mm",
+    "Trọng lượng": "99g"
+  },
+  "Tiện ích": [
+    "Công nghệ không dây Lightspeed cho độ trễ chỉ 1ms",
+    "Cảm biến HERO cho độ chính xác hoàn hảo"
+  ]
+}
+,
+"ram-32gb-ddr5-4800": {
+  "Dung lượng": "32GB",
+  "BUS Ram": "4800MHz",
+  "Loại Ram": "DDR5",
+  "Đèn LED": "Không"
+}
+,
+"mainboard-gigabyte-b850-aorus-elite-wifi7": {
+  "Hãng sản xuất": "Gigabyte",
+  "Model": "B850 AORUS ELITE WIFI7",
+  "Socket": "AM5",
+  "Chipset": "AMD B850",
+  "Form Factor": "ATX",
+  "Hỗ trợ CPU": "AMD Ryzen 7000/8000/9000 Series",
+  "RAM": "DDR5, 4 khe, hỗ trợ OC 8200+ MHz",
+  "Khe M.2": "3 khe (1 PCIe 5.0, 2 PCIe 4.0)",
+  "PCIe": "1 x16 (5.0), 2 x1 (3.0)",
+  "USB": "USB 3.2 Gen2x2 Type-C, USB 3.2 Gen2/Gen1, USB 2.0",
+  "LAN": "2.5GbE",
+  "Wi-Fi": "Wi-Fi 7 + Bluetooth 5.3",
+  "Audio": "Realtek 7.1",
+  "Nguồn đề xuất": "Tùy cấu hình"
+}
+,
+"vga-msi-rtx5060ti-ventus-3x-oc-16gb": {
+  "Hãng sản xuất": "MSI",
+  "Loại GPU": "GeForce RTX 5060 Ti",
+  "Dung lượng VRAM": "16GB GDDR7",
+  "Bus bộ nhớ": "128-bit, 28 Gbps",
+  "CUDA Cores": 4608,
+  "GPU Clock (Boost)": "2617 MHz (Extreme Performance)",
+  "TDP": "180W",
+  "Cổng xuất hình": "3× DisplayPort 2.1b, 1× HDMI 2.1b",
+  "Kết nối nguồn": "1× 8-pin",
+  "PCIe": "PCIe Gen 5 x16 (lên đến x8)",
+  "Thiết kế tản nhiệt": "Ventus 3X triple-fan, TORX Fan 5.0",
+  "Độ phân giải tối đa": "7680 × 4320",
+  "Hỗ trợ": "DirectX 12 Ultimate, OpenGL 4.6",
+  "LED": "Không",
+  "Kích thước (mm)": "304–306 × 121 × 44",
+  "Hỗ trợ tối đa màn hình": 4
+}
+,
+"case-x2-luxury-ultra": {
+  "Mã sản phẩm": "X2 LUXURY ULTRA",
+  "Màu sắc": "Đen",
+  "Kiểu dáng": "Mid Tower",
+  "Chất liệu": "SPCC 0.5mm, 3 mặt kính cường lực",
+  "Chuẩn PSU": "ATX",
+  "Khe ổ cứng": {
+    "3.5inch": 2,
+    "2.5inch": 1
+  },
+  "Khe mở rộng": 7,
+  "Cổng I/O": "USB 3.0 x1, USB 2.0 x2, HD Audio",
+  "Quạt hỗ trợ": {
+    "Trước": "3x120mm (chưa kèm)",
+    "Sau": "1x120mm (chưa kèm)",
+    "Dưới": "3x120mm (chưa kèm)",
+    "Tản nhiệt nước": "Hỗ trợ 360/240/120mm"
+  },
+  "Chiều cao tản CPU tối đa": "165mm",
+  "Chiều dài VGA tối đa": "410mm",
+  "Hỗ trợ mainboard": "ATX / Micro ATX / ITX",
+  "Kích thước (LxWxH)": "425 x 280 x 375mm",
+  "Trọng lượng": {
+    "Net": "4.9kg",
+    "Gross": "6.3kg"
+  },
+  "Ghi chú": "Vỏ case chưa kèm fan"
+}
+,
+"psu-asus-rog-thor-1200w-plat3": {
+  "Hãng sản xuất": "ASUS",
+  "Dòng sản phẩm": "ROG THOR Platinum III",
+  "Công suất": "1200W",
+  "Chứng nhận hiệu suất": "80 PLUS Platinum",
+  "Màu sắc": "Đen/Bạc",
+  "Chuẩn dây": "Full Modular"
+}
+,
+"monitor-asus-rog-swift-pg32ucdp": {
+  "Kích thước": "31.5 inch",
+  "Loại tấm nền": "OLED WOLED",
+  "Độ phân giải": "4K UHD (3840 x 2160) / Full HD (1080p)",
+  "Tần số quét": "4K @ 240 Hz / FHD @ 480 Hz",
+  "Thời gian phản hồi (GTG)": "0.03 ms",
+  "Độ sáng": {
+    "Thông thường": "250 cd/m²",
+    "Đỉnh": "1300 cd/m²"
+  },
+  "Góc nhìn": "178°/178°",
+  "Không gian màu": {
+    "sRGB": "100%",
+    "DCI-P3": "99%"
+  },
+  "Chế độ chống nháy": "OLED Anti-flicker",
+  "Tính năng đặc biệt": [
+    "Dual-Mode (4K/240Hz ↔ FHD/480Hz)",
+    "ROG Gaming AI (AI Crosshair, Shadow Boost, Sniper, Visual, MOBA Map Helper)",
+    "Heatsink tùy chỉnh & ASUS OLED Care",
+    "USB-C (DP Alt Mode, 90W PD) & KVM"
+  ],
+  "Kết nối": [
+    "DisplayPort 1.4 DSC",
+    "HDMI 2.1",
+    "USB-C (DP Alt Mode, 90W power delivery)"
+  ],
+  "Hỗ trợ góc đặt": "Tựa nghiêng, xoay, điều chỉnh độ cao, VESA 100×100 mm"
+}
+,
+"monitor-viewsonic-va1655-3": {
+  "Kích thước": "15.6 inch",
+  "Độ phân giải": "FHD (1920x1080)",
+  "Tấm nền": "IPS",
+  "Tần số quét": "60 Hz",
+  "Thời gian phản hồi": "7 ms",
+  "Độ sáng": "250 cd/m²",
+  "Tỷ lệ tương phản": "1000:1",
+  "Kết nối": [
+    "USB-C (DisplayPort Alt-Mode, 60W PD)",
+    "Mini-HDMI",
+    "Jack tai nghe 3.5 mm"
+  ],
+  "Tương thích OS": [
+    "Windows",
+    "macOS",
+    "Chrome OS",
+    "Android",
+    "iOS / iPadOS"
+  ],
+  "Thiết kế di động": "9.85 mm, 0.7 kg, chân đế gập tích hợp, hỗ trợ ngang / dọc",
+  "Bảo vệ mắt": "Low Blue Light, lớp phủ chống chói",
+  "Tính năng thêm": [
+    "USB-C sạc 60 W và hỗ trợ Pass-Through",
+    "Chế độ Eco tiết kiệm năng lượng"
+  ]
+}
+,
+"monitor-vsp-v2704s-27": {
+  "Kích thước": "27 inch",
+  "Độ phân giải": "FHD (1920x1080)",
+  "Tấm nền": "IPS",
+  "Tần số quét": "75 Hz",
+  "Thời gian phản hồi": "5 ms (Typical)",
+  "Độ sáng": "250 cd/m²",
+  "Tỷ lệ tương phản": "1000:1",
+  "Số màu hiển thị": "16.7 triệu màu",
+  "Góc nhìn": "178°/178°",
+  "Kết nối": ["HDMI x1", "VGA x1"],
+  "Tính năng đặc biệt": ["FreeSync", "HDR", "DCR", "Color Temp", "Low Blue Light", "Multi-language Menu"],
+  "Khối lượng": "4.4 kg",
+  "Bảo hành": "36 tháng"
+}
+,
+"monitor-lg-32ur500k-b": {
+  "Kích thước": "31.5 inch",
+  "Độ phân giải": "4K UHD (3840 × 2160)",
+  "Tấm nền": "VA",
+  "Tần số quét": "60 Hz",
+  "Thời gian phản hồi": "4 ms (GtG)",
+  "Độ sáng": "250 cd/m² (typical)",
+  "Tỷ lệ tương phản": "3000:1",
+  "Không gian màu": "DCI-P3 90%",
+  "HDR": "HDR10",
+  "Tính năng game": [
+    "Dynamic Action Sync",
+    "Black Stabilizer",
+    "AMD FreeSync"
+  ],
+  "Loa tích hợp": "Có (Waves MaxxAudio)",
+  "Cổng kết nối": [
+    "HDMI ×2",
+    "DisplayPort 1.4",
+    "Headphone Out"
+  ],
+  "Chân đế": "Tilt",
+  "VESA Mount": "100 × 100 mm",
+  "Góc nhìn": "178°/178°",
+  "Tích hợp phần mềm": "OnScreen Control, Super Resolution+"
+}
+,
+"monitor-cooler-master-gm238-ffs": {
+  "Kích thước": "23.8 inch",
+  "Độ phân giải": "FHD (1920×1080)",
+  "Tấm nền": "Ultra-Speed IPS",
+  "Tần số quét": "Up to 144 Hz",
+  "Thời gian phản hồi": "0.5 ms (MPRT)",
+  "Độ sáng": "250 cd/m² (typical)",
+  "Tỷ lệ tương phản": "1000:1",
+  "Không gian màu": {
+    "DCI-P3": "90%",
+    "sRGB": "120%"
+  },
+  "HDR": "HDR10",
+  "Kết nối": [
+    "2× DisplayPort 1.4",
+    "2× HDMI 2.0"
+  ],
+  "Tính năng": [
+    "Adaptive Sync (FreeSync, G-Sync Compatible)",
+    "Low Blue Light",
+    "Anti-Flicker",
+    "Dynamic Overdrive"
+  ],
+  "Góc nhìn": "178°/178°",
+  "Điều chỉnh": "Tilt –5°/+15°, VESA 100×100 mm",
+  "Kích thước (mm)": "540 × 319.6 × 42",
+  "Trọng lượng": "2.8 kg"
+}
+,
+"keyboard-logitech-pro-x-tkl-rapid": {
+  "Thương hiệu": "Logitech",
+  "Tên sản phẩm": "PRO X TKL RAPID",
+  "Mã SP": "920-013131",
+  "Layout": "Tenkeyless",
+  "Số phím": 87,
+  "Chất liệu vỏ": "Nhựa",
+  "Màu sắc": "Đen",
+  "Keycap": "ABS",
+  "Switch": "Switch Nam châm",
+  "LED": "RGB",
+  "Kết nối": "USB-C to USB-A",
+  "Kích thước (mm)": "357 x 38 x 150",
+  "Tính năng": [
+    "Rapid Trigger",
+    "KEYCONTROL tùy chỉnh qua phần mềm"
+  ]
+}
+,
+"mouse-corsair-darkstar-rgb": {
+  "Nhà sản xuất": "Corsair",
+  "Tên sản phẩm": "DARKSTAR RGB",
+  "Model": "CH-931A011-AP",
+  "Kết nối": [
+    "USB 2.4GHz Slipstream",
+    "Bluetooth",
+    "Cáp sợi bện 1.8m"
+  ],
+  "DPI": 26000,
+  "Đèn nền": "RGB",
+  "Cảm biến": "MARKSMAN 26K",
+  "Số nút": 15,
+  "Switch": "Omron",
+  "Độ bền Switch": "50 triệu nhấp chuột",
+  "Game type": ["MMO", "MOBA", "RTS"],
+  "Pin": {
+    "USB 2.4GHz Slipstream": "Lên đến 65h",
+    "Bluetooth": "Lên đến 80h"
+  },
+  "Kích thước": "Đang cập nhật",
+  "Trọng lượng": "96g",
+  "Bảo hành": "24 tháng"
+}
+,
+"asus-rog-azoth-nx": {
+  "Thương hiệu": "Asus",
+  "Tên sản phẩm": "ASUS ROG AZOTH NX",
+  "Mã Model": "90MP0316-BKUA01",
+  "Layout": "75%",
+  "Số phím": 84,
+  "Chất liệu vỏ": ["Kim loại", "Nhựa"],
+  "Màu sắc": "Đen",
+  "Keycap": "PBT",
+  "Switch": "ROG NX Red Switch",
+  "LED": "RGB",
+  "Kết nối": ["Wireless 2.4Ghz", "Bluetooth", "USB có dây"],
+  "Loại dây": "USB",
+  "Kích thước": "326 x 136 x 40 mm",
+  "Pin": "4000mAh",
+  "Tính năng": [
+    "Màn hình OLED tùy chỉnh",
+    "Hỗ trợ Hotswap switch 3/5 pin",
+    "Tích hợp foam lót",
+    "Kèm bộ Kit DIY tùy chỉnh switch"
+  ]
+}
+,
+"asus-rog-harpe-ace-aimlab-white": {
+  "Thương hiệu": "Asus",
+  "Tên sản phẩm": "ROG Harpe Ace Aim Lab Edition - Moonlight White",
+  "Mã Model": "90MP02W0-BMUA10",
+  "Loại": "Chuột Gaming không dây",
+  "Màu sắc": "Moonlight White",
+  "Kết nối": ["Wireless 2.4GHz", "Bluetooth", "USB có dây"],
+  "Cảm biến": "ROG AimPoint Optical Sensor",
+  "DPI": "36.000 DPI",
+  "Độ bền switch": "70 triệu lần nhấn",
+  "Số nút": 5,
+  "Tần số phản hồi": "1000Hz",
+  "Trọng lượng": "54g",
+  "Thời lượng pin": "Lên đến 90 giờ (2.4GHz, tắt RGB)",
+  "Tính năng": [
+    "Hỗ trợ Aim Lab Settings Optimizer",
+    "Thiết kế siêu nhẹ",
+    "Feet PTFE 100% cho di chuột mượt",
+    "Hỗ trợ sạc nhanh USB-C"
+  ]
+}
+,
+"logitech-pro-x-superlight-2-white": {
+  "Thương hiệu": "Logitech",
+  "Tên sản phẩm": "PRO X Superlight 2 LIGHTSPEED",
+  "Mã Model": "910-006640",
+  "Loại": "Chuột Gaming không dây",
+  "Màu sắc": "Trắng",
+  "Kết nối": ["Wireless LIGHTSPEED 2.4GHz", "USB-C có dây"],
+  "Cảm biến": "HERO 2",
+  "DPI": "32.000 DPI",
+  "Tần số phản hồi": "2000Hz (LIGHTSPEED)",
+  "Số nút": 5,
+  "Độ bền switch": "Lên đến 100 triệu lần nhấn (Hybrid Optical-Mechanical)",
+  "Trọng lượng": "60g",
+  "Thời lượng pin": "Lên đến 95 giờ (không bật đèn)",
+  "Tiện ích": [
+    "Feet PTFE 100% cho độ mượt tối đa",
+    "Thiết kế siêu nhẹ",
+    "USB-C sạc nhanh",
+    "Tương thích POWERPLAY"
+  ]
+}
+,
+"asus-gt-ax11000-pro": {
+  "Mã sản phẩm": "GT-AX11000 PRO",
+  "Loại mạng": "IEEE 802.11ax",
+  "Công nghệ AX": true,
+  "Phân khúc": "AX11000 ultimate AX performance",
+  "Tốc độ dữ liệu": {
+    "2.4GHz": "4x4 (Tx/Rx) 1024 QAM 20/40MHz, up to 1148Mbps",
+    "5GHz-1": "4x4 (Tx/Rx) 1024 QAM 20/40/80/160MHz, up to 4804Mbps",
+    "5GHz-2": "4x4 (Tx/Rx) 1024 QAM 20/40/80/160MHz, up to 4804Mbps"
+  },
+  "Antenna": "External antenna x8 (non-detachable)",
+  "Vi xử lý": "2.0GHz quad-core processor",
+  "Bộ nhớ": "256MB NAND flash, 1GB DDR4 RAM",
+  "Tăng tốc độ": [
+    "OFDMA",
+    "Beamforming: standard-based and universal",
+    "1024-QAM high data rate",
+    "20/40/80/160 MHz bandwidth"
+  ],
+  "Tần số hoạt động": ["2.4 GHz", "5 GHz-1", "5 GHz-2"],
+  "Cổng": {
+    "WAN": ["1 x 2.5 Gigabit WAN", "1 x 10 Gigabit WAN/LAN"],
+    "LAN": "4 x Gigabit LAN Ports",
+    "USB": ["1 x USB 3.2 Gen 1", "1 x USB 2.0"]
+  },
+  "Nút bấm": ["WPS Button", "LED Button", "Reset Button", "Power Switch"],
+  "LED chỉ dẫn": ["Power", "2.4G", "5GHz-1", "5GHz-2", "WPS", "10GE", "LAN", "WAN"],
+  "Nguồn": {
+    "AC Input": "110V~240V 50/60Hz",
+    "DC Output": "19V/3.42A hoặc 19.5V/3.33A"
+  },
+  "Phụ kiện": ["Router GT-AX11000 Pro", "RJ-45 Cable", "Power Adapter", "Quick Start Guide", "Warranty Card"],
+  "Trọng lượng": "2180g",
+  "AiMesh": ["Primary AiMesh router", "AiMesh node"],
+  "Ứng dụng Router": "ASUS Router APP",
+  "Chế độ Gaming": ["Game Boost", "Game Radar", "WTFast", "UU boost", "ROG_First", "OpenNAT (Game Profile)"],
+  "Alexa": true,
+  "AiProtection": ["AiProtection Pro", "Router Security Assessment", "Malicious site blocking", "Two-Way IPS", "Infected Device Prevention and Blocking"],
+  "Parental Control": {
+    "Chức năng": ["Parental Control", "Customized Internet schedule"],
+    "Max profile": 64,
+    "Max content filter": 64
+  },
+  "Traffic Control": ["Adaptive QoS", "Bandwidth Monitor", "Bandwidth limiter", "Traditional QoS", "Traffic Monitor", "Traffic Analyzer"],
+  "Wireless": ["IPv6", "MU-MIMO", "WiFi Encryption: WPA3/WPA2/WPA Personal & Enterprise", "UTF-8 SSID", "Guest Network", "WPS", "Wi-Fi MAC address filter", "Wireless scheduler", "Airtime fairness", "RADIUS Client", "Universal beamforming"],
+  "WAN": ["Explicit beamforming", "Internet connection Type", "Dual WAN", "WAN Aggregation", "3G/4G LTE dongle", "Port forwarding", "Port triggering", "DMZ", "DDNS", "NAT Passthrough", "Let's Encrypt", "Safe browsing", "DNS-over-TLS"],
+  "LAN": ["DHCP Server", "IGMP snooping", "IPTV", "LAN Link Aggregation", "Manual IP assignment"],
+  "VPN": ["VPN Client: L2TP, OVPN, PPTP, WireGuard", "VPN Server: IPSec, OVPN, PPTP, WireGuard", "VPN Fusion"],
+  "USB application": ["File System: HFS+, NTFS, vFAT, ext2/3/4", "Safely Remove Disk", "AiCloud", "Download Master", "AiDisk", "Media Server", "Time Machine", "Samba Server", "FTP Server", "Shared Folder privileges"],
+  "Administration": ["Operating mode: Router, AiMesh node, Access point, Repeater, Media bridge", "OS: ASUSWRT", "Free OS upgrade", "Firewall", "Max Firewall keyword/network/URL filter", "Wake on LAN", "SSH", "Backup/Restore configuration", "Diagnosis tools", "Feedback system", "System log", "New Device Notification", "Login Captcha", "Connection Diagnosis", "Security Scan", "Auto Firmware Update"]
+}
+,
+"linksys-max-stream-e9452": {
+  "Sản phẩm": "MAX-STREAM E9452-AH",
+  "Thương hiệu": "Linksys",
+  "Chuẩn WIFI": "WiFi 6",
+  "Số thiết bị tối đa": 55,
+  "Tốc độ (Mbps)": 5400,
+  "Băng thông": {
+    "2.4GHz": 600,
+    "5GHz": 4800
+  },
+  "CPU": {
+    "Số nhân": 3,
+    "Tần số": "1.2GHz"
+  },
+  "RAM": "512MB",
+  "Số antenna": 4,
+  "MU-MIMO": true,
+  "Hỗ trợ MESH": "Linksys EasyMesh",
+  "Cổng LAN": {
+    "Số cổng": 4,
+    "Tốc độ": "1Gbps"
+  },
+  "Cổng WAN": {
+    "Tốc độ": "1Gbps"
+  },
+  "Cổng kết nối khác": ["USB 3.0 x1"]
+
+
+},
+"asus-gt-ax6000-rog-rapture": {
+  "Sản phẩm": "GT-AX6000 ROG Rapture",
+  "Thương hiệu": "Asus",
+  "Chuẩn WIFI": "WiFi 6",
+  "Tốc độ": "6000 Mbps",
+  "Băng thông": {"2.4GHz": 1148, "5GHz-1": 4804, "5GHz-2": 4804},
+  "CPU": "2 nhân 2.0GHz",
+  "RAM": "1GB DDR4",
+  "Antenna": 8,
+  "MU-MIMO": true,
+  "AiProtection": "Pro",
+  "AiMesh": true,
+  "LAN": "4 x Gigabit",
+  "WAN": ["1 x 2.5G", "1 x 10G"],
+  "USB": ["USB 3.2 Gen1 x1", "USB 2.0 x1"]
+}
+,
+"webcam-10wac9901": {
+  "Model": "10WAC9901",
+  "Độ phân giải": "1080p60",
+  "Ống kính": {
+    "Loại": "AF Lens (Lấy nét tự động)",
+    "Tiêu cự": "24mm",
+    "Khẩu độ": "f/2.4",
+    "Góc nhìn": "84°"
+  },
+  "Dây cáp": "-",
+  "Chuẩn kết nối": "Detachable Wired USB-C",
+  "Phụ kiện": ["Cáp USB-C to A"]
+}
+,
+"webcam-logitech-mx-brio": {
+  "Tên sản phẩm": "Logitech MX Brio 4K Ultra HD",
+  "Màu sắc": "Xám",
+  "Độ phân giải": "4K Ultra HD",
+  "Khung hình": "30/60 FPS",
+  "Ống kính": {
+    "Loại": "Autofocus",
+    "Góc nhìn": "90°"
+  },
+  "Chuẩn kết nối": "USB 2.0 / USB 3.0",
+  "Tính năng khác": ["HDR", "RightLight 3", "Zoom kỹ thuật số"]
+}
+,
+"loa-edifier-qr65": {
+  "Tên sản phẩm": "Edifier QR65",
+  "Loại": "Loa Bluetooth",
+  "Màu sắc": "Trắng",
+  "Kết nối": ["Bluetooth", "AUX", "USB"],
+  "Công suất": "Đang cập nhật",
+  "Tính năng": ["Điều khiển cảm ứng", "Pin tích hợp", "Hỗ trợ micro"]
+}
+,
+"loa-gravastar-mars-pro": {
+  "Tên sản phẩm": "GravaStar Mars Pro",
+  "Loại": "Loa Bluetooth đặt bàn, di động, trang trí",
+  "Phiên bản": "Quốc tế",
+  "Chất liệu": "Hợp kim kẽm",
+  "LED": "RGB",
+  "Công suất": "20W",
+  "Kết nối": ["Bluetooth 5.0", "AUX"],
+  "Kích thước": "7.5\"H x 7.1\"L x 7.9\"W",
+  "Màu sắc": ["Trắng", "Vàng (War Damage)", "Phiên bản đặc biệt"],
+  "Nguồn điện": "Pin sạc, chơi nhạc lên đến 10 giờ (âm lượng 50%)",
+  "Phụ kiện": ["HDSD", "Thông tin pháp lý", "Cáp sạc Type-C"]
+}
+,
+"loa-harman-kardon-soundsticks-4": {
+  "Tên sản phẩm": "Harman Kardon SOUNDSTICKS 4",
+  "Loại": "Loa Bluetooth để bàn, loa vi tính",
+  "Phiên bản": "PGI",
+  "Cấu trúc âm thanh": "2.1 (1 x Bass 5.25 inch, 2 x loa vệ tinh 4 x 1.4 inch)",
+  "Tần số đáp ứng": "40Hz - 20kHz",
+  "Signal to Noise Ratio": "80dB",
+  "Công suất": "140W (Sub 100W, Loa vệ tinh 40W)",
+  "Kết nối": ["Bluetooth 4.2", "AUX 3.5mm"],
+  "Nguồn điện": "220V",
+  "Kích thước": {
+    "Loa sub": "231 x 276 x 231 mm",
+    "Loa vệ tinh": "271 x 84 x 84 mm"
+  },
+  "Trọng lượng": "4.432 kg",
+  "Màu sắc": ["Trắng", "Đen"],
+  "Phụ kiện": ["Dây điện các loại", "Hướng dẫn sử dụng"]
+}
+,
+"micro-asus-rog-carnyx": {
+  "Tên sản phẩm": "ASUS ROG Carnyx",
+  "Loại": "Microphone gaming USB/XLR",
+  "Kết nối": ["USB-C", "XLR"],
+  "Độ nhạy": "Đang cập nhật",
+  "Tần số đáp ứng": "20Hz - 20kHz",
+  "Độ trễ": "Đang cập nhật",
+  "Đặc trưng": ["Kết hợp RGB AuraSync", "Đa hướng thu âm", "Hỗ trợ Phantom Power"],
+  "Chất liệu": "Nhôm",
+  "Trọng lượng": "Đang cập nhật",
+  "Phụ kiện": ["Chân micro", "Cáp USB-C", "Hướng dẫn sử dụng"]
+}
+,
+"micro-razer-seiren-v3-chroma": {
+  "Tên sản phẩm": "Razer Seiren V3 Chroma",
+  "Loại": "Microphone USB",
+  "Kết nối": ["USB-C"],
+  "Đặc trưng": ["RGB Chroma", "Tap-to-Mute", "Cardioid Pickup Pattern"],
+  "Tần số đáp ứng": "20Hz - 20kHz",
+  "Độ nhạy": "Đang cập nhật",
+  "Trở kháng": "32Ω",
+  "Chất liệu": "Kim loại",
+  "Trọng lượng": "Đang cập nhật",
+  "Phụ kiện": ["Chân Micro tích hợp", "Cáp USB-C", "Hướng dẫn sử dụng"]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

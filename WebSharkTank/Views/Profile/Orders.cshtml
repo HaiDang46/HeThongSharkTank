@@ -1,0 +1,162 @@
+@{
+    ViewBag.Title = "Sản phẩm Đã đặt | Shark Tank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+
+<!-- MAIN -->
+<main class="profile">
+    <div class="container">
+        <!-- Search bar -->
+        <div class="profile-container">
+            <form class="search-bar d-none d-md-flex" role="search" aria-label="Tìm kiếm" onsubmit="return false;">
+                <input type="search" id="profile-search" placeholder="Tìm sản phẩm…"
+                    class="search-bar__input" autocomplete="off" aria-label="Tìm sản phẩm" />
+                <button class="search-bar__submit" type="button" aria-label="Tìm kiếm">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt="Tìm kiếm" class="search-bar__icon icon" />
+                </button>
+            </form>
+        </div>
+
+        <!-- Profile content -->
+        <div class="profile-container">
+            <div class="row gy-md-3">
+                <!-- Ẩn sidebar ở màn lớn như bản gốc -->
+                <div class="col-3 col-xl-4 d-lg-none">
+                    <div id="profile-sidebar"></div>
+                </div>
+                <div class="col-9 col-xl-8 col-lg-12">
+                    <div class="cart-info">
+                        <div class="row gy-3">
+                            <div class="col-12">
+                                <h2 class="cart-info__heading">
+                                    <a href="@Url.Action("Index", "Profile")" aria-label="Quay lại hồ sơ">
+                                        <img src="@Url.Content("~/Content/icons/arrow-left.svg")" alt class="icon cart-info__back-arrow" />
+                                    </a>
+                                    Sản phẩm Đã đặt
+                                </h2>
+                                
+                                <!-- Danh sách đơn hàng -->
+                                <div class="user-address">
+                                    @{
+                                        var ordersList = ViewBag.Orders as List<WebSharkTank.Models.OrderWithItemsViewModel>;
+                                    }
+                                    @if (ordersList != null && ordersList.Count > 0)
+                                    {
+                                        foreach (var orderData in ordersList)
+                                        {
+                                            var order = orderData.Order;
+                                            var orderItems = orderData.OrderItems;
+                                            var fullAddress = orderData.FullAddress ?? "";
+
+                                            <article class="address-card" style="margin-bottom: 24px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
+                                                <div class="address-card__left" style="width: 100%;">
+                                                    <div class="address-card__info">
+                                                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                                                            <div>
+                                                                <h3 class="address-card__title" style="margin-bottom: 8px;">
+                                                                    Đơn hàng #@order.Id
+                                                                </h3>
+                                                                <p class="address-card__desc" style="color: #666; font-size: 1.4rem; margin-bottom: 4px;">
+                                                                    Ngày đặt: @order.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                                                </p>
+                                                                <p class="address-card__desc" style="color: #666; font-size: 1.4rem; margin-bottom: 4px;">
+                                                                    Trạng thái: 
+                                                                    <span style="font-weight: bold; color: @(order.Status == "Delivered" ? "#28a745" : order.Status == "Cancelled" ? "#dc3545" : "#ffc107");">
+                                                                        @(order.Status == "Pending" ? "Chờ xử lý" : 
+                                                                          order.Status == "Processing" ? "Đang xử lý" : 
+                                                                          order.Status == "Shipped" ? "Đã giao hàng" : 
+                                                                          order.Status == "Delivered" ? "Đã nhận hàng" : 
+                                                                          order.Status == "Cancelled" ? "Đã hủy" : order.Status)
+                                                                    </span>
+                                                                </p>
+                                                                <p class="address-card__desc" style="color: #666; font-size: 1.4rem; margin-bottom: 4px;">
+                                                                    Phương thức thanh toán: @order.PaymentMethod
+                                                                </p>
+                                                                @if (!string.IsNullOrEmpty(fullAddress))
+                                                                {
+                                                                    <p class="address-card__desc" style="color: #666; font-size: 1.4rem; margin-bottom: 4px;">
+                                                                        Địa chỉ giao hàng: @fullAddress
+                                                                    </p>
+                                                                }
+                                                            </div>
+                                                            <div style="text-align: right;">
+                                                                <p style="font-size: 1.8rem; font-weight: bold; color: #ff6b35; margin-bottom: 4px;">
+                                                                    Tổng tiền: @string.Format("{0:N0}", order.TotalAmount)₫
+                                                                </p>
+                                                                @if (order.ShippingFee > 0)
+                                                                {
+                                                                    <p style="font-size: 1.4rem; color: #666;">
+                                                                        Phí vận chuyển: @string.Format("{0:N0}", order.ShippingFee)₫
+                                                                    </p>
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Danh sách sản phẩm trong đơn hàng -->
+                                                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e0e0e0;">
+                                                            <h4 style="font-size: 1.6rem; font-weight: 600; margin-bottom: 12px;">Sản phẩm:</h4>
+                                                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                                                @foreach (var item in orderItems)
+                                                                {
+                                                                    <div style="display: flex; gap: 12px; padding: 12px; background: #f9f9f9; border-radius: 6px;">
+                                                                        @if (!string.IsNullOrEmpty(item.ProductImage))
+                                                                        {
+                                                                            <img src="@item.ProductImage" alt="@item.ProductName" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
+                                                                        }
+                                                                        <div style="flex: 1;">
+                                                                            <h5 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 4px;">
+                                                                                <a href="/Home/ProductDetail?id=@Uri.EscapeDataString(item.ProductId)" style="color: #333; text-decoration: none;">
+                                                                                    @item.ProductName
+                                                                                </a>
+                                                                            </h5>
+                                                                            <p style="font-size: 1.3rem; color: #666; margin-bottom: 4px;">
+                                                                                Số lượng: @item.Quantity
+                                                                            </p>
+                                                                            <p style="font-size: 1.4rem; font-weight: 600; color: #ff6b35;">
+                                                                                @string.Format("{0:N0}", item.Price)₫ x @item.Quantity = @string.Format("{0:N0}", item.Price * item.Quantity)₫
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div style="text-align: center; padding: 40px 20px;">
+                                            <img src="@Url.Content("~/Content/icons/bag.svg")" alt="Không có đơn hàng" style="width: 80px; height: 80px; opacity: 0.3; margin-bottom: 16px;" />
+                                            <p style="font-size: 1.6rem; color: #999; margin-bottom: 8px;">Chưa có đơn hàng nào</p>
+                                            <p style="font-size: 1.4rem; color: #999;">Bạn chưa đặt đơn hàng nào. Hãy mua sắm ngay!</p>
+                                            <a href="@Url.Action("Index", "Home")" class="btn btn--primary btn--rounded" style="margin-top: 16px;">
+                                                Mua sắm ngay
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script src="@Url.Content("~/Content/js/profile-sidebar.js")"></script>
+    <script>
+        (function() {
+            // Render profile sidebar
+            if (typeof window.renderProfileSidebar === 'function') {
+                window.renderProfileSidebar();
+            }
+        })();
+    </script>
+}
+

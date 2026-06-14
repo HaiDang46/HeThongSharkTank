@@ -1,0 +1,463 @@
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewBag.ActiveMenu = "Customers";
+}
+
+@model IEnumerable<WebSharkTank.Models.User>
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách khách hàng</b></a></li>
+    </ul>
+    <div id="clock"></div>
+</div>
+
+@Html.AntiForgeryToken()
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="row element-button">
+                    <div class="col-sm-2">
+                        <a class="btn btn-add btn-sm" href="@Url.Action("CreateCustomer", "Admin")" title="Thêm">
+                            <i class="fas fa-plus"></i> Tạo mới tài khoản
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="window.print()">
+                            <i class="fas fa-print"></i> In dữ liệu
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép">
+                            <i class="fas fa-copy"></i> Sao chép
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-excel btn-sm" href="#" title="Xuất Excel">
+                            <i class="fas fa-file-excel"></i> Xuất Excel
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm pdf-file" type="button" title="Xuất PDF" onclick="window.print()">
+                            <i class="fas fa-file-pdf"></i> Xuất PDF
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-hover table-bordered" id="sampleTable">
+                    <thead>
+                        <tr>
+                            <th width="10"><input type="checkbox" id="all"></th>
+                            <th>ID</th>
+                            <th width="150">Họ và tên</th>
+                            <th width="200">Email</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Lần đăng nhập cuối</th>
+                            <th width="100">Tính năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="@item.Id"></td>
+                                <td>#@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Email</td>
+                                <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@(item.LastLoginAt.HasValue ? item.LastLoginAt.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa đăng nhập")</td>
+                                <td class="table-td-center">
+                                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" data-id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm edit" type="button" title="Xem chi tiết" data-id="@item.Id" data-name="@item.Name" data-email="@item.Email" data-created="@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")" data-lastlogin="@(item.LastLoginAt.HasValue ? item.LastLoginAt.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa đăng nhập")">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xem chi tiết khách hàng -->
+<div class="modal fade" id="viewCustomerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Thông tin khách hàng</h5>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label"><strong>ID:</strong></label>
+                        <p id="viewCustomerId"></p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label"><strong>Họ và tên:</strong></label>
+                        <p id="viewCustomerName"></p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label"><strong>Email:</strong></label>
+                        <p id="viewCustomerEmail"></p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label"><strong>Ngày đăng ký:</strong></label>
+                        <p id="viewCustomerCreated"></p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label"><strong>Lần đăng nhập cuối:</strong></label>
+                        <p id="viewCustomerLastLogin"></p>
+                    </div>
+                </div>
+                <BR>
+                <button class="btn btn-save" type="button" id="btnChangePassword" data-id="">Đổi mật khẩu</button>
+                <a class="btn btn-cancel" data-dismiss="modal" href="#">Đóng</a>
+                <BR>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Đổi mật khẩu -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="changePasswordCustomerId" name="id" />
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Đổi mật khẩu khách hàng</h5>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Khách hàng</label>
+                            <p id="changePasswordCustomerName" style="font-weight: bold; color: #001C40;"></p>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Mật khẩu mới <span style="color: red;">*</span></label>
+                            <input class="form-control" type="password" id="newPassword" name="newPassword" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+                            <small class="text-danger" id="errNewPassword" style="display: none;">Mật khẩu phải có ít nhất 6 ký tự</small>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Xác nhận mật khẩu <span style="color: red;">*</span></label>
+                            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập lại mật khẩu mới">
+                            <small class="text-danger" id="errConfirmPassword" style="display: none;">Mật khẩu nhập lại không khớp</small>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="submit">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="@Url.Content("~/Giao diện admin/doc/js/plugins/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Giao diện admin/doc/js/plugins/dataTables.bootstrap.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    
+    <script type="text/javascript">
+        // Khởi tạo DataTable
+        var oTable = $('#sampleTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "lengthMenu": [10, 25, 50, 75, 100],
+            "language": {
+                "lengthMenu": "Hiện _MENU_ danh mục",
+                "zeroRecords": "Không tìm thấy khách hàng nào",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ khách hàng",
+                "infoEmpty": "Không có khách hàng nào để hiển thị",
+                "infoFiltered": "(lọc từ _MAX_ tổng số khách hàng)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            },
+            "drawCallback": function(settings) {
+                console.log('DataTable redrawn - buttons should still work');
+            }
+        });
+
+        // Checkbox chọn tất cả
+        $('#all').click(function (e) {
+            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+            e.stopImmediatePropagation();
+        });
+
+        // Xem chi tiết khách hàng - Dùng event delegation
+        $(document).on('click', '.edit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            var email = $(this).attr('data-email');
+            var created = $(this).attr('data-created');
+            var lastLogin = $(this).attr('data-lastlogin');
+
+            $('#viewCustomerId').text('#' + id);
+            $('#viewCustomerName').text(name);
+            $('#viewCustomerEmail').text(email);
+            $('#viewCustomerCreated').text(created);
+            $('#viewCustomerLastLogin').text(lastLogin);
+            
+            // Lưu ID cho nút đổi mật khẩu
+            $('#btnChangePassword').attr('data-id', id);
+
+            $('#viewCustomerModal').modal('show');
+        });
+
+        // Khi click nút "Đổi mật khẩu" trong modal xem chi tiết
+        $('#btnChangePassword').click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            var name = $('#viewCustomerName').text();
+            
+            if (!id) {
+                swal("Lỗi!", "Không tìm thấy ID khách hàng", "error");
+                return;
+            }
+            
+            // Đóng modal xem chi tiết
+            $('#viewCustomerModal').modal('hide');
+            
+            // Mở modal đổi mật khẩu
+            $('#changePasswordCustomerId').val(id);
+            $('#changePasswordCustomerName').text(name);
+            $('#newPassword').val('');
+            $('#confirmPassword').val('');
+            $('#errNewPassword').hide();
+            $('#errConfirmPassword').hide();
+            $('#changePasswordModal').modal('show');
+        });
+
+        // Submit form đổi mật khẩu
+        $('#changePasswordForm').submit(function(e) {
+            e.preventDefault();
+            
+            var id = $('#changePasswordCustomerId').val();
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+            
+            // Validation
+            var isValid = true;
+            
+            if (!newPassword || newPassword.length < 6) {
+                $('#errNewPassword').show();
+                isValid = false;
+            } else {
+                $('#errNewPassword').hide();
+            }
+            
+            if (newPassword !== confirmPassword) {
+                $('#errConfirmPassword').show();
+                isValid = false;
+            } else {
+                $('#errConfirmPassword').hide();
+            }
+            
+            if (!isValid) {
+                return;
+            }
+            
+            $.ajax({
+                url: '@Url.Action("ChangeCustomerPassword", "Admin")',
+                type: 'POST',
+                data: {
+                    id: id,
+                    newPassword: newPassword,
+                    confirmPassword: confirmPassword,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(response) {
+                    if (response && response.success) {
+                        swal({
+                            title: "Thành công!",
+                            text: response.message || "Đã đổi mật khẩu thành công",
+                            icon: "success",
+                            button: "OK"
+                        }).then(function() {
+                            $('#changePasswordModal').modal('hide');
+                        });
+                    } else {
+                        swal({
+                            title: "Lỗi!",
+                            text: (response && response.message) || "Có lỗi xảy ra khi đổi mật khẩu",
+                            icon: "error",
+                            button: "OK"
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = "Có lỗi xảy ra khi đổi mật khẩu";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    swal({
+                        title: "Lỗi!",
+                        text: errorMessage,
+                        icon: "error",
+                        button: "OK"
+                    });
+                }
+            });
+        });
+
+        // Xóa khách hàng - Dùng event delegation
+        $(document).on('click', '.trash', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var id = $(this).attr('data-id');
+            var row = $(this).closest('tr');
+            
+            swal({
+                title: "Cảnh báo",
+                text: "Bạn có chắc chắn muốn xóa khách hàng này?",
+                icon: "warning",
+                buttons: ["Hủy bỏ", "Đồng ý"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteCustomer", "Admin")',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function(response) {
+                            if (response && response.success) {
+                                swal("Đã xóa thành công!", {
+                                    icon: "success",
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            } else {
+                                swal("Lỗi!", (response && response.message) || "Có lỗi xảy ra khi xóa khách hàng", {
+                                    icon: "error",
+                                });
+                            }
+                        },
+                        error: function() {
+                            swal("Lỗi!", "Có lỗi xảy ra khi xóa khách hàng", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-excel {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .app-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .app-breadcrumb {
+            margin-bottom: 0;
+        }
+        .app-breadcrumb .breadcrumb-item.active b {
+            color: #001C40;
+        }
+        #clock {
+            font-weight: bold;
+        }
+        .tile {
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .trash, .edit {
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        .trash {
+            background-color: #dc3545;
+        }
+        .edit {
+            background-color: #007bff;
+        }
+        .table-td-center {
+            text-align: center;
+        }
+        .thong-tin-thanh-toan h5 {
+            color: #001C40;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .element-button {
+            margin-bottom: 20px;
+        }
+        .element-button .btn {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background-color: #218838;
+        }
+    </style>
+}
+

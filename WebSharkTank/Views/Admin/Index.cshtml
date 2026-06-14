@@ -1,0 +1,484 @@
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+@model IEnumerable<WebSharkTank.Models.Product>
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
+    </ul>
+    <div id="clock"></div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="row element-button">
+                    <div class="col-sm-2">
+                        <a class="btn btn-add btn-sm" href="@Url.Action("Create", "Admin")" title="Thêm">
+                            <i class="fas fa-plus"></i> Tạo mới sản phẩm
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" href="@Url.Action("Import", "Admin")">
+                            <i class="fas fa-file-upload"></i> Tải từ file
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="window.print()">
+                            <i class="fas fa-print"></i> In dữ liệu
+                        </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-excel btn-sm" href="#" title="Xuất Excel">
+                            <i class="fas fa-file-excel"></i> Xuất Excel
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-hover table-bordered" id="sampleTable">
+                    <thead>
+                        <tr>
+                            <th width="10"><input type="checkbox" id="all"></th>
+                            <th>Mã sản phẩm</th>
+                            <th>Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Danh mục</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+                            <th>Tình trạng</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td width="10"><input type="checkbox" name="check1" value="@item.Id"></td>
+                                <td>@item.ProductId</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Image))
+                                    {
+                                        <img src="@item.Image" alt="@item.Title" width="100px;">
+                                    }
+                                    else
+                                    {
+                                        <span>Không có ảnh</span>
+                                    }
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@(string.IsNullOrEmpty(item.Category) ? "Chưa phân loại" : item.Category)</td>
+                                <td>@(string.IsNullOrEmpty(item.Price) ? "0" : item.Price) ₫</td>
+                                <td>@(string.IsNullOrEmpty(item.Sold) ? "0" : item.Sold)</td>
+                                <td>
+                                    <span class="badge bg-success">Còn hàng</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" data-id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm edit btn-edit-product" type="button" title="Sửa" 
+                                            data-id="@item.Id" 
+                                            data-productid="@Html.AttributeEncode(item.ProductId ?? "")" 
+                                            data-title="@Html.AttributeEncode(item.Title ?? "")" 
+                                            data-price="@Html.AttributeEncode(item.Price ?? "")" 
+                                            data-category="@Html.AttributeEncode(item.Category ?? "")" 
+                                            data-sold="@Html.AttributeEncode(item.Sold ?? "")">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Product -->
+<div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="editProductForm">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="productId" name="Id" />
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Mã sản phẩm</label>
+                            <input class="form-control" type="text" id="editProductId" name="ProductId" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Tên sản phẩm</label>
+                            <input class="form-control" type="text" id="editTitle" name="Title" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Số lượng</label>
+                            <input class="form-control" type="text" id="editSold" name="Sold" placeholder="VD: 11,7k hoặc 20">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="editStatus" class="control-label">Tình trạng sản phẩm</label>
+                            <select class="form-control" id="editStatus" name="status">
+                                <option value="Còn hàng">Còn hàng</option>
+                                <option value="Hết hàng">Hết hàng</option>
+                                <option value="Đang nhập hàng">Đang nhập hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Giá bán</label>
+                            <input class="form-control" type="text" id="editPrice" name="Price" placeholder="VD: 5.600.000">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="editCategory" class="control-label">Danh mục</label>
+                            <select class="form-control" id="editCategory" name="Category">
+                                <option value="">-- Chọn danh mục --</option>
+                                <option value="Mac">Mac</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="PC">PC</option>
+                                <option value="Bàn phím">Bàn phím</option>
+                                <option value="Chuột">Chuột</option>
+                                <option value="Màn hình">Màn hình</option>
+                                <option value="VGA">VGA</option>
+                                <option value="Ram">Ram</option>
+                                <option value="Thiết bị Mạng">Thiết bị Mạng</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    <BR>
+                    <a href="#" id="btnAdvancedEdit" style="float: right; font-weight: 600; color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
+                    <BR>
+                    <BR>
+                    <button class="btn btn-save" type="submit">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="@Url.Content("~/Giao diện admin/doc/js/plugins/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Giao diện admin/doc/js/plugins/dataTables.bootstrap.min.js")"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    
+    <script type="text/javascript">
+        // Khởi tạo DataTable
+        var oTable = $('#sampleTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "lengthMenu": [10, 25, 50, 75, 100],
+            "language": {
+                "lengthMenu": "Hiện _MENU_ danh mục",
+                "zeroRecords": "Không tìm thấy dữ liệu",
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ kết quả",
+                "infoEmpty": "Hiển thị 0 đến 0 của 0 kết quả",
+                "infoFiltered": "(lọc từ _MAX_ tổng số kết quả)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            },
+            "drawCallback": function(settings) {
+                // Đảm bảo các event handlers vẫn hoạt động sau khi DataTables render lại
+                console.log('DataTable redrawn - buttons should still work');
+            }
+        });
+
+        // Checkbox chọn tất cả
+        $('#all').click(function (e) {
+            $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+            e.stopImmediatePropagation();
+        });
+
+        // Khi click nút Sửa - Dùng event delegation để hoạt động với DataTables pagination
+        $(document).on('click', '.btn-edit-product', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var $btn = $(this);
+            var id = $btn.attr('data-id');
+            var productId = $btn.attr('data-productid') || '';
+            var title = $btn.attr('data-title') || '';
+            var price = $btn.attr('data-price') || '';
+            var category = $btn.attr('data-category') || '';
+            var sold = $btn.attr('data-sold') || '';
+
+            // Debug
+            console.log('Edit clicked:', { id, productId, title, price, category, sold });
+
+            // Điền dữ liệu vào form
+            $('#productId').val(id);
+            $('#editProductId').val(productId);
+            $('#editTitle').val(title);
+            
+            // Xử lý giá - loại bỏ ký tự đặc biệt
+            var cleanPrice = price ? price.toString().replace(/[₫đ,\s]/g, '').trim() : '';
+            $('#editPrice').val(cleanPrice);
+            
+            // Set category, nếu không có thì để trống (sẽ hiển thị "-- Chọn danh mục --")
+            $('#editCategory').val(category || '');
+            $('#editSold').val(sold || '');
+
+            // Mở modal
+            $('#ModalUP').modal('show');
+        });
+
+        // Khi click "Chỉnh sửa sản phẩm nâng cao" - Dùng event delegation
+        $(document).on('click', '#btnAdvancedEdit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var id = $('#productId').val();
+            console.log('Advanced Edit clicked, ID:', id);
+            
+            if (id && id !== '0' && id !== '') {
+                // Đóng modal hiện tại
+                $('#ModalUP').modal('hide');
+                // Chuyển đến trang edit
+                window.location.href = '@Url.Action("Edit", "Admin")?id=' + id;
+            } else {
+                swal({
+                    title: "Lỗi!",
+                    text: "Không tìm thấy ID sản phẩm. Vui lòng chọn sản phẩm để chỉnh sửa.",
+                    icon: "error",
+                    button: "OK"
+                });
+            }
+        });
+
+        // Submit form
+        $('#editProductForm').submit(function(e) {
+            e.preventDefault();
+            
+            // Kiểm tra Id
+            var productId = $('#productId').val();
+            if (!productId || productId === '0') {
+                swal({
+                    title: "Lỗi!",
+                    text: "Không tìm thấy ID sản phẩm",
+                    icon: "error",
+                    button: "OK"
+                });
+                return;
+            }
+
+            var formData = {
+                Id: parseInt(productId),
+                ProductId: $('#editProductId').val(),
+                Title: $('#editTitle').val(),
+                Price: $('#editPrice').val(),
+                Sold: $('#editSold').val(),
+                Category: $('#editCategory').val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                isAjax: true
+            };
+
+            $.ajax({
+                url: '@Url.Action("Edit", "Admin")',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response && response.success) {
+                        swal({
+                            title: "Thành công!",
+                            text: response.message || "Đã cập nhật sản phẩm thành công",
+                            icon: "success",
+                            button: "OK"
+                        }).then(function() {
+                            $('#ModalUP').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "Lỗi!",
+                            text: (response && response.message) || "Có lỗi xảy ra khi cập nhật",
+                            icon: "error",
+                            button: "OK"
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = "Có lỗi xảy ra khi cập nhật";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    } else if (xhr.responseText) {
+                        try {
+                            var errorObj = JSON.parse(xhr.responseText);
+                            errorMessage = errorObj.message || errorMessage;
+                        } catch (e) {
+                            errorMessage = xhr.responseText.substring(0, 200);
+                        }
+                    }
+                    swal({
+                        title: "Lỗi!",
+                        text: errorMessage,
+                        icon: "error",
+                        button: "OK"
+                    });
+                }
+            });
+        });
+
+        // Xóa sản phẩm - Dùng event delegation để hoạt động với DataTables pagination
+        $(document).on('click', '.trash', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var id = $(this).attr('data-id');
+            var row = $(this).closest('tr');
+            
+            swal({
+                title: "Cảnh báo",
+                text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
+                icon: "warning",
+                buttons: ["Hủy bỏ", "Đồng ý"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Admin")',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        success: function(response) {
+                            if (response && response.success) {
+                                swal("Đã xóa thành công!", {
+                                    icon: "success",
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            } else {
+                                swal("Lỗi!", (response && response.message) || "Có lỗi xảy ra khi xóa sản phẩm", {
+                                    icon: "error",
+                                });
+                            }
+                        },
+                        error: function() {
+                            swal("Lỗi!", "Có lỗi xảy ra khi xóa sản phẩm", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-add:hover {
+            background-color: #218838;
+            color: white;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: white;
+        }
+        .btn-excel {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-excel:hover {
+            background-color: #218838;
+            color: white;
+        }
+        .btn-primary.btn-sm.trash {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+        .btn-primary.btn-sm.trash:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+        .btn-primary.btn-sm.edit {
+            background-color: #ff9800;
+            border-color: #ff9800;
+            color: white;
+        }
+        .btn-primary.btn-sm.edit:hover {
+            background-color: #f57c00;
+            border-color: #f57c00;
+        }
+        .badge.bg-success {
+            background-color: #28a745 !important;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .badge.bg-danger {
+            background-color: #dc3545 !important;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+        .thong-tin-thanh-toan h5 {
+            color: #001C40;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .element-button {
+            margin-bottom: 20px;
+        }
+        .element-button .btn {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        #sampleTable img {
+            border-radius: 4px;
+        }
+    </style>
+}

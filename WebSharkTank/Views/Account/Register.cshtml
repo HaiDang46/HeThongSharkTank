@@ -1,0 +1,226 @@
+@{
+    ViewBag.Title = "Đăng Ký | SharkTank Shop";
+    Layout = null;
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký | SharkTank Shop</title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="@Url.Content("~/Content/favicon/apple-touch-icon.png")" />
+    <link rel="icon" type="image/png" sizes="32x32" href="@Url.Content("~/Content/favicon/favicon-32x32.png")" />
+    <link rel="icon" type="image/png" sizes="16x16" href="@Url.Content("~/Content/favicon/favicon-16x16.png")" />
+    <link rel="manifest" href="@Url.Content("~/Content/favicon/site.webmanifest")" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Fonts -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/fonts/stylesheet.css")" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/main.css")" />
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!-- Scripts -->
+    <script src="@Url.Content("~/Content/js/scripts.js")"></script>
+</head>
+<body>
+    <main class="auth">
+        <!-- Auth intro -->
+        <div class="auth__intro">
+            <a href="@Url.Action("Index", "Home")" class="logo auth__intro-logo d-none d-md-flex">
+                <img src="@Url.Content("~/Content/icons/logo.svg")" alt="SharkTank" class="logo__img" />
+                <h1 class="logo__title">Shark Tank</h1>
+            </a>
+            <img src="@Url.Content("~/Content/img/fish-spinning.gif")" alt="" class="auth__intro-img" />
+            <p class="auth__intro-text">
+                Chào mừng bạn đến với website! Vui lòng đăng nhập hoặc tạo tài khoản để bắt đầu trải nghiệm.
+            </p>
+            <button class="auth__intro-next d-none d-md-flex js-toggle" toggle-target="#auth-content">
+                <img src="@Url.Content("~/Content/img/auth/intro-arrow.svg")" alt="" />
+            </button>
+        </div>
+
+        <!-- Auth content -->
+        <div id="auth-content" class="auth__content hide">
+            <div class="auth__content-inner">
+                <a href="@Url.Action("Index", "Home")" class="logo">
+                    <img src="@Url.Content("~/Content/icons/logo.svg")" alt="SharkTank" class="logo__img" />
+                    <h1 class="logo__title"></h1>
+                </a>
+                <h1 class="auth__heading">Đăng ký</h1>
+                <p class="auth__desc">Hãy điền đầy đủ thông tin bên dưới để đăng ký tài khoản thành viên SharkTank Shop</p>
+
+                <form id="sign-up-form" action="javascript:void(0)" class="form auth__form" data-has-handler="true">
+                    @Html.AntiForgeryToken()
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input
+                                type="text"
+                                id="sign-up-name"
+                                placeholder="Full name"
+                                class="form__input"
+                            />
+                            <img src="@Url.Content("~/Content/icons/user.svg")" alt="" class="form__input-icon" />
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input
+                                type="email"
+                                id="sign-up-email"
+                                placeholder="Email"
+                                class="form__input"
+                                autofocus
+                                required
+                            />
+                            <img src="@Url.Content("~/Content/icons/message.svg")" alt="" class="form__input-icon" />
+                            <img src="@Url.Content("~/Content/icons/form-error.svg")" alt="" class="form__input-icon-error" />
+                        </div>
+                        <p class="form__error">Email chưa đúng!</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input
+                                type="password"
+                                id="sign-up-password"
+                                placeholder="Password"
+                                class="form__input"
+                                required
+                                minlength="6"
+                            />
+                            <img src="@Url.Content("~/Content/icons/lock.svg")" alt="" class="form__input-icon" />
+                            <img src="@Url.Content("~/Content/icons/form-error.svg")" alt="" class="form__input-icon-error" />
+                        </div>
+                        <p class="form__error">Mật khẩu phải có ít nhất 6 ký tự</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input
+                                type="password"
+                                id="sign-up-confirm"
+                                placeholder="Confirm password"
+                                class="form__input"
+                                required
+                                minlength="6"
+                            />
+                            <img src="@Url.Content("~/Content/icons/lock.svg")" alt="" class="form__input-icon" />
+                            <img src="@Url.Content("~/Content/icons/form-error.svg")" alt="" class="form__input-icon-error" />
+                        </div>
+                        <p class="form__error">Mật khẩu phải có ít nhất 6 ký tự</p>
+                    </div>
+                    <div class="form__group form__group--inline">
+                        <label class="form__checkbox">
+                            <input type="checkbox" class="form__checkbox-input d-none" />
+                            <span class="form__checkbox-label">Ghi nhớ đăng nhập</span>
+                        </label>
+                    </div>
+                    <div class="form__group auth__btn-group">
+                        <button class="btn btn--primary auth__btn form__submit-btn">Đăng ký</button>
+                        <button class="btn btn--outline auth__btn btn--no-margin" type="button">
+                            <img src="@Url.Content("~/Content/icons/google.svg")" alt="" class="btn__icon icon" />
+                            Đăng nhập bằng tài khoản Google
+                        </button>
+                    </div>
+                </form>
+                <p class="auth__text">
+                    Bạn đã có tài khoản ?
+                    <a href="@Url.Action("Login", "Account")" class="auth__link auth__text-link">Đăng Nhập</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script src="@Url.Content("~/Content/js/auth-local.js")"></script>
+    <script>
+        // Handle form submission
+        document.getElementById('sign-up-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('sign-up-name')?.value;
+            const email = document.getElementById('sign-up-email')?.value;
+            const password = document.getElementById('sign-up-password')?.value;
+            const confirmPassword = document.getElementById('sign-up-confirm')?.value;
+
+            try {
+                const formData = new FormData();
+                formData.append('name', name || '');
+                formData.append('email', email);
+                formData.append('password', password);
+                formData.append('confirmPassword', confirmPassword);
+                formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]')?.value || '');
+
+                const response = await fetch('@Url.Action("Register", "Account")', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    // Sync với localStorage
+                    try {
+                        const userInfo = await fetch('@Url.Action("GetCurrentUser", "Account")').then(r => r.json());
+                        if (userInfo.success && userInfo.user && window.Auth) {
+                            window.Auth.setCurrentUser({
+                                id: userInfo.user.id,
+                                name: userInfo.user.name,
+                                email: userInfo.user.email
+                            });
+                            // Trigger event để sync cart NGAY LẬP TỨC
+                            document.dispatchEvent(new Event('auth-slot-updated'));
+                            
+                            // Load cart từ SQL ngay (không chờ redirect) và render ngay
+                            if (window.Auth && typeof window.Auth.syncCartFromServer === 'function') {
+                                window.Auth.syncCartFromServer();
+                                // Đảm bảo render cart ngay lập tức
+                                setTimeout(() => {
+                                    if (window.renderMiniCart) {
+                                        window.renderMiniCart();
+                                        console.log('[register] Đã render cart sau khi đăng ký');
+                                    }
+                                }, 100);
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Không sync được user info:', e);
+                    }
+                    
+                    // Hiển thị thông báo thành công bằng SweetAlert
+                    swal({
+                        title: "Thành công!",
+                        text: result.message || 'Đăng ký thành công!',
+                        icon: "success",
+                        button: "OK"
+                    }).then(() => {
+                        if (result.redirectUrl) {
+                            window.location.href = result.redirectUrl;
+                        }
+                    });
+                } else {
+                    // Hiển thị thông báo lỗi bằng SweetAlert
+                    swal({
+                        title: "Lỗi!",
+                        text: result.message || 'Đăng ký thất bại!',
+                        icon: "error",
+                        button: "Thử lại"
+                    });
+                }
+            } catch (error) {
+                console.error('Register error:', error);
+                swal({
+                    title: "Lỗi!",
+                    text: 'Có lỗi xảy ra khi đăng ký!',
+                    icon: "error",
+                    button: "OK"
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

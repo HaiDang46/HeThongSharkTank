@@ -1,0 +1,249 @@
+@{
+    ViewBag.Title = "Tạo tài khoản khách hàng";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("Customers", "Admin")">Danh sách khách hàng</a></li>
+        <li class="breadcrumb-item"><a href="#">Tạo tài khoản khách hàng</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title">Tạo mới tài khoản khách hàng</h3>
+            <div class="tile-body">
+                @using (Html.BeginForm("CreateCustomer", "Admin", FormMethod.Post, new { @class = "row", id = "createCustomerForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Họ và tên <span style="color: red;">*</span></label>
+                        <input class="form-control" type="text" id="name" name="name" required placeholder="Nhập họ và tên">
+                        <small class="text-danger" id="errName" style="display: none;">Vui lòng nhập họ và tên</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Email <span style="color: red;">*</span></label>
+                        <input class="form-control" type="email" id="email" name="email" required placeholder="Nhập email">
+                        <small class="text-danger" id="errEmail" style="display: none;">Email không hợp lệ hoặc đã được sử dụng</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Mật khẩu <span style="color: red;">*</span></label>
+                        <input class="form-control" type="password" id="password" name="password" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+                        <small class="text-danger" id="errPassword" style="display: none;">Mật khẩu phải có ít nhất 6 ký tự</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Xác nhận mật khẩu <span style="color: red;">*</span></label>
+                        <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required placeholder="Nhập lại mật khẩu">
+                        <small class="text-danger" id="errConfirmPassword" style="display: none;">Mật khẩu nhập lại không khớp</small>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-save" type="submit">Tạo tài khoản</button>
+                        <a class="btn btn-cancel" href="@Url.Action("Customers", "Admin")">Hủy bỏ</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Validation real-time
+            $('#name').on('blur', function() {
+                if ($(this).val().trim() === '') {
+                    $('#errName').show();
+                } else {
+                    $('#errName').hide();
+                }
+            });
+
+            $('#email').on('blur', function() {
+                var email = $(this).val().trim();
+                var emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                if (!emailRegex.test(email)) {
+                    $('#errEmail').text('Email không hợp lệ').show();
+                } else {
+                    $('#errEmail').hide();
+                }
+            });
+
+            $('#password').on('blur', function() {
+                if ($(this).val().length < 6) {
+                    $('#errPassword').show();
+                } else {
+                    $('#errPassword').hide();
+                }
+            });
+
+            $('#confirmPassword').on('blur', function() {
+                if ($(this).val() !== $('#password').val()) {
+                    $('#errConfirmPassword').show();
+                } else {
+                    $('#errConfirmPassword').hide();
+                }
+            });
+
+            // Submit form
+            $('#createCustomerForm').submit(function(e) {
+                e.preventDefault();
+                
+                var name = $('#name').val().trim();
+                var email = $('#email').val().trim();
+                var password = $('#password').val();
+                var confirmPassword = $('#confirmPassword').val();
+                
+                // Validation
+                var isValid = true;
+                
+                if (!name) {
+                    $('#errName').show();
+                    isValid = false;
+                } else {
+                    $('#errName').hide();
+                }
+                
+                var emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                if (!email || !emailRegex.test(email)) {
+                    $('#errEmail').text('Email không hợp lệ').show();
+                    isValid = false;
+                } else {
+                    $('#errEmail').hide();
+                }
+                
+                if (!password || password.length < 6) {
+                    $('#errPassword').show();
+                    isValid = false;
+                } else {
+                    $('#errPassword').hide();
+                }
+                
+                if (password !== confirmPassword) {
+                    $('#errConfirmPassword').show();
+                    isValid = false;
+                } else {
+                    $('#errConfirmPassword').hide();
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                $.ajax({
+                    url: '@Url.Action("CreateCustomer", "Admin")',
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        email: email,
+                        password: password,
+                        confirmPassword: confirmPassword,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(response) {
+                        if (response && response.success) {
+                            swal({
+                                title: "Thành công!",
+                                text: response.message || "Đã tạo tài khoản thành công",
+                                icon: "success",
+                                button: "OK"
+                            }).then(function() {
+                                if (response.redirectUrl) {
+                                    window.location.href = response.redirectUrl;
+                                } else {
+                                    window.location.href = '@Url.Action("Customers", "Admin")';
+                                }
+                            });
+                        } else {
+                            var errorMsg = (response && response.message) || "Có lỗi xảy ra khi tạo tài khoản";
+                            if (errorMsg.includes("Email")) {
+                                $('#errEmail').text(errorMsg).show();
+                            } else {
+                                swal({
+                                    title: "Lỗi!",
+                                    text: errorMsg,
+                                    icon: "error",
+                                    button: "OK"
+                                });
+                            }
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = "Có lỗi xảy ra khi tạo tài khoản";
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                            if (errorMessage.includes("Email")) {
+                                $('#errEmail').text(errorMessage).show();
+                            } else {
+                                swal({
+                                    title: "Lỗi!",
+                                    text: errorMessage,
+                                    icon: "error",
+                                    button: "OK"
+                                });
+                            }
+                        } else {
+                            swal({
+                                title: "Lỗi!",
+                                text: errorMessage,
+                                icon: "error",
+                                button: "OK"
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-save:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+        .app-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .app-breadcrumb {
+            margin-bottom: 0;
+        }
+        .app-breadcrumb .breadcrumb-item.active b {
+            color: #001C40;
+        }
+        .tile {
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            padding: 8px 12px;
+        }
+    </style>
+}
+

@@ -1,0 +1,179 @@
+@{
+    ViewBag.Title = "Thêm thẻ mới | Shark Tank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+
+<!-- MAIN -->
+<main class="profile">
+    <div class="container">
+        <!-- Search bar -->
+        <div class="profile-container">
+            <form class="search-bar d-none d-md-flex" role="search" aria-label="Tìm kiếm" onsubmit="return false;">
+                <input type="search" id="profile-search" placeholder="Tìm sản phẩm…"
+                    class="search-bar__input" autocomplete="off" aria-label="Tìm sản phẩm" />
+                <button class="search-bar__submit" type="button" aria-label="Tìm kiếm">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt="Tìm kiếm" class="search-bar__icon icon" />
+                </button>
+            </form>
+        </div>
+
+        <!-- Profile content -->
+        <div class="profile-container">
+            <div class="row gy-md-3">
+                <!-- Sidebar dùng component để tránh trùng mã -->
+                <div class="col-3 col-xl-4 d-lg-none">
+                    <div id="profile-sidebar"></div>
+                </div>
+                <div class="col-9 col-xl-8 col-lg-12">
+                    <div class="cart-info">
+                        <div class="row gy-3">
+                            <div class="col-12">
+                                <h2 class="cart-info__heading">
+                                    <a href="@Url.Action("Index", "Profile")" aria-label="Quay lại hồ sơ">
+                                        <img src="@Url.Content("~/Content/icons/arrow-left.svg")" alt class="icon cart-info__back-arrow" />
+                                    </a>
+                                    Thêm thẻ tín dụng/ghi nợ
+                                </h2>
+                                <form id="add-card-form" action="javascript:void(0)" class="form form-card" novalidate>
+                                    @Html.AntiForgeryToken()
+                                    <!-- Hàng 1: Họ / Tên -->
+                                    <div class="form__row">
+                                        <div class="form__group">
+                                            <label for="first-name" class="form__label form-card__label">Họ</label>
+                                            <div class="form__text-input">
+                                                <input type="text" id="first-name" placeholder="Nhập họ"
+                                                    class="form__input" required autofocus autocomplete="cc-given-name" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập họ</p>
+                                        </div>
+                                        <div class="form__group">
+                                            <label for="last-name" class="form__label form-card__label">Tên</label>
+                                            <div class="form__text-input">
+                                                <input type="text" id="last-name" placeholder="Nhập tên"
+                                                    class="form__input" required autocomplete="cc-family-name" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập tên</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hàng 2: Số thẻ / Ngày hết hạn -->
+                                    <div class="form__row">
+                                        <div class="form__group">
+                                            <label for="card-number" class="form__label form-card__label">Số thẻ</label>
+                                            <div class="form__text-input">
+                                                <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX"
+                                                    class="form__input" required inputmode="numeric" autocomplete="cc-number" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập số thẻ hợp lệ</p>
+                                        </div>
+                                        <div class="form__group">
+                                            <label for="expiration-date" class="form__label form-card__label">Ngày hết hạn</label>
+                                            <div class="form__text-input">
+                                                <input type="text" id="expiration-date" placeholder="MM/YY"
+                                                    class="form__input" required inputmode="numeric" autocomplete="cc-exp" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập ngày hết hạn hợp lệ</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hàng 3: CVV / Số điện thoại -->
+                                    <div class="form__row">
+                                        <div class="form__group">
+                                            <label for="card-cvv" class="form__label form-card__label">CVV</label>
+                                            <div class="form__text-input">
+                                                <input type="text" id="card-cvv" placeholder="123"
+                                                    class="form__input" required inputmode="numeric" autocomplete="cc-csc" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập CVV hợp lệ</p>
+                                        </div>
+                                        <div class="form__group">
+                                            <label for="phone-number" class="form__label form-card__label">Số điện thoại</label>
+                                            <div class="form__text-input">
+                                                <input type="tel" id="phone-number" placeholder="Số điện thoại"
+                                                    class="form__input" required autocomplete="tel" />
+                                                <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                            </div>
+                                            <p class="form__error">Vui lòng nhập số điện thoại hợp lệ</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tuỳ chọn -->
+                                    <div class="form__group">
+                                        <label for="set-default-card" class="form__label form-card__label">Tuỳ chọn thẻ</label>
+                                        <label class="form__checkbox">
+                                            <input type="checkbox" id="set-default-card" checked class="form__checkbox-input d-none" />
+                                            <span class="form__checkbox-label">Đặt làm thẻ mặc định</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-card__bottom">
+                                        <a class="btn btn--text" href="@Url.Action("Index", "Profile")">Hủy</a>
+                                        <button class="btn btn--primary btn--rounded" type="submit">Lưu thẻ</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal: xác nhận xoá -->
+<div id="delete-confirm" class="modal modal--small hide">
+    <div class="modal__content">
+        <p class="modal__text">Bạn có muốn xoá sản phẩm này khỏi giỏ hàng?</p>
+        <div class="modal__bottom">
+            <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-confirm">Hủy</button>
+            <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle" toggle-target="#delete-confirm">Xoá</button>
+        </div>
+    </div>
+    <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/Content/js/profile-sidebar.js")"></script>
+    <script src="@Url.Content("~/Content/js/profile-page.js")"></script>
+    <script>
+        // Handle add card form submission
+        document.getElementById('add-card-form')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('first-name')?.value?.trim();
+            const lastName = document.getElementById('last-name')?.value?.trim();
+            const cardNumber = document.getElementById('card-number')?.value?.trim();
+            const expirationDate = document.getElementById('expiration-date')?.value?.trim();
+            const cvv = document.getElementById('card-cvv')?.value?.trim();
+            const phoneNumber = document.getElementById('phone-number')?.value?.trim();
+            const setDefault = document.getElementById('set-default-card')?.checked || false;
+
+            // Basic validation
+            if (!firstName || !lastName || !cardNumber || !expirationDate || !cvv || !phoneNumber) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+
+            // TODO: Implement card saving logic
+            // For now, just show success and redirect
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                alert('Đã thêm thẻ thành công!');
+                window.location.href = '@Url.Action("Index", "Profile")';
+            } catch (error) {
+                console.error('Add card error:', error);
+                alert('Có lỗi xảy ra khi thêm thẻ!');
+            }
+        });
+    </script>
+}
+

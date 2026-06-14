@@ -1,0 +1,84 @@
+﻿@* Views/Shared/_Header.cshtml *@
+<nav class="navbar">
+    <div class="fuldespage">
+        <div class="container">
+            <div class="nav-main__menu navSiteMain sitedesk">
+                <ul class="nav-navbar">
+                    <!-- Khuyến mãi -->
+                    <li>
+                        <a href="./404.html">
+                            <img class="navIcon" width="32" height="32"
+                                 src="~/Content/icons/icon_nav_1_icon.png"
+                                 alt="Khuyến mãi">
+                            <span>Khuyến mãi</span>
+                        </a>
+                    </li>
+                    <!-- Trả góp -->
+                    <li>
+                        <a href="@Url.Action("Installment", "Home")">
+                            <img class="navIcon" width="32" height="32"
+                                 src="~/Content/icons/icon_nav_2_icon.png"
+                                 alt="Trả góp">
+                            <span>Trả góp</span>
+                        </a>
+                    </li>
+                    <!-- Bảng giá -->
+                    <li class="li_child">
+                        <a href="@Url.Action("PriceList", "Home")">
+                            <img class="navIcon" width="32" height="32"
+                                 src="@Url.Content("~/Content/icons/icon_nav_3_icon.png")"
+                                 alt="Bảng giá" />
+                            <span>Bảng giá</span>
+                        </a>
+                    </li>
+                    <!-- Xây dựng cấu hình -->
+                    <li>
+                        <a href="./404.html">
+                            <img class="navIcon" width="32" height="32"
+                                 src="~/Content/icons/icon_nav_4_icon.png"
+                                 alt="Xây dựng cấu hình">
+                            <span>Xây dựng cấu hình</span>
+                        </a>
+                    </li>
+                    <!-- Chính sách bảo hành -->
+                    <li>
+                        <a href="@Url.Action("Policy", "Home")">
+                            <img class="navIcon" width="32" height="32"
+                                 src="~/Content/icons/icon_nav_5_icon.png"
+                                 alt="Chính sách bảo hành">
+                            <span>Chính sách bảo hành</span>
+                        </a>
+                    </li>
+                    <!-- Hotline (có submenu) -->
+                    <li class="li_child">
+                        <a href="/">
+                            <img class="navIcon" width="32" height="32"
+                                 src="~/Content/icons/icon_nav_6_icon.png"
+                                 alt="Hotline">
+                            <span>Hotline</span>
+                        </a>
+                        <ul class="mainChild levlup_2" role="menu">
+                            <li>
+                                <a href="/">
+                                    <span>
+                                        1900 0243 -
+                                        Hotline
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    <span>
+                                        0931 889 888 -
+                                        CSKH
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</nav>

@@ -1,0 +1,191 @@
+@{
+    ViewBag.Title = "Giỏ Hàng | Shark Tank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+
+<main class="checkout-page">
+    <div class="container">
+        <!-- Search bar -->
+        <div class="checkout-container">
+            <div class="search-bar d-none d-md-flex">
+                <input type="text" name id placeholder="Search for item" class="search-bar__input" />
+                <button class="search-bar__submit">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt class="search-bar__icon icon" />
+                </button>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div class="checkout-container">
+            <ul class="breadcrumbs checkout-page__breadcrumbs">
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="breadcrumbs__link">
+                        Trang chủ
+                        <img src="@Url.Content("~/Content/icons/arrow-right.svg")" alt />
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="breadcrumbs__link breadcrumbs__link--current">Giỏ Hàng</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Checkout content -->
+        <div class="checkout-container">
+            <div class="row gy-xl-3">
+                <div class="col-8 col-xl-12">
+                    <div class="cart-info">
+                        <div class="cart-info__list"></div>
+                        <!-- Continue shopping link (desktop) -->
+                        <div class="cart-info__continue d-none d-md-block" style="margin-top: 20px;">
+                            <a href="@Url.Action("Index", "Home")" class="cart-info__continue-link">
+                                <span style="margin-right: 8px;">←</span>
+                                Tiếp tục mua sắm
+                            </a>
+                        </div>
+                        <div class="cart-info__bottom d-md-none">
+                            <div class="row">
+                                <div class="col-8 col-xxl-7">
+                                    <div class="cart-info__continue">
+                                        <a href="@Url.Action("Index", "Home")" class="cart-info__continue-link">
+                                            <img class="cart-info__continue-icon icon" src="@Url.Content("~/Content/icons/arrow-down-2.svg")" alt>
+                                            Tiếp tục mua sắm
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-xxl-5">
+                                    <div class="cart-info__row">
+                                        <span>Mặt Hàng:</span>
+                                        <span id="coSubtotalMobile">0đ</span>
+                                    </div>
+                                    <div class="cart-info__row">
+                                        <span>Phí vận chuyển:</span>
+                                        <span id="coShippingMobile">0đ</span>
+                                    </div>
+                                    <div class="cart-info__separate"></div>
+                                    <div class="cart-info__row cart-info__row--bold">
+                                        <span>Tổng:</span>
+                                        <span id="coTotalMobile">0đ</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-xl-12">
+                    <div class="cart-info">
+                        <div class="cart-info__row">
+                            <span>Mặt Hàng <span class="cart-info__sub-label"></span></span>
+                            <span id="coSubtotalItems">0</span>
+                        </div>
+                        <div class="cart-info__row">
+                            <span>Giá <span class="cart-info__sub-label"></span></span>
+                            <span id="coSubtotalPrice">0đ</span>
+                        </div>
+                        <div class="cart-info__row">
+                            <span>Phí Vận Chuyển</span>
+                            <span id="coShipping">0đ</span>
+                        </div>
+                        <div class="cart-info__separate"></div>
+                        <div class="cart-info__row">
+                            <span>Tổng</span>
+                            <span id="coEstimatedTotal">0đ</span>
+                        </div>
+                        <a href="@Url.Action("Index", "Shipping")" class="cart-info__next-btn btn btn--primary btn--rounded" style="background-color: #ffd700 !important; color: #000 !important; font-weight: bold !important; border: none !important;">
+                            Tiếp Tục Thanh Toán
+                        </a>
+                    </div>
+
+                    <div class="cart-info">
+                        <a href="#!">
+                            <article class="gift-item">
+                                <div class="gift-item__icon-wrap">
+                                    <img src="@Url.Content("~/Content/icons/gift.svg")" alt class="gift-item__icon" />
+                                </div>
+                                <div class="gift-item__content">
+                                    <h3 class="gift-item__title">Gửi đơn hàng này như một món quà.</h3>
+                                    <p class="gift-item__desc">
+                                        Các mặt hàng có sẵn sẽ được chuyển đến người nhận quà của bạn.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal: confirm remove shopping cart item -->
+<div id="delete-confirm" class="modal modal--small hide">
+    <div class="modal__content">
+        <p class="modal__text">Do you want to remove this item from shopping cart?</p>
+        <div class="modal__bottom">
+            <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-confirm">
+                Cancel
+            </button>
+            <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle" toggle-target="#delete-confirm">
+                Delete
+            </button>
+        </div>
+    </div>
+    <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+</div>
+
+@section Scripts {
+    <script>
+        // Kiểm tra đăng nhập khi click vào "Tiếp Tục Thanh Toán"
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutBtn = document.querySelector('a.cart-info__next-btn[href*="Shipping"]');
+            
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Kiểm tra đăng nhập từ server
+                    let isLoggedIn = false;
+                    try {
+                        const authCheck = await fetch('/Account/GetCurrentUser', {
+                            cache: 'no-cache',
+                            headers: { 'Cache-Control': 'no-cache' }
+                        });
+                        if (authCheck.ok) {
+                            const authData = await authCheck.json();
+                            isLoggedIn = authData.success && authData.authenticated && authData.user && authData.user.id;
+                        }
+                    } catch (error) {
+                        console.warn('[checkout] Lỗi kiểm tra đăng nhập:', error);
+                    }
+                    
+                    if (!isLoggedIn) {
+                        // Chưa đăng nhập: Hiển thị SweetAlert
+                        swal({
+                            title: "Cần đăng nhập",
+                            text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Bạn có muốn chuyển đến trang đăng nhập không?",
+                            icon: "warning",
+                            buttons: {
+                                cancel: "Hủy",
+                                confirm: {
+                                    text: "Đăng nhập",
+                                    value: true
+                                }
+                            }
+                        }).then((willLogin) => {
+                            if (willLogin) {
+                                window.location.href = '@Url.Action("Login", "Account")?ReturnUrl=/Shipping';
+                            }
+                        });
+                    } else {
+                        // Đã đăng nhập: Cho phép tiếp tục
+                        window.location.href = '@Url.Action("Index", "Shipping")';
+                    }
+                });
+            }
+        });
+    </script>
+}
+

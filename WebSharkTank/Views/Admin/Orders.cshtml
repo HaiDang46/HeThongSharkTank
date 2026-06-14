@@ -1,0 +1,753 @@
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    ViewBag.ActiveMenu = "Orders";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+@{
+    var ordersList = ViewBag.Orders as List<WebSharkTank.Models.OrderWithItemsViewModel>;
+}
+
+<div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng</b></a></li>
+    </ul>
+    <div id="clock"></div>
+</div>
+
+@Html.AntiForgeryToken()
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <table class="table table-hover table-bordered" id="sampleTable">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Khách hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Sản phẩm</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Địa chỉ đặt hàng</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ordersList != null && ordersList.Count > 0)
+                        {
+                            foreach (var orderData in ordersList)
+                            {
+                                var order = orderData.Order;
+                                var orderItems = orderData.OrderItems;
+                                <tr>
+                                    <td><span class="order-id">#@order.Id</span></td>
+                                    <td>
+                                        <div class="customer-info">
+                                            <strong>@orderData.UserName</strong>
+                                            <small>@orderData.UserEmail</small>
+                                        </div>
+                                    </td>
+                                    <td>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <div style="max-width: 300px;">
+                                            @foreach (var item in orderItems)
+                                            {
+                                                <div class="order-product-item">
+                                                    <strong>@item.ProductName</strong>
+                                                    <small>Số lượng: @item.Quantity | Giá: @string.Format("{0:N0}", item.Price)₫</small>
+                                                </div>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="order-total">@string.Format("{0:N0}", order.TotalAmount)₫</div>
+                                        @if (order.ShippingFee > 0)
+                                        {
+                                            <div class="order-shipping">Phí ship: @string.Format("{0:N0}", order.ShippingFee)₫</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            string statusClass = "";
+                                            string statusText = "";
+                                            switch (order.Status)
+                                            {
+                                                case "Pending":
+                                                    statusClass = "bg-warning";
+                                                    statusText = "Chờ xử lý";
+                                                    break;
+                                                case "Processing":
+                                                    statusClass = "bg-info";
+                                                    statusText = "Đang xử lý";
+                                                    break;
+                                                case "Shipped":
+                                                    statusClass = "bg-primary";
+                                                    statusText = "Đã giao hàng";
+                                                    break;
+                                                case "Delivered":
+                                                    statusClass = "bg-success";
+                                                    statusText = "Đã nhận hàng";
+                                                    break;
+                                                case "Cancelled":
+                                                    statusClass = "bg-danger";
+                                                    statusText = "Đã hủy";
+                                                    break;
+                                                default:
+                                                    statusClass = "bg-secondary";
+                                                    statusText = order.Status;
+                                                    break;
+                                            }
+                                        }
+                                        <span class="badge status-badge @statusClass">@statusText</span>
+                                    </td>
+                                    <td>
+                                        <span class="payment-method">@order.PaymentMethod</span>
+                                    </td>
+                                    <td>
+                                        <div class="order-address" style="max-width: 250px;">
+                                            @if (!string.IsNullOrEmpty(orderData.FullAddress))
+                                            {
+                                                <span class="address-text" title="@orderData.FullAddress">@orderData.FullAddress</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Chưa có địa chỉ</span>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-view-order" type="button" title="Xem chi tiết" data-order-id="@order.Id">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <div class="btn-group" style="margin-left: 5px;">
+                                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item update-status" href="#" data-order-id="@order.Id" data-status="Pending">Chờ xử lý</a>
+                                                <a class="dropdown-item update-status" href="#" data-order-id="@order.Id" data-status="Processing">Đang xử lý</a>
+                                                <a class="dropdown-item update-status" href="#" data-order-id="@order.Id" data-status="Shipped">Đã giao hàng</a>
+                                                <a class="dropdown-item update-status" href="#" data-order-id="@order.Id" data-status="Delivered">Đã nhận hàng</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item update-status text-danger" href="#" data-order-id="@order.Id" data-status="Cancelled">Hủy đơn hàng</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center">
+                                    <div class="empty-orders">
+                                        <i class="fas fa-shopping-bag"></i>
+                                        <p style="font-size: 16px; margin-top: 16px;">Chưa có đơn hàng nào</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chi tiết đơn hàng -->
+<div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #001C40; color: white;">
+                <h5 class="modal-title" id="orderDetailModalLabel">
+                    <i class="fas fa-shopping-bag"></i> Chi tiết đơn hàng #<span id="modalOrderId"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="orderDetailContent" style="padding: 20px;">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Đang tải...</span>
+                    </div>
+                    <p>Đang tải thông tin đơn hàng...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Style cho bảng đơn hàng */
+    #sampleTable {
+        font-size: 14px;
+    }
+    
+    #sampleTable thead th {
+        background-color: #001C40;
+        color: white;
+        font-weight: 600;
+        padding: 12px 8px;
+        text-align: center;
+        border: 1px solid #001C40;
+    }
+    
+    #sampleTable tbody td {
+        padding: 12px 8px;
+        vertical-align: middle;
+        border: 1px solid #e0e0e0;
+    }
+    
+    #sampleTable tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    /* Style cho sản phẩm trong đơn hàng */
+    .order-product-item {
+        margin-bottom: 8px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        border-left: 3px solid #007bff;
+        transition: all 0.2s;
+    }
+    
+    .order-product-item:hover {
+        background: #e9ecef;
+        transform: translateX(2px);
+    }
+    
+    .order-product-item strong {
+        color: #001C40;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 4px;
+    }
+    
+    .order-product-item small {
+        color: #666;
+        font-size: 12px;
+    }
+    
+    /* Style cho địa chỉ đặt hàng */
+    .order-address {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    .address-text {
+        color: #333;
+        display: block;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    
+    .address-text:hover {
+        color: #007bff;
+    }
+    
+    /* Style cho badge trạng thái */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .status-badge.bg-warning {
+        background-color: #ffc107 !important;
+        color: #000;
+    }
+    
+    .status-badge.bg-info {
+        background-color: #17a2b8 !important;
+        color: white;
+    }
+    
+    .status-badge.bg-primary {
+        background-color: #007bff !important;
+        color: white;
+    }
+    
+    .status-badge.bg-success {
+        background-color: #28a745 !important;
+        color: white;
+    }
+    
+    .status-badge.bg-danger {
+        background-color: #dc3545 !important;
+        color: white;
+    }
+    
+    /* Style cho dropdown menu cập nhật trạng thái */
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 8px 0;
+        min-width: 200px;
+        margin-top: 8px;
+    }
+    
+    .dropdown-menu .dropdown-item {
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        background: white;
+        border: none;
+        border-radius: 0;
+        transition: all 0.2s;
+        cursor: pointer;
+        margin: 0 4px;
+        border-radius: 6px;
+    }
+    
+    .dropdown-menu .dropdown-item:first-child {
+        margin-top: 4px;
+    }
+    
+    .dropdown-menu .dropdown-item:last-child {
+        margin-bottom: 4px;
+    }
+    
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #001C40;
+        transform: translateX(4px);
+    }
+    
+    .dropdown-menu .dropdown-item.text-danger {
+        color: #dc3545 !important;
+        font-weight: 600;
+    }
+    
+    .dropdown-menu .dropdown-item.text-danger:hover {
+        background-color: #fff5f5;
+        color: #c82333 !important;
+    }
+    
+    .dropdown-menu .dropdown-divider {
+        margin: 8px 8px;
+        border-top: 1px solid #e0e0e0;
+    }
+    
+    /* Style cho nút xem chi tiết */
+    .btn-view-order {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+    
+    .btn-view-order:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    }
+    
+    /* Style cho nút dropdown toggle */
+    .btn-group .dropdown-toggle {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+    
+    .btn-group .dropdown-toggle:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+    }
+    
+    /* Style cho tổng tiền */
+    .order-total {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ff6b35;
+    }
+    
+    .order-shipping {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+    }
+    
+    /* Style cho thông tin khách hàng */
+    .customer-info {
+        line-height: 1.6;
+    }
+    
+    .customer-info strong {
+        color: #001C40;
+        display: block;
+        margin-bottom: 4px;
+    }
+    
+    .customer-info small {
+        color: #666;
+        font-size: 12px;
+    }
+    
+    /* Style cho mã đơn hàng */
+    .order-id {
+        font-size: 16px;
+        font-weight: 700;
+        color: #001C40;
+    }
+    
+    /* Style cho phương thức thanh toán */
+    .payment-method {
+        padding: 4px 10px;
+        background: #e9ecef;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #495057;
+        display: inline-block;
+    }
+    
+    /* Responsive */
+    @@media (max-width: 768px) {
+        #sampleTable {
+            font-size: 12px;
+        }
+        
+        #sampleTable thead th,
+        #sampleTable tbody td {
+            padding: 8px 4px;
+        }
+        
+        .dropdown-menu {
+            min-width: 180px;
+        }
+    }
+    
+    /* Style cho empty state */
+    .empty-orders {
+        padding: 60px 20px;
+        text-align: center;
+        color: #999;
+    }
+    
+    .empty-orders i {
+        font-size: 48px;
+        margin-bottom: 16px;
+        color: #ddd;
+    }
+</style>
+
+@section Scripts {
+<script>
+    // Đảm bảo jQuery đã được load trước khi chạy code
+    (function() {
+        function initAdminOrders() {
+            // Kiểm tra jQuery
+            if (typeof jQuery === 'undefined' || typeof $ === 'undefined') {
+                console.error('jQuery is not loaded! Retrying in 100ms...');
+                setTimeout(initAdminOrders, 100);
+                return;
+            }
+            
+            console.log('jQuery version:', jQuery.fn.jquery);
+            
+            // Sử dụng jQuery
+            jQuery(document).ready(function($) {
+                // Cập nhật trạng thái đơn hàng
+                $(document).on('click', '.update-status', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Ngăn dropdown đóng ngay lập tức
+                    
+                    var orderId = $(this).data('order-id');
+                    var status = $(this).data('status');
+                    var statusText = $(this).text().trim();
+                    
+                    console.log('[Admin] Update status clicked - OrderId:', orderId, 'Status:', status);
+                    
+                    // Đóng dropdown
+                    $(this).closest('.dropdown-menu').removeClass('show');
+                    $(this).closest('.btn-group').removeClass('show');
+                    
+                    swal({
+                        title: "Xác nhận",
+                        text: "Bạn có chắc muốn cập nhật trạng thái đơn hàng #" + orderId + " thành \"" + statusText + "\"?",
+                        icon: "warning",
+                        buttons: {
+                            cancel: {
+                                text: "Hủy",
+                                value: false,
+                                visible: true,
+                                className: "",
+                                closeModal: true,
+                            },
+                            confirm: {
+                                text: "Xác nhận",
+                                value: true,
+                                visible: true,
+                                className: status === "Cancelled" ? "btn-danger" : "",
+                                closeModal: false
+                            }
+                        },
+                        dangerMode: status === "Cancelled"
+                    }).then((willUpdate) => {
+                        if (willUpdate) {
+                            // Hiển thị loading
+                            swal({
+                                title: "Đang xử lý...",
+                                text: "Vui lòng chờ",
+                                icon: "info",
+                                button: false,
+                                closeOnClickOutside: false,
+                                closeOnEsc: false
+                            });
+                            
+                            var token = $('input[name="__RequestVerificationToken"]').val();
+                            console.log('[Admin] Sending AJAX request - OrderId:', orderId, 'Status:', status, 'Token:', token ? 'Present' : 'Missing');
+                            
+                            $.ajax({
+                                url: '@Url.Action("UpdateOrderStatus", "Admin")',
+                                type: 'POST',
+                                traditional: true,
+                                data: {
+                                    orderId: orderId,
+                                    status: status,
+                                    __RequestVerificationToken: token
+                                },
+                                dataType: 'json',
+                                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                                success: function(response) {
+                                    console.log('[Admin] Update status response:', response);
+                                    if (response && response.success) {
+                                        swal({
+                                            title: "Thành công!",
+                                            text: response.message || "Cập nhật trạng thái đơn hàng thành công!",
+                                            icon: "success",
+                                            button: "OK"
+                                        }).then(function() {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        swal({
+                                            title: "Lỗi!",
+                                            text: response ? (response.message || "Có lỗi xảy ra") : "Có lỗi xảy ra khi cập nhật",
+                                            icon: "error",
+                                            button: "OK"
+                                        });
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('[Admin] Update status error:', {
+                                        status: status,
+                                        error: error,
+                                        responseText: xhr.responseText,
+                                        statusCode: xhr.status
+                                    });
+                                    
+                                    var errorMessage = "Có lỗi xảy ra khi cập nhật trạng thái đơn hàng";
+                                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                                        errorMessage = xhr.responseJSON.message;
+                                    } else if (xhr.status === 500) {
+                                        errorMessage = "Lỗi server. Vui lòng thử lại sau.";
+                                    } else if (xhr.status === 401 || xhr.status === 403) {
+                                        errorMessage = "Bạn không có quyền thực hiện thao tác này.";
+                                    }
+                                    
+                                    swal({
+                                        title: "Lỗi!",
+                                        text: errorMessage,
+                                        icon: "error",
+                                        button: "OK"
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+
+                // Xem chi tiết đơn hàng
+                $(document).on('click', '.btn-view-order', function() {
+                    var orderId = $(this).data('order-id');
+                    $('#modalOrderId').text(orderId);
+                    $('#orderDetailContent').html('<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="sr-only">Đang tải...</span></div><p>Đang tải thông tin đơn hàng...</p></div>');
+                    $('#orderDetailModal').modal('show');
+                    
+                    // Load chi tiết đơn hàng bằng AJAX
+                    console.log('[Admin] Loading order detail for OrderId:', orderId);
+                    // Dùng query string để tránh vấn đề routing
+                    var detailUrl = '@Url.Action("GetOrderDetail", "Admin")' + '?id=' + orderId;
+                    console.log('[Admin] Detail URL:', detailUrl);
+                    $.ajax({
+                        url: detailUrl,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log('[Admin] GetOrderDetail response:', response);
+                            if (response && response.success) {
+                                var order = response.order;
+                                var orderItems = response.orderItems;
+                                
+                                var html = '<div class="order-detail-container">';
+                                
+                                // Thông tin đơn hàng
+                                html += '<div class="order-info-section" style="margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;">';
+                                html += '<h6 style="color: #001C40; margin-bottom: 15px; font-weight: 600;"><i class="fas fa-info-circle"></i> Thông tin đơn hàng</h6>';
+                                html += '<div class="row">';
+                                html += '<div class="col-md-6"><strong>Mã đơn hàng:</strong> <span style="color: #007bff; font-weight: 700;">#' + order.id + '</span></div>';
+                                html += '<div class="col-md-6"><strong>Ngày đặt:</strong> ' + order.createdAt + '</div>';
+                                html += '<div class="col-md-6"><strong>Trạng thái:</strong> <span class="badge status-badge bg-warning">' + order.statusText + '</span></div>';
+                                html += '<div class="col-md-6"><strong>Phương thức thanh toán:</strong> ' + order.paymentMethod + '</div>';
+                                if (order.updatedAt) {
+                                    html += '<div class="col-md-12"><strong>Cập nhật lần cuối:</strong> ' + order.updatedAt + '</div>';
+                                }
+                                html += '</div></div>';
+                                
+                                // Thông tin khách hàng
+                                html += '<div class="customer-info-section" style="margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;">';
+                                html += '<h6 style="color: #001C40; margin-bottom: 15px; font-weight: 600;"><i class="fas fa-user"></i> Thông tin khách hàng</h6>';
+                                html += '<div class="row">';
+                                html += '<div class="col-md-6"><strong>Tên:</strong> ' + order.userName + '</div>';
+                                html += '<div class="col-md-6"><strong>Email:</strong> ' + order.userEmail + '</div>';
+                                html += '</div></div>';
+                                
+                                // Địa chỉ giao hàng
+                                if (order.fullAddress) {
+                                    html += '<div class="address-info-section" style="margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;">';
+                                    html += '<h6 style="color: #001C40; margin-bottom: 15px; font-weight: 600;"><i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng</h6>';
+                                    if (order.addressName) {
+                                        html += '<div><strong>Người nhận:</strong> ' + order.addressName + '</div>';
+                                    }
+                                    if (order.addressPhone) {
+                                        html += '<div><strong>Điện thoại:</strong> ' + order.addressPhone + '</div>';
+                                    }
+                                    html += '<div><strong>Địa chỉ:</strong> ' + order.fullAddress + '</div>';
+                                    html += '</div>';
+                                }
+                                
+                                // Danh sách sản phẩm
+                                html += '<div class="products-section" style="margin-bottom: 25px;">';
+                                html += '<h6 style="color: #001C40; margin-bottom: 15px; font-weight: 600;"><i class="fas fa-box"></i> Sản phẩm trong đơn hàng</h6>';
+                                html += '<div class="table-responsive">';
+                                html += '<table class="table table-bordered">';
+                                html += '<thead style="background-color: #001C40; color: white;">';
+                                html += '<tr><th>STT</th><th>Sản phẩm</th><th>Giá</th><th>Số lượng</th><th>Thành tiền</th></tr>';
+                                html += '</thead><tbody>';
+                                
+                                var total = 0;
+                                orderItems.forEach(function(item, index) {
+                                    var subtotal = item.price * item.quantity;
+                                    total += subtotal;
+                                    html += '<tr>';
+                                    html += '<td>' + (index + 1) + '</td>';
+                                    html += '<td>';
+                                    if (item.productImage) {
+                                        html += '<img src="' + item.productImage + '" alt="' + item.productName + '" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px; border-radius: 4px;">';
+                                    }
+                                    html += '<strong>' + item.productName + '</strong>';
+                                    html += '</td>';
+                                    html += '<td>' + parseFloat(item.price).toLocaleString('vi-VN') + '₫</td>';
+                                    html += '<td>' + item.quantity + '</td>';
+                                    html += '<td><strong>' + parseFloat(subtotal).toLocaleString('vi-VN') + '₫</strong></td>';
+                                    html += '</tr>';
+                                });
+                                
+                                html += '</tbody></table></div></div>';
+                                
+                                // Tổng tiền
+                                html += '<div class="total-section" style="padding: 15px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #007bff;">';
+                                html += '<div class="row">';
+                                html += '<div class="col-md-6"><strong>Tổng tiền sản phẩm:</strong></div>';
+                                html += '<div class="col-md-6 text-right"><strong>' + parseFloat(order.totalAmount).toLocaleString('vi-VN') + '₫</strong></div>';
+                                if (order.shippingFee > 0) {
+                                    html += '<div class="col-md-6"><strong>Phí vận chuyển:</strong></div>';
+                                    html += '<div class="col-md-6 text-right"><strong>' + parseFloat(order.shippingFee).toLocaleString('vi-VN') + '₫</strong></div>';
+                                }
+                                html += '<div class="col-md-6" style="margin-top: 10px; font-size: 18px;"><strong>Tổng cộng:</strong></div>';
+                                html += '<div class="col-md-6 text-right" style="margin-top: 10px; font-size: 18px; color: #007bff;"><strong>' + parseFloat(order.totalAmount + (order.shippingFee || 0)).toLocaleString('vi-VN') + '₫</strong></div>';
+                                html += '</div></div>';
+                                
+                                html += '</div>';
+                                
+                                $('#orderDetailContent').html(html);
+                            } else {
+                                $('#orderDetailContent').html('<div class="alert alert-danger">' + response.message + '</div>');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('[Admin] GetOrderDetail error:', {
+                                status: status,
+                                error: error,
+                                statusCode: xhr.status,
+                                responseText: xhr.responseText ? xhr.responseText.substring(0, 500) : 'No response'
+                            });
+                            
+                            var errorMessage = "Có lỗi xảy ra khi tải thông tin đơn hàng. Vui lòng thử lại.";
+                            if (xhr.status === 404) {
+                                errorMessage = "Không tìm thấy đơn hàng.";
+                            } else if (xhr.status === 401 || xhr.status === 403) {
+                                errorMessage = "Bạn không có quyền xem đơn hàng này.";
+                            } else if (xhr.status === 500) {
+                                errorMessage = "Lỗi server. Vui lòng thử lại sau.";
+                            } else if (xhr.responseText) {
+                                try {
+                                    var errorResponse = JSON.parse(xhr.responseText);
+                                    if (errorResponse.message) {
+                                        errorMessage = errorResponse.message;
+                                    }
+                                } catch (e) {
+                                    // Không parse được JSON, dùng message mặc định
+                                }
+                            }
+                            
+                            $('#orderDetailContent').html('<div class="alert alert-danger"><strong>Lỗi!</strong><br>' + errorMessage + '</div>');
+                        }
+                    });
+                });
+        
+                // Khởi tạo DataTable nếu có
+                if ($.fn.DataTable) {
+                    $('#sampleTable').DataTable({
+                        "paging": true,
+                        "ordering": true,
+                        "info": true,
+                        "searching": true,
+                        "lengthMenu": [10, 25, 50, 75, 100],
+                        "language": {
+                            "lengthMenu": "Hiện _MENU_ đơn hàng",
+                            "zeroRecords": "Không tìm thấy đơn hàng nào",
+                            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ đơn hàng",
+                            "infoEmpty": "Không có đơn hàng nào để hiển thị",
+                            "infoFiltered": "(lọc từ _MAX_ tổng số đơn hàng)",
+                            "search": "Tìm kiếm:",
+                            "paginate": {
+                                "first": "Đầu",
+                                "last": "Cuối",
+                                "next": "Sau",
+                                "previous": "Trước"
+                            }
+                        }
+                    });
+                }
+            }); // Đóng jQuery(document).ready
+        } // Đóng function initAdminOrders
+    
+    // Khởi tạo ngay lập tức
+    initAdminOrders();
+})(); // Đóng IIFE
+</script>
+}
+

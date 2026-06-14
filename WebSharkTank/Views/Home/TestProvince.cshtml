@@ -1,0 +1,416 @@
+@{
+    Layout = null;
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Tỉnh/Huyện/Xã</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Dropdown style - Theo chuẩn ví dụ API */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            max-height: 12rem;
+            overflow-y: auto;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            z-index: 10;
+            display: none;
+            margin-top: 2px;
+        }
+
+        .dropdown.show {
+            display: block;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown li {
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            font-size: 14px;
+            background: #fff;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown li:hover {
+            background: #dbeafe;
+        }
+
+        .info {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            border-radius: 4px;
+        }
+
+        .info h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #1e40af;
+        }
+
+        .info ul {
+            margin-left: 20px;
+            color: #1e3a8a;
+        }
+
+        .info li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .selected-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .selected-info strong {
+            color: #333;
+        }
+
+        .selected-info span {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test API Tỉnh/Huyện/Xã</h1>
+        <p class="subtitle">Sử dụng API v1 từ provinces.open-api.vn</p>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="province">Tỉnh/Thành phố</label>
+                <input type="text" id="province" placeholder="Tỉnh..." readonly />
+                <input type="hidden" id="province-code" />
+                <div id="province-dropdown" class="dropdown">
+                    <ul id="province-list"></ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="district">Quận/Huyện</label>
+                <input type="text" id="district" placeholder="Huyện..." readonly />
+                <input type="hidden" id="district-code" />
+                <div id="district-dropdown" class="dropdown">
+                    <ul id="district-list"></ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ward">Phường/Xã</label>
+                <input type="text" id="ward" placeholder="Xã..." readonly />
+                <input type="hidden" id="ward-code" />
+                <div id="ward-dropdown" class="dropdown">
+                    <ul id="ward-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="selected-info">
+            <strong>Đã chọn:</strong><br>
+            <span id="selected-info">Chưa chọn</span>
+        </div>
+
+        <div class="info">
+            <h3>Thông tin API</h3>
+            <ul>
+                <li>API Base: <code>https://provinces.open-api.vn/api/v1</code></li>
+                <li>Lấy danh sách tỉnh: <code>GET /api/v1/p/</code></li>
+                <li>Lấy tỉnh với huyện/xã: <code>GET /api/v1/p/{code}?depth=2</code></li>
+                <li>Lấy huyện với xã: <code>GET /api/v1/d/{code}?depth=2</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // API v1 endpoints
+        const API_BASE = "https://provinces.open-api.vn/api/v1";
+        const API_PROVINCE = `${API_BASE}/p/`;
+        const API_PROVINCE_DETAIL = code => `${API_BASE}/p/${code}?depth=2`;
+        const API_DISTRICT_DETAIL = code => `${API_BASE}/d/${code}?depth=2`;
+
+        let DISTRICTS = [];
+        let WARDS = [];
+
+        function openDropdown(id) {
+            document.getElementById(id).classList.add('show');
+        }
+
+        function closeDropdown(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        function updateSelectedInfo() {
+            const province = document.getElementById('province').value || '';
+            const district = document.getElementById('district').value || '';
+            const ward = document.getElementById('ward').value || '';
+            
+            const parts = [];
+            if (province) parts.push(`Tỉnh: ${province}`);
+            if (district) parts.push(`Huyện: ${district}`);
+            if (ward) parts.push(`Xã: ${ward}`);
+            
+            document.getElementById('selected-info').textContent = 
+                parts.length > 0 ? parts.join(' | ') : 'Chưa chọn';
+        }
+
+        // Load tỉnh
+        function loadProvinces() {
+            fetch(API_PROVINCE)
+                .then(r => r.json())
+                .then(list => {
+                    const ul = document.getElementById('province-list');
+                    ul.innerHTML = '';
+                    list.forEach(p => {
+                        const li = document.createElement('li');
+                        li.textContent = p.name;
+                        li.setAttribute('data-code', p.code);
+                        li.setAttribute('data-name', p.name);
+                        li.onclick = function() {
+                            selectProvince(p.code, p.name);
+                        };
+                        ul.appendChild(li);
+                    });
+                    openDropdown('province-dropdown');
+                })
+                .catch(err => {
+                    console.error("Error loading provinces:", err);
+                    document.getElementById('province-list').innerHTML = 
+                        '<li style="color: red;">Lỗi khi tải danh sách tỉnh</li>';
+                });
+        }
+
+        // Load huyện
+        function loadDistricts(code) {
+            const ul = document.getElementById('district-list');
+            ul.innerHTML = '<li>Đang tải...</li>';
+            openDropdown('district-dropdown');
+            
+            fetch(API_PROVINCE_DETAIL(code))
+                .then(r => r.json())
+                .then(data => {
+                    DISTRICTS = data.districts || [];
+                    ul.innerHTML = '';
+                    if (DISTRICTS.length === 0) {
+                        ul.innerHTML = '<li style="color: #999;">Không có dữ liệu</li>';
+                    } else {
+                        DISTRICTS.forEach(d => {
+                            const li = document.createElement('li');
+                            li.textContent = d.name;
+                            li.setAttribute('data-code', d.code);
+                            li.setAttribute('data-name', d.name);
+                            li.onclick = function() {
+                                selectDistrict(d.code, d.name);
+                            };
+                            ul.appendChild(li);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error("Error loading districts:", err);
+                    ul.innerHTML = '<li style="color: red;">Lỗi khi tải danh sách huyện</li>';
+                });
+        }
+
+        // Load xã
+        function loadWards(code) {
+            const ul = document.getElementById('ward-list');
+            ul.innerHTML = '<li>Đang tải...</li>';
+            openDropdown('ward-dropdown');
+            
+            fetch(API_DISTRICT_DETAIL(code))
+                .then(r => r.json())
+                .then(data => {
+                    WARDS = data.wards || [];
+                    ul.innerHTML = '';
+                    if (WARDS.length === 0) {
+                        ul.innerHTML = '<li style="color: #999;">Không có dữ liệu</li>';
+                    } else {
+                        WARDS.forEach(w => {
+                            const li = document.createElement('li');
+                            li.textContent = w.name;
+                            li.setAttribute('data-code', w.code);
+                            li.setAttribute('data-name', w.name);
+                            li.onclick = function() {
+                                selectWard(w.code, w.name);
+                            };
+                            ul.appendChild(li);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error("Error loading wards:", err);
+                    ul.innerHTML = '<li style="color: red;">Lỗi khi tải danh sách xã</li>';
+                });
+        }
+
+        // Select province
+        function selectProvince(code, name) {
+            document.getElementById('province').value = name;
+            document.getElementById('province-code').value = code;
+            closeDropdown('province-dropdown');
+
+            // Reset district and ward
+            document.getElementById('district').value = '';
+            document.getElementById('district-code').value = '';
+            document.getElementById('ward').value = '';
+            document.getElementById('ward-code').value = '';
+
+            loadDistricts(code);
+            updateSelectedInfo();
+        }
+
+        // Select district
+        function selectDistrict(code, name) {
+            document.getElementById('district').value = name;
+            document.getElementById('district-code').value = code;
+            closeDropdown('district-dropdown');
+
+            // Reset ward
+            document.getElementById('ward').value = '';
+            document.getElementById('ward-code').value = '';
+
+            loadWards(code);
+            updateSelectedInfo();
+        }
+
+        // Select ward
+        function selectWard(code, name) {
+            document.getElementById('ward').value = name;
+            document.getElementById('ward-code').value = code;
+            closeDropdown('ward-dropdown');
+            updateSelectedInfo();
+        }
+
+        // Event listeners
+        document.getElementById('province').addEventListener('click', function() {
+            loadProvinces();
+        });
+
+        document.getElementById('district').addEventListener('click', function() {
+            const provinceCode = document.getElementById('province-code').value;
+            if (!provinceCode) {
+                alert('Chọn tỉnh trước');
+                return;
+            }
+            if (DISTRICTS.length === 0) {
+                loadDistricts(provinceCode);
+            } else {
+                openDropdown('district-dropdown');
+            }
+        });
+
+        document.getElementById('ward').addEventListener('click', function() {
+            const districtCode = document.getElementById('district-code').value;
+            if (!districtCode) {
+                alert('Chọn huyện trước');
+                return;
+            }
+            if (WARDS.length === 0) {
+                loadWards(districtCode);
+            } else {
+                openDropdown('ward-dropdown');
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.form-group')) {
+                closeDropdown('province-dropdown');
+                closeDropdown('district-dropdown');
+                closeDropdown('ward-dropdown');
+            }
+        });
+    </script>
+</body>
+</html>
+

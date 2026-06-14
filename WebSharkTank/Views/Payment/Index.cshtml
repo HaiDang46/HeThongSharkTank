@@ -1,0 +1,803 @@
+@{
+    ViewBag.Title = "Thanh Toán | Shark Tank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+
+<main class="checkout-page">
+    <div class="container">
+        <!-- Search bar -->
+        <div class="checkout-container">
+            <div class="search-bar d-none d-md-flex">
+                <input type="text" name id placeholder="Search for item" class="search-bar__input" />
+                <button class="search-bar__submit">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt class="search-bar__icon icon" />
+                </button>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div class="checkout-container">
+            <ul class="breadcrumbs checkout-page__breadcrumbs">
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="breadcrumbs__link">
+                        Trang Chủ
+                        <img src="@Url.Content("~/Content/icons/arrow-right.svg")" alt />
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Checkout")" class="breadcrumbs__link">
+                        Giỏ Hàng
+                        <img src="@Url.Content("~/Content/icons/arrow-right.svg")" alt />
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Shipping")" class="breadcrumbs__link">
+                        Địa Chỉ
+                        <img src="@Url.Content("~/Content/icons/arrow-right.svg")" alt />
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="breadcrumbs__link breadcrumbs__link--current">Thanh Toán</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Checkout content -->
+        <div class="checkout-container">
+            <div class="row gy-xl-3">
+                <div class="col-8 col-xl-8 col-lg-12">
+                    <div class="cart-info">
+                        <div class="cart-info__top">
+                            <h2 class="cart-info__heading cart-info__heading--lv2">1. Địa chỉ giao hàng</h2>
+                            <a class="cart-info__edit-btn" href="@Url.Action("Index", "Shipping")">
+                                <img class="icon" src="@Url.Content("~/Content/icons/edit.svg")" alt />
+                                Edit
+                            </a>
+                        </div>
+                        <!-- Payment item 1 - Địa chỉ từ SQL -->
+                        <article class="payment-item" id="payment-address-item">
+                            @{
+                                var addressObj = ViewBag.Address;
+                                string addressName = null;
+                                string addressFull = null;
+                                string addressPhone = null;
+                                
+                                if (addressObj != null)
+                                {
+                                    try
+                                    {
+                                        dynamic addr = addressObj;
+                                        addressName = addr.name?.ToString() ?? "Chưa có tên";
+                                        addressFull = addr.fullAddress?.ToString() ?? "Chưa có địa chỉ";
+                                        addressPhone = addr.phone?.ToString() ?? "Chưa có";
+                                    }
+                                    catch
+                                    {
+                                        addressName = "Chưa có tên";
+                                        addressFull = "Chưa có địa chỉ";
+                                        addressPhone = "Chưa có";
+                                    }
+                                }
+                            }
+                            @if (addressObj != null && !string.IsNullOrEmpty(addressName))
+                            {
+                                <div class="payment-item__info">
+                                    <h3 class="payment-item__title" id="address-name">@addressName</h3>
+                                    <p class="payment-item__desc" id="address-full">@addressFull</p>
+                                    <p class="payment-item__desc" id="address-phone">Điện thoại: @addressPhone</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="payment-item__info">
+                                    <h3 class="payment-item__title">Chưa có địa chỉ</h3>
+                                    <p class="payment-item__desc">Vui lòng thêm địa chỉ giao hàng</p>
+                                    <a href="@Url.Action("Index", "Shipping")" class="btn btn--primary btn--small">Thêm địa chỉ</a>
+                                </div>
+                            }
+                        </article>
+      
+                        <!-- Danh sách mặt hàng -->
+                        <div class="cart-info__list" id="payment-items-list"></div>
+                    </div>
+
+                    <!-- Phương thức thanh toán -->
+                    <div class="cart-info" style="margin-top: 30px;">
+                        <h2 class="cart-info__heading cart-info__heading--lv2">2. Phương thức thanh toán</h2>
+                        <p class="cart-info__desc" style="margin-bottom: 20px; color: #666;">
+                            Thông tin thanh toán của bạn sẽ luôn được bảo mật
+                        </p>
+                        <div class="cart-info__separate"></div>
+                        
+                        <div class="payment-methods" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px;">
+                            <!-- VNPAY-QR -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="VNPAY_QR" class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">Thanh toán VNPAY-QR</h3>
+                                        <span class="payment-method-check" style="display: none; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;">Thanh toán VNPAY-QR</p>
+                                </div>
+                            </label>
+
+                            <!-- Mobile Banking -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="VNPAY_MOBILE" class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">Ứng dụng Mobile Banking</h3>
+                                        <span class="payment-method-check" style="display: none; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;">Thanh toán qua Internet Banking</p>
+                                </div>
+                            </label>
+
+                            <!-- ATM nội địa -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="VNPAY_ATM" class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">ATM nội địa</h3>
+                                        <span class="payment-method-check" style="display: none; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;">ATM nội địa</p>
+                                </div>
+                            </label>
+
+                            <!-- Thẻ thanh toán quốc tế -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="VNPAY_INTERNATIONAL" class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">Thẻ thanh toán quốc tế</h3>
+                                        <span class="payment-method-check" style="display: none; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;">Thẻ thanh toán quốc tế</p>
+                                </div>
+                            </label>
+
+                            <!-- COD -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="COD" checked class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">Thanh toán khi nhận hàng</h3>
+                                        <span class="payment-method-check" style="display: inline-block; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;"></p>
+                                </div>
+                            </label>
+
+                            <!-- ZaloPay -->
+                            <label class="payment-method-item" style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 16px; cursor: pointer; transition: all 0.3s; position: relative;">
+                                <input type="radio" name="payment-method" value="ZALOPAY" class="payment-method-radio" style="position: absolute; opacity: 0;" />
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3 style="font-size: 1.4rem; font-weight: 600; margin: 0;">Thanh toán QR Code ZaloPay</h3>
+                                        <span class="payment-method-check" style="display: none; color: #4CAF50; font-size: 20px;">✓</span>
+                                    </div>
+                                    <p style="font-size: 1.2rem; color: #666; margin: 0;">Thanh toán QR Code ZaloPay</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4 col-xl-4 col-lg-12">
+                    <div class="cart-info">
+                        <h2 class="cart-info__heading cart-info__heading--lv2">Chi tiết thanh toán</h2>
+                        <p class="cart-info__desc">
+                            Hoàn tất đơn hàng mua của bạn bằng cách cung cấp thông tin thanh toán.
+                        </p>
+                        <form action class="form cart-info__form">
+                            <div class="form__group">
+                                <label for="email" class="form__label form__label--medium">Email Address</label>
+                                <div class="form__text-input">
+                                    <input type="email" name="email" id="email" placeholder="Email" class="form__input" required />
+                                    <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                </div>
+                                <p class="form__error">Password must be at least 6 characters</p>
+                            </div>
+                            <div class="form__group">
+                                <label for="card-holder" class="form__label form__label--medium">Card Holder</label>
+                                <div class="form__text-input">
+                                    <input type="text" name="card-holder" id="card-holder" placeholder="Card Holder" class="form__input" required />
+                                    <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                </div>
+                                <p class="form__error">Password must be at least 6 characters</p>
+                            </div>
+                            <div class="form__group">
+                                <label for="card-details" class="form__label form__label--medium">Card Details</label>
+                                <div class="form__text-input">
+                                    <input type="text" name="card-details" id="card-details" placeholder="Card Details" class="form__input" required />
+                                    <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                </div>
+                                <p class="form__error">Password must be at least 6 characters</p>
+                            </div>
+                            <div class="form__row cart-info__form-row">
+                                <div class="form__group">
+                                    <div class="form__text-input">
+                                        <input type="text" name="card-expire" id="card-expire" placeholder="MM/YY" class="form__input" required />
+                                        <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                    </div>
+                                    <p class="form__error">Password must be at least 6 characters</p>
+                                </div>
+                                <div class="form__group">
+                                    <div class="form__text-input">
+                                        <input type="text" name="card-cvc" id="card-cvc" placeholder="CVC" class="form__input" required />
+                                        <img src="@Url.Content("~/Content/icons/form-error.svg")" alt class="form__input-icon-error" />
+                                    </div>
+                                    <p class="form__error">Password must be at least 6 characters</p>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Các dòng tổng kết ở cột phải -->
+                        <div class="cart-info__row">
+                            <span>Mặt Hàng <span class="cart-info__sub-label"></span></span>
+                            <span id="sumItemsQty">0</span>
+                        </div>
+                        <div class="cart-info__row">
+                            <span>Giá <span class="cart-info__sub-label"></span></span>
+                            <span id="sumSubtotal">0₫</span>
+                        </div>
+                        <div class="cart-info__row">
+                            <span>Phí Vận Chuyển</span>
+                            <span id="sumShipping">0₫</span>
+                        </div>
+                        <div class="cart-info__separate"></div>
+                        <div class="cart-info__row">
+                            <span>Tổng</span>
+                            <span id="sumEstimated">0₫</span>
+                        </div>
+                        <a href="#!" id="payBtn" class="cart-info__next-btn btn btn--primary btn--rounded">
+                            Thanh Toán <span id="sumPay">0₫</span>
+                        </a>
+                    </div>
+
+                    <div class="cart-info">
+                        <a href="#!">
+                            <article class="gift-item">
+                                <div class="gift-item__icon-wrap">
+                                    <img src="@Url.Content("~/Content/icons/gift.svg")" alt class="gift-item__icon" />
+                                </div>
+                                <div class="gift-item__content">
+                                    <h3 class="gift-item__title">Gửi đơn hàng này như một món quà.</h3>
+                                    <p class="gift-item__desc">
+                                        Các mặt hàng có sẵn sẽ được chuyển đến người nhận quà của bạn.
+                                    </p>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/jquery-3.7.0.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/payment.js")"></script>
+    <script>
+        // Đảm bảo jQuery đã load trước khi chạy code
+        (function() {
+            // Đợi jQuery load xong
+            function waitForJQuery(callback) {
+                if (typeof jQuery !== 'undefined') {
+                    callback();
+                } else {
+                    setTimeout(function() {
+                        waitForJQuery(callback);
+                    }, 50);
+                }
+            }
+            
+            waitForJQuery(function() {
+                // jQuery đã sẵn sàng
+                if (typeof jQuery === 'undefined') {
+                    console.error('[Payment] jQuery is not loaded');
+                    return;
+                }
+                
+                // Load địa chỉ và giỏ hàng từ SQL khi trang load
+            function loadAddressFromSQL() {
+                // Lấy addressId từ localStorage
+                var selectedAddressId = localStorage.getItem('selectedAddressId');
+                console.log('[Payment] Selected addressId from localStorage:', selectedAddressId);
+                
+                // Không cần gọi API để lưu vào Session, chỉ cần đọc từ localStorage và hiển thị
+                // AddressId đã được lưu trong localStorage, chỉ cần fetch địa chỉ từ server và hiển thị
+                
+                fetch('/Shipping/GetAddresses', {
+                    cache: 'no-cache',
+                    headers: { 'Cache-Control': 'no-cache' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.addresses && data.addresses.length > 0) {
+                        // Lấy địa chỉ đã chọn từ localStorage hoặc mặc định
+                        var address = null;
+                        if (selectedAddressId) {
+                            address = data.addresses.find(a => String(a.id) === String(selectedAddressId));
+                        }
+                        if (!address) {
+                            address = data.addresses.find(a => a.isDefault) || data.addresses[0];
+                        }
+                        
+                        if (address) {
+                            // Cập nhật UI
+                            var addressItem = document.getElementById('payment-address-item');
+                            if (addressItem) {
+                                var fullAddress = [];
+                                if (address.streetAddress) fullAddress.push(address.streetAddress);
+                                if (address.ward) fullAddress.push(address.ward);
+                                if (address.district) fullAddress.push(address.district);
+                                if (address.province) fullAddress.push(address.province);
+                                
+                                addressItem.innerHTML = `
+                                    <div class="payment-item__info">
+                                        <h3 class="payment-item__title">${address.name || 'Chưa có tên'}</h3>
+                                        <p class="payment-item__desc">${fullAddress.join(', ') || 'Chưa có địa chỉ'}</p>
+                                        <p class="payment-item__desc">Điện thoại: ${address.phone || 'Chưa có'}</p>
+                                    </div>
+                                `;
+                                console.log('[Payment] Address displayed:', address.name);
+                            }
+                        }
+                    } else {
+                        // Không có địa chỉ
+                        var addressItem = document.getElementById('payment-address-item');
+                        if (addressItem) {
+                            addressItem.innerHTML = `
+                                <div class="payment-item__info">
+                                    <h3 class="payment-item__title">Chưa có địa chỉ</h3>
+                                    <p class="payment-item__desc">Vui lòng thêm địa chỉ giao hàng</p>
+                                    <a href="@Url.Action("Index", "Shipping")" class="btn btn--primary btn--small">Thêm địa chỉ</a>
+                                </div>
+                            `;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('[Payment] Error loading address:', error);
+                });
+            }
+            
+            function loadSelectedItemsFromSession() {
+                // Lấy danh sách mặt hàng đã chọn từ server (đã được lưu trong ViewBag)
+                @if (ViewBag.SelectedItems != null)
+                {
+                    <text>
+                    try {
+                        var selectedItems = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.SelectedItems));
+                        console.log('[Payment] SelectedItems from ViewBag:', selectedItems);
+                        console.log('[Payment] SelectedItems type:', typeof selectedItems, 'Is array:', Array.isArray(selectedItems));
+                        displaySelectedItems(selectedItems);
+                    } catch (error) {
+                        console.error('[Payment] Error loading selected items:', error);
+                        // Nếu lỗi, thử load từ SQL
+                        loadItemsFromSQL();
+                    }
+                    </text>
+                }
+                else
+                {
+                    <text>
+                    console.log('[Payment] No selected items in ViewBag, loading from SQL');
+                    // Không có trong ViewBag, thử load từ SQL
+                    loadItemsFromSQL();
+                    </text>
+                }
+            }
+            
+            // Load items từ SQL và filter theo selectedItems trong localStorage
+            async function loadItemsFromSQL() {
+                try {
+                    // Lấy selectedItems từ localStorage
+                    var selectedItemsJson = localStorage.getItem('selectedItems');
+                    var selectedItems = [];
+                    if (selectedItemsJson) {
+                        try {
+                            selectedItems = JSON.parse(selectedItemsJson);
+                            console.log('[Payment] SelectedItems from localStorage:', selectedItems);
+                        } catch (e) {
+                            console.error('[Payment] Error parsing selectedItems from localStorage:', e);
+                        }
+                    }
+                    
+                    // Lấy cart từ SQL
+                    const response = await fetch('/Cart/GetCart', {
+                        cache: 'no-cache',
+                        headers: { 'Cache-Control': 'no-cache' }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('[Payment] Cart data from SQL:', data);
+                        if (data.success && data.items && data.items.length > 0) {
+                            console.log('[Payment] Loaded cart from SQL:', data.items.length, 'items');
+                            
+                            // Nếu có selectedItems, filter theo selectedItems
+                            var itemsToDisplay = data.items;
+                            if (selectedItems.length > 0) {
+                                var selectedIds = selectedItems.map(function(item) {
+                                    return String(item.id || item.Id || item['id'] || '');
+                                });
+                                itemsToDisplay = data.items.filter(function(item) {
+                                    return selectedIds.includes(String(item.id));
+                                });
+                                console.log('[Payment] Filtered items:', itemsToDisplay.length, 'items');
+                            }
+                            
+                            // Hiển thị items
+                            if (itemsToDisplay.length > 0) {
+                                displaySelectedItems(itemsToDisplay);
+                            } else {
+                                var itemsList = document.getElementById('payment-items-list');
+                                if (itemsList) {
+                                    itemsList.innerHTML = '<p class="payment-item__desc">Chưa có mặt hàng nào được chọn</p>';
+                                }
+                            }
+                            
+                            // Cập nhật summary sau khi load items
+                            if (typeof window.updatePaymentSummary === 'function') {
+                                window.updatePaymentSummary();
+                            }
+                        } else {
+                            console.log('[Payment] No items in cart from SQL');
+                            var itemsList = document.getElementById('payment-items-list');
+                            if (itemsList) {
+                                itemsList.innerHTML = '<p class="payment-item__desc">Chưa có mặt hàng nào được chọn</p>';
+                            }
+                            // Cập nhật summary (có thể là 0)
+                            if (typeof window.updatePaymentSummary === 'function') {
+                                window.updatePaymentSummary();
+                            }
+                        }
+                    } else {
+                        console.error('[Payment] Failed to load cart from SQL');
+                        var itemsList = document.getElementById('payment-items-list');
+                        if (itemsList) {
+                            itemsList.innerHTML = '<p class="payment-item__desc">Lỗi khi tải danh sách mặt hàng</p>';
+                        }
+                    }
+                } catch (error) {
+                    console.error('[Payment] Error loading items from SQL:', error);
+                    var itemsList = document.getElementById('payment-items-list');
+                    if (itemsList) {
+                        itemsList.innerHTML = '<p class="payment-item__desc">Lỗi khi tải danh sách mặt hàng</p>';
+                    }
+                }
+                
+                // Trả về promise để có thể dùng .then()
+                return Promise.resolve();
+            }
+            
+            function displaySelectedItems(items) {
+                console.log('[Payment] displaySelectedItems called with:', items);
+                console.log('[Payment] Items type:', typeof items, 'Is array:', Array.isArray(items));
+                
+                if (!items || items.length === 0) {
+                    console.log('[Payment] No items to display');
+                    var itemsList = document.getElementById('payment-items-list');
+                    if (itemsList) {
+                        itemsList.innerHTML = '<p class="payment-item__desc">Chưa có mặt hàng nào được chọn</p>';
+                    }
+                    return;
+                }
+                
+                // Hiển thị danh sách mặt hàng đã chọn
+                var itemsList = document.getElementById('payment-items-list');
+                if (itemsList) {
+                    var html = '';
+                    items.forEach(function(item, index) {
+                        console.log('[Payment] Processing item', index, ':', item);
+                        
+                        // Xử lý item có thể là object hoặc dictionary từ C#
+                        var name = item.name || item.Name || (item['name'] !== undefined ? item['name'] : null) || 'Sản phẩm';
+                        var qty = item.qty || item.Qty || (item['qty'] !== undefined ? item['qty'] : null) || 1;
+                        var price = item.price || item.Price || (item['price'] !== undefined ? item['price'] : null) || 0;
+                        var id = item.id || item.Id || (item['id'] !== undefined ? item['id'] : null) || '';
+                        
+                        // Nếu là số, chuyển sang number
+                        if (typeof qty === 'string') qty = parseInt(qty) || 1;
+                        if (typeof price === 'string') price = parseFloat(price) || 0;
+                        
+                        console.log('[Payment] Item', index, ':', { name: name, qty: qty, price: price, id: id });
+                        
+                        html += `
+                            <article class="payment-item">
+                                <div class="payment-item__info">
+                                    <h3 class="payment-item__title">${name}</h3>
+                                    <p class="payment-item__desc">Số lượng: ${qty}</p>
+                                    <p class="payment-item__desc">Giá: ${price.toLocaleString('vi-VN')}₫</p>
+                                </div>
+                            </article>
+                        `;
+                    });
+                    itemsList.innerHTML = html;
+                    console.log('[Payment] Items displayed successfully');
+                }
+                
+                // Cập nhật số lượng
+                var totalQty = items.reduce(function(sum, item) {
+                    var qty = item.qty || item.Qty || (item['qty'] !== undefined ? item['qty'] : null) || 0;
+                    if (typeof qty === 'string') qty = parseInt(qty) || 0;
+                    return sum + qty;
+                }, 0);
+                var orderItemCount = document.getElementById('orderItemCount');
+                if (orderItemCount) {
+                    orderItemCount.textContent = totalQty;
+                    console.log('[Payment] Total quantity:', totalQty);
+                }
+                
+                // Cập nhật payment.js với dữ liệu đã chọn
+                // payment.js sẽ tự động load từ SQL và filter theo selectedItems trong localStorage
+                if (window.updatePaymentSummary) {
+                    // Gọi updatePaymentSummary sau một chút để đảm bảo payment.js đã load cart từ SQL
+                    setTimeout(function() {
+                        if (window.updatePaymentSummary) {
+                            window.updatePaymentSummary();
+                        }
+                    }, 300);
+                }
+            }
+            
+            // Xử lý chọn phương thức thanh toán
+            function initPaymentMethods() {
+                const paymentMethods = document.querySelectorAll('.payment-method-item');
+                const paymentRadios = document.querySelectorAll('.payment-method-radio');
+                
+                paymentRadios.forEach(function(radio) {
+                    radio.addEventListener('change', function() {
+                        // Reset tất cả
+                        paymentMethods.forEach(function(item) {
+                            item.style.borderColor = '#e0e0e0';
+                            item.style.backgroundColor = '';
+                            const check = item.querySelector('.payment-method-check');
+                            if (check) check.style.display = 'none';
+                        });
+                        
+                        // Highlight item được chọn
+                        if (this.checked) {
+                            const parent = this.closest('.payment-method-item');
+                            if (parent) {
+                                parent.style.borderColor = '#4CAF50';
+                                parent.style.backgroundColor = '#f0f9f0';
+                                const check = parent.querySelector('.payment-method-check');
+                                if (check) check.style.display = 'inline-block';
+                            }
+                        }
+                    });
+                });
+                
+                // Set initial state cho COD (checked by default)
+                const codRadio = document.querySelector('input[value="COD"]');
+                if (codRadio && codRadio.checked) {
+                    const codParent = codRadio.closest('.payment-method-item');
+                    if (codParent) {
+                        codParent.style.borderColor = '#4CAF50';
+                        codParent.style.backgroundColor = '#f0f9f0';
+                    }
+                }
+            }
+            
+            // Xử lý nút "Thanh Toán"
+            function initPayButton() {
+                const payBtn = document.getElementById('payBtn');
+                if (payBtn) {
+                    payBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Kiểm tra có sản phẩm không
+                        const selectedItemsJson = localStorage.getItem('selectedItems');
+                        if (!selectedItemsJson) {
+                            swal({
+                                title: "Cảnh báo",
+                                text: "Vui lòng chọn ít nhất một mặt hàng để thanh toán",
+                                icon: "warning",
+                                button: "OK"
+                            });
+                            return;
+                        }
+                        
+                        // Lấy phương thức thanh toán đã chọn
+                        const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
+                        if (!paymentMethod) {
+                            swal({
+                                title: "Cảnh báo",
+                                text: "Vui lòng chọn phương thức thanh toán",
+                                icon: "warning",
+                                button: "OK"
+                            });
+                            return;
+                        }
+                        
+                        const method = paymentMethod.value;
+                        console.log('[Payment] Selected payment method:', method);
+                        
+                        // Hiển thị thông báo tùy theo phương thức
+                        if (method === 'COD') {
+                            // COD - Thanh toán khi nhận hàng (có thể tạo đơn hàng ngay)
+                            swal({
+                                title: "Xác nhận đơn hàng",
+                                text: "Bạn có muốn đặt hàng với phương thức thanh toán khi nhận hàng không?",
+                                icon: "question",
+                                buttons: {
+                                    cancel: "Hủy",
+                                    confirm: {
+                                        text: "Đặt hàng",
+                                        value: true
+                                    }
+                                }
+                            }).then((confirmed) => {
+                                if (confirmed) {
+                                    // Gọi API để tạo đơn hàng
+                                    createOrder(method);
+                                }
+                            });
+                        } else {
+                            // Các phương thức thanh toán online (VNPAY, ZaloPay) - chưa tích hợp
+                            swal({
+                                title: "Thông báo",
+                                text: "Phương thức thanh toán " + method + " hiện chưa được tích hợp. Vui lòng chọn 'Thanh toán khi nhận hàng'.",
+                                icon: "info",
+                                button: "OK"
+                            });
+                        }
+                    });
+                }
+            }
+            
+            // Tạo đơn hàng (cho COD)
+            async function createOrder(paymentMethod) {
+                try {
+                    const selectedItemsJson = localStorage.getItem('selectedItems');
+                    const addressId = localStorage.getItem('selectedAddressId');
+                    
+                    if (!selectedItemsJson || !addressId) {
+                        swal({
+                            title: "Lỗi",
+                            text: "Thiếu thông tin đơn hàng",
+                            icon: "error",
+                            button: "OK"
+                        });
+                        return;
+                    }
+                    
+                    // Hiển thị loading
+                    swal({
+                        title: "Đang xử lý...",
+                        text: "Vui lòng chờ",
+                        icon: "info",
+                        button: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
+                    });
+                    
+                    // Gọi API tạo đơn hàng (dùng jQuery để tương thích với ASP.NET MVC)
+                    var createOrderUrl = '@Url.Action("CreateOrder", "Payment")';
+                    console.log('[Payment] CreateOrder URL:', createOrderUrl);
+                    jQuery.ajax({
+                        url: createOrderUrl,
+                        type: 'POST',
+                        data: {
+                            paymentMethod: paymentMethod,
+                            addressId: parseInt(addressId),
+                            items: selectedItemsJson
+                        },
+                        success: function(data) {
+                            console.log('[Payment] CreateOrder response:', data);
+                            
+                            if (data.success) {
+                                swal({
+                                    title: "Thành công!",
+                                    text: "Đơn hàng của bạn đã được tạo thành công. Chúng tôi sẽ liên hệ với bạn sớm nhất.",
+                                    icon: "success",
+                                    button: "OK"
+                                }).then(() => {
+                                    // Xóa cart và redirect về trang chủ
+                                    localStorage.removeItem('selectedItems');
+                                    localStorage.removeItem('selectedAddressId');
+                                    
+                                    // Refresh cart từ SQL để xóa sản phẩm đã mua
+                                    if (typeof window.syncCartFromServer === 'function') {
+                                        console.log('[Payment] Refreshing cart from SQL after order creation');
+                                        window.syncCartFromServer().then(function() {
+                                            console.log('[Payment] Cart refreshed, redirecting to Home');
+                                            window.location.href = '/Home';
+                                        }).catch(function(error) {
+                                            console.error('[Payment] Error refreshing cart:', error);
+                                            // Vẫn redirect dù có lỗi
+                                            window.location.href = '/Home';
+                                        });
+                                    } else {
+                                        // Nếu không có syncCartFromServer, thử clear localStorage cart
+                                        try {
+                                            if (typeof window.CART_KEY !== 'undefined') {
+                                                localStorage.removeItem(window.CART_KEY);
+                                            }
+                                            localStorage.removeItem('cart');
+                                        } catch (e) {
+                                            console.error('[Payment] Error clearing cart from localStorage:', e);
+                                        }
+                                        window.location.href = '/Home';
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "Lỗi",
+                                    text: data.message || "Có lỗi xảy ra khi tạo đơn hàng",
+                                    icon: "error",
+                                    button: "OK"
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('[Payment] Error creating order:', status, error);
+                            console.error('[Payment] Status code:', xhr.status);
+                            console.error('[Payment] Response text:', xhr.responseText ? xhr.responseText.substring(0, 500) : 'No response');
+                            swal({
+                                title: "Lỗi",
+                                text: "Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.",
+                                icon: "error",
+                                button: "OK"
+                            });
+                        }
+                    });
+                } catch (error) {
+                    console.error('[Payment] Error creating order:', error);
+                    swal({
+                        title: "Lỗi",
+                        text: "Có lỗi xảy ra khi tạo đơn hàng",
+                        icon: "error",
+                        button: "OK"
+                    });
+                }
+            }
+            
+            // Chạy khi DOM sẵn sàng
+            function initPaymentPage() {
+                // Load cart từ SQL trước (để có dữ liệu mới nhất)
+                loadItemsFromSQL().then(function() {
+                    // Sau khi load cart xong, load các thứ khác
+                    loadAddressFromSQL();
+                    loadSelectedItemsFromSession();
+                    initPaymentMethods();
+                    initPayButton();
+                    
+                    // Cập nhật summary sau khi load xong
+                    if (typeof window.updatePaymentSummary === 'function') {
+                        window.updatePaymentSummary();
+                    }
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPaymentPage);
+            } else {
+                initPaymentPage();
+            }
+            }); // End waitForJQuery callback
+        })();
+    </script>
+    
+    <style>
+        .payment-method-item:hover {
+            border-color: #4CAF50 !important;
+            background-color: #f9f9f9 !important;
+        }
+        
+        @@media (max-width: 768px) {
+            .payment-methods {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+}
+

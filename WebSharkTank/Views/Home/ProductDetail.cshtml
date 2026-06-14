@@ -1,0 +1,563 @@
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="product-page">
+    <div class="ads_gif">
+        <img src="@Url.Content("~/Content/icons/QCSO1.gif")" alt>
+    </div>
+    <div class="container">
+        <!-- Search bar -->
+        <div class="product-container">
+            <div class="search-bar d-none d-md-flex">
+                <input type="text" name id placeholder="Search for item"
+                    class="search-bar__input" />
+                <button class="search-bar__submit">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt
+                        class="search-bar__icon icon" />
+                </button>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div class="product-container">
+            <ul class="breadcrumbs">
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="breadcrumbs__link">
+                        Trang chủ
+                        <img src="@Url.Content("~/Content/icons/arrow-right.svg")" alt />
+                    </a>
+                </li>
+                <li>
+                    <a href="#!"
+                        class="breadcrumbs__link breadcrumbs__link--current">Sản
+                        Phẩm</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Product info -->
+        <div class="product-container prod-info-content">
+            <div class="product-center">
+                <div class="col-5 col-xl-6 col-lg-12">
+                    <div class="prod-preview">
+                        <div class="prod-preview__list"></div>
+                        <div class="prod-preview__thumbs"></div>
+                    </div>
+                </div>
+                <!-- RIGHT: Info -->
+                <div class="col-5 col-xl-5 col-lg-12">
+                    <form action class="form">
+                        <section class="prod-info">
+                            <div class="prod-props">
+                                <!-- Tên sản phẩm -->
+                                <h1 class="prod-info__heading"
+                                    id="prod-title">
+                                </h1>
+                                <div class="prod-info__row">
+                                    <!-- Product meta -->
+                                    <div class="prod-meta"
+                                        id="prodMeta">
+                                        <span class="prod-meta__item">
+                                            <span
+                                                class="prod-meta__label">Đánh
+                                                giá:</span>
+                                            <span
+                                                id="metaRating">0</span>
+                                        </span>
+                                        <span
+                                            class="prod-meta__sep">•</span>
+                                        <span class="prod-meta__item">
+                                            <span
+                                                class="prod-meta__label">Bình
+                                                luận:</span>
+                                            <span
+                                                id="metaComments">0</span>
+                                        </span>
+                                        <span
+                                            class="prod-meta__sep">•</span>
+                                        <span class="prod-meta__item">
+                                            <span
+                                                class="prod-meta__label">Lượt
+                                                xem:</span>
+                                            <span
+                                                id="metaViews">0</span>
+                                        </span>
+                                        <span
+                                            class="prod-meta__sep">•</span>
+                                        <span class="prod-meta__item">
+                                            <span
+                                                class="prod-meta__label">Đã
+                                                bán:</span>
+                                            <span id="metaSold">0</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="box-price-detail">
+                                    <p class="prod-info__total-price"
+                                        id="total-price">&nbsp;₫</p>
+                                    <span class="prod-info__price"
+                                        id="price">&nbsp;₫</span>
+                                    <!-- Thuế (%) -->
+                                    <span class="prod-info__tax"
+                                        id="tax"></span>
+                                </div>
+
+                                <!-- Banner nhỏ (tuỳ chọn) -->
+                                <div class="hssv-banner"
+                                    style="margin-bottom:10px;">
+                                    <div class="hssv-left-content"
+                                        style="display:flex;align-items:center;gap:8px;">
+                                        <img
+                                            src="https://cdn-icons-png.flaticon.com/512/1164/1164726.png"
+                                            alt
+                                            width="30" height="30" />
+                                        <div class="hssv-text-content"
+                                            style="display:flex;align-items:center;gap:10px;">
+                                            <span
+                                                class="hssv-discount-text">Build
+                                                PC giảm thêm đến
+                                                1 triệu</span>
+                                            <span class="hssv-separator"
+                                                style="width:6px;height:6px;background:#999;border-radius:50%;"></span>
+                                            <span
+                                                class="hssv-description">Ưu
+                                                đãi HSSV</span>
+                                        </div>
+                                    </div>
+                                    <a class="hssv-cta-button"
+                                        href="#!"
+                                        target="_blank" rel="noopener">
+                                        <span class="hssv-label">Chi
+                                            tiết</span>
+                                        <span
+                                            class="hssv-arrow">→</span>
+                                    </a>
+                                </div>
+
+                                <!-- Khối số lượng + thêm vào giỏ -->
+                                <div
+                                    class="product-buy-quantity d-flex align-items-center">
+                                    <p class="title-quantity">Số
+                                        lượng:</p>
+                                    <!-- Chọn số lượng -->
+                                    <div
+                                        class="cart-quantity-select justify-content-center align-items-center d-flex"
+                                        id="detailQtyWrap">
+                                        <button type="button"
+                                            class="qty-btn"
+                                            data-delta="-1"
+                                            aria-label="Giảm">−</button>
+                                        <input type="text"
+                                            class="qty-input"
+                                            id="detailQty" value="1"
+                                            inputmode="numeric"
+                                            pattern="[0-9]*"
+                                            aria-label="Số lượng">
+                                        <button type="button"
+                                            class="qty-btn"
+                                            data-delta="1"
+                                            aria-label="Tăng">+</button>
+                                    </div>
+                                    <button type="button"
+                                        class="btn btn--primary prod-info__add-to-cart"
+                                        title="Thêm vào giỏ"
+                                        data-add-to-cart>
+                                        <img
+                                            src="@Url.Content("~/Content/icons/buy.svg")"
+                                            alt
+                                            class="icon top-act__icon">
+                                        <span class="title-cart">Thêm
+                                            vào giỏ hàng</span>
+                                    </button>
+                                </div>
+
+                                <!-- Nút hành động -->
+                                <div class="prod-info__row"
+                                    style="gap:10px;">
+                                    <button type="button"
+                                        class="btn btn--primary-red prod-info__buy"
+                                        data-goto="checkout">
+                                        <span class="btn-line">Đặt Mua
+                                            Ngay</span>
+                                        <span class="button-title">Giao
+                                            Hàng Tận Nơi nhanh
+                                            chóng</span>
+                                    </button>
+                                </div>
+                                <div class="prod-info__row">
+                                    <button type="button"
+                                        class="btn btn--primary-blue prod-info__buy"
+                                        onclick="window.location.href='@Url.Action("Installment", "Home")'">
+                                        <span class="btn-line">Trả Góp
+                                            Qua Hồ Sơ</span>
+                                        <span class="button-title">Chỉ
+                                            Từ</span>
+                                    </button>
+                                    <button type="button"
+                                        class="btn btn--primary-blue prod-info__buy"
+                                        onclick="window.location.href='@Url.Action("Installment", "Home")'">
+                                        <span class="btn-line">Trả
+                                            Góp Qua
+                                            Thẻ</span>
+                                        <span class="button-title">Chỉ
+                                            Từ</span>
+                                    </button>
+                                </div>
+
+                                <!-- Box khuyến mãi text -->
+                                <!-- Ưu đãi -->
+                                <div class="offer-block">
+                                    <h3 class="offer-block__title">Quà
+                                        tặng và ưu đãi khác</h3>
+                                    <ul class="offer-block__list">
+                                        <li class="offer-block__item">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Tặng
+                                                thêm bảo hành 1
+                                                năm</p>
+                                        </li>
+                                        <li class="offer-block__item">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Tặng
+                                                mã ưu đãi
+                                                150.000đ mua
+                                                Balo – Túi
+                                                xách</p>
+                                        </li>
+                                        <li class="offer-block__item">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Tặng
+                                                phiếu mua hàng
+                                                100.000đ</p>
+                                        </li>
+                                        <!-- các ưu đãi ẩn -->
+                                        <li
+                                            class="offer-block__item offer-block__item--more pd-hide">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Giảm
+                                                ngay 300.000đ
+                                                khi mua
+                                                Microsoft
+                                                Office</p>
+                                        </li>
+                                        <li
+                                            class="offer-block__item offer-block__item--more pd-hide">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Giảm
+                                                500.000đ cho đơn
+                                                từ 10.000.000đ
+                                                qua PAYOO (MB
+                                                Bank)</p>
+                                        </li>
+                                        <li
+                                            class="offer-block__item offer-block__item--more pd-hide">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Hoàn
+                                                100% phí chuyển
+                                                đổi trả góp
+                                                (TPBank EVO)</p>
+                                        </li>
+                                        <li
+                                            class="offer-block__item offer-block__item--more pd-hide">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/gift.svg")"
+                                                alt
+                                                class="offer-block__icon" />
+                                            <p
+                                                class="offer-block__text">Trả
+                                                góp 0% lãi suất,
+                                                miễn phí chuyển
+                                                đổi kỳ hạn</p>
+                                        </li>
+                                    </ul>
+                                    <button type="button"
+                                        class="offer-block__toggle"
+                                        data-expanded="false">
+                                        Xem thêm ưu đãi khác
+                                    </button>
+                                </div>
+
+                                <!-- Địa chỉ showroom -->
+                                <div
+                                    class="product-desc-short prtab2 store-address"
+                                    style="margin-top:14px;">
+                                    <hr>
+                                    <div class="section-title">Showroom
+                                        HCM</div>
+                                    <div class="location"><span
+                                            class="icon">📍</span><span
+                                            class="address">78-80-82
+                                            Hoàng Hoa Thám,
+                                            Phường Bảy Hiền,
+                                            TP.HCM</span></div>
+                                    <div class="location"><span
+                                            class="icon">📍</span><span
+                                            class="address">905
+                                            Kha Vạn Cân, Phường
+                                            Linh Tây,
+                                            TP.HCM</span></div>
+                                    <div class="location"><span
+                                            class="icon">📍</span><span
+                                            class="address">1081-1083
+                                            Trần Hưng Đạo,
+                                            Phường An Đông,
+                                            TP.HCM</span></div>
+                                    <div class="location">
+                                        <span class="icon">📍</span>
+                                        <span class="address">63
+                                            Nguyễn Cửu Vân,
+                                            Phường Gia Định,
+                                            TP.HCM</span>
+                                    </div>
+                                    <div class="section-title">Showroom
+                                        HN</div>
+                                    <div class="location"><span
+                                            class="icon">📍</span><span
+                                            class="address">162-164
+                                            Thái Hà, Phường Đống
+                                            Đa, Hà
+                                            Nội</span></div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product content -->
+        <div class="product-container">
+            <!-- THÔNG SỐ SẢN PHẨM -->
+            <div class="prod-info__card specs-card">
+                <div class="spec-card">
+                    <h3 class="spec-card__title">⚙
+                        Thông số sản phẩm</h3>
+                    <ul id="specList" class="spec-list"></ul>
+                </div>
+            </div>
+
+            <div class="prod-tab js-tabs">
+                <ul class="prod-tab__list">
+                    <li
+                        class="prod-tab__item prod-tab__item--current">Thông
+                        Tin Sản Phẩm</li>
+                    <li class="prod-tab__item">Đánh Giá</li>
+                    <li class="prod-tab__item">Sản Phẩm Tương Tự</li>
+                </ul>
+                <div class="prod-tab__contents">
+                    <div
+                        class="prod-tab__content prod-tab__content--current">
+                        <div class="row">
+                            <div class="col-8 col-xl-10 col-lg-12">
+                                <div
+                                    class="text-content prod-tab__text-content"
+                                    id="descContent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="prod-tab__content">
+                    <div class="prod-content">
+                        <h2 class="prod-content__heading">Đánh Giá:</h2>
+                        <div
+                            class="row row-cols-3 gx-lg-2 row-cols-md-1 gy-md-3">
+                            <!-- Review card 1 -->
+                            <div class="col">
+                                <div class="review-card">
+                                    <div class="review-card__content">
+                                        <img
+                                            src="@Url.Content("~/Content/img/avatar/avatar-1.png")"
+                                            alt
+                                            class="review-card__avatar" />
+                                        <div class="review-card__info">
+                                            <h4
+                                                class="review-card__title">Gia
+                                                Bảo</h4>
+                                            <p
+                                                class="review-card__desc">
+                                                100Đ nha kakak
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-card__rating">
+                                        <div
+                                            class="review-card__star-list">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-half.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-blank.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                        </div>
+                                        <span
+                                            class="review-card__rating-title">(3.5)
+                                            Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Review card 2 -->
+                            <div class="col">
+                                <div class="review-card">
+                                    <div class="review-card__content">
+                                        <img
+                                            src="@Url.Content("~/Content/img/avatar/avatar-2.png")"
+                                            alt
+                                            class="review-card__avatar" />
+                                        <div class="review-card__info">
+                                            <h4
+                                                class="review-card__title">Hải
+                                                Đăng</h4>
+                                            <p
+                                                class="review-card__desc">
+                                                Sản phẩm tốt dùng oki
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-card__rating">
+                                        <div
+                                            class="review-card__star-list">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-half.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-blank.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                        </div>
+                                        <span
+                                            class="review-card__rating-title">(3.5)
+                                            Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Review card 3 -->
+                            <div class="col">
+                                <div class="review-card">
+                                    <div class="review-card__content">
+                                        <img
+                                            src="@Url.Content("~/Content/img/avatar/avatar-3.png")"
+                                            alt
+                                            class="review-card__avatar" />
+                                        <div class="review-card__info">
+                                            <h4
+                                                class="review-card__title">Thế
+                                                An</h4>
+                                            <p
+                                                class="review-card__desc">
+                                                sản phẩm tốt
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="review-card__rating">
+                                        <div
+                                            class="review-card__star-list">
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-half.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                            <img
+                                                src="@Url.Content("~/Content/icons/star-blank.svg")"
+                                                alt
+                                                class="review-card__star" />
+                                        </div>
+                                        <span
+                                            class="review-card__rating-title">(3.5)
+                                            Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="prod-tab__content">
+                    <div class="prod-content">
+                        <h2 class="prod-content__heading">Các mặt hàng
+                            tương tự bạn có thể thích</h2>
+                        <div id="similar-grid"
+                            class="row row-cols-6 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="side-ad side-ad--left" href="#"><img
+            src="https://file.hstatic.net/200000722513/file/gearvn-pc-gvn-t8-sticky-banner.jpg"
+            alt></a>
+    <a class="side-ad side-ad--right" href="#"><img
+            src="https://file.hstatic.net/200000722513/file/gearvn-back-to-school-25-sticky.png"
+            alt></a>
+</main>
+
+@section Scripts {
+    <script src="@Url.Content("~/Content/js/product-detail.js")"></script>
+    <script src="@Url.Content("~/Content/js/cart.js")"></script>
+    <script src="@Url.Content("~/Content/js/sticky.js")"></script>
+}
+

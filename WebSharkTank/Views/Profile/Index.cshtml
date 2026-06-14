@@ -1,0 +1,180 @@
+@{
+    ViewBag.Title = "Hồ sơ | Shark Tank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.Charset = "utf-8";
+}
+
+<!-- MAIN -->
+<main class="profile">
+    <div class="container">
+        <!-- Search bar -->
+        <div class="profile-container">
+            <form class="search-bar d-none d-md-flex" role="search" aria-label="Tìm kiếm" onsubmit="return false;">
+                <input type="search" id="profile-search" name="q" placeholder="Tìm sản phẩm…"
+                    class="search-bar__input" autocomplete="off" aria-label="Tìm sản phẩm" />
+                <button class="search-bar__submit" type="button" aria-label="Tìm kiếm">
+                    <img src="@Url.Content("~/Content/icons/search.svg")" alt="Tìm kiếm" class="search-bar__icon icon" />
+                </button>
+            </form>
+        </div>
+
+        <!-- Profile content -->
+        <div class="profile-container">
+            <div class="row gy-md-3">
+                <div class="col-3 col-xl-4 col-lg-5 col-md-12">
+                    <div id="profile-sidebar"></div>
+                </div>
+                <div class="col-9 col-xl-8 col-lg-7 col-md-12">
+                    <div class="cart-info">
+                        <div class="row gy-3">
+                            <!-- My Wallet -->
+                            <div class="col-12">
+                                <h2 class="cart-info__heading">Ví của tôi</h2>
+                                <p class="cart-info__desc profile__desc">Phương thức thanh toán</p>
+                                <div class="row gy-md-2 row-cols-3 row-cols-xl-2 row-cols-lg-1">
+                                    <!-- Payment card 1 -->
+                                    <div class="col">
+                                        <article class="payment-card" style="--bg-color: #1e2e69">
+                                            <img src="@Url.Content("~/Content/img/card/plane-bg.svg")" alt="Nền thẻ" class="payment-card__img" />
+                                            <div class="payment-card__top">
+                                                <img src="@Url.Content("~/Content/img/card/plane.svg")" alt="Logo thẻ" />
+                                                <span class="payment-card__type">FeatherCard</span>
+                                            </div>
+                                            <div class="payment-card__number">1234 4567 8901 2221</div>
+                                            <div class="payment-card__bottom">
+                                                <div>
+                                                    <p class="payment-card__label">Chủ thẻ</p>
+                                                    <p class="payment-card__value" id="card-holder-1">Người dùng</p>
+                                                </div>
+                                                <div class="payment-card__expired">
+                                                    <p class="payment-card__label">Hết hạn</p>
+                                                    <p class="payment-card__value">10/22</p>
+                                                </div>
+                                                <div class="payment-card__circle"></div>
+                                            </div>
+                                        </article>
+                                    </div>
+
+                                    <!-- Payment card 2 -->
+                                    <div class="col">
+                                        <article class="payment-card" style="--bg-color: #354151">
+                                            <img src="@Url.Content("~/Content/img/card/leaf-bg.svg")" alt="Nền thẻ" class="payment-card__img" />
+                                            <div class="payment-card__top">
+                                                <img src="@Url.Content("~/Content/img/card/leaf.svg")" alt="Logo thẻ" />
+                                                <span class="payment-card__type">FeatherCard</span>
+                                            </div>
+                                            <div class="payment-card__number">1234 4567 2221 8901</div>
+                                            <div class="payment-card__bottom">
+                                                <div>
+                                                    <p class="payment-card__label">Chủ thẻ</p>
+                                                    <p class="payment-card__value" id="card-holder-2">Người dùng</p>
+                                                </div>
+                                                <div class="payment-card__expired">
+                                                    <p class="payment-card__label">Hết hạn</p>
+                                                    <p class="payment-card__value">11/22</p>
+                                                </div>
+                                                <div class="payment-card__circle"></div>
+                                            </div>
+                                        </article>
+                                    </div>
+
+                                    <!-- Add new payment card -->
+                                    <div class="col">
+                                        <a class="new-card" href="@Url.Action("AddCard", "Profile")">
+                                            <img src="@Url.Content("~/Content/icons/plus.svg")" alt="Thêm thẻ" class="new-card__icon icon" />
+                                            <p class="new-card__text">Thêm thẻ mới</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Account info -->
+                            <div class="col-12">
+                                <h2 class="cart-info__heading">Thông tin tài khoản</h2>
+                                <p class="cart-info__desc profile__desc">Địa chỉ, thông tin liên hệ và mật khẩu</p>
+                                <div class="row gy-md-2 row-cols-2 row-cols-lg-1">
+                                    <!-- Account info 1 -->
+                                    <div class="col">
+                                        <a href="@Url.Action("EditPersonalInfo", "Profile")">
+                                            <article class="account-info">
+                                                <div class="account-info__icon">
+                                                    <img src="@Url.Content("~/Content/icons/message.svg")" alt="Email" class="icon" />
+                                                </div>
+                                                <div>
+                                                    <h3 class="account-info__title">Địa chỉ email</h3>
+                                                    <p class="account-info__desc" id="profile-email">—</p>
+                                                </div>
+                                            </article>
+                                        </a>
+                                    </div>
+
+                                    <!-- Account info 2 -->
+                                    <div class="col">
+                                        <a href="@Url.Action("EditPersonalInfo", "Profile")">
+                                            <article class="account-info">
+                                                <div class="account-info__icon">
+                                                    <img src="@Url.Content("~/Content/icons/calling.svg")" alt="Điện thoại" class="icon" />
+                                                </div>
+                                                <div>
+                                                    <h3 class="account-info__title">Số điện thoại</h3>
+                                                    <p class="account-info__desc" id="profile-phone">—</p>
+                                                </div>
+                                            </article>
+                                        </a>
+                                    </div>
+
+                                    <!-- Account info 3 -->
+                                    <div class="col">
+                                        <a href="@Url.Action("EditPersonalInfo", "Profile")">
+                                            <article class="account-info">
+                                                <div class="account-info__icon">
+                                                    <img src="@Url.Content("~/Content/icons/location.svg")" alt="Địa chỉ" class="icon" />
+                                                </div>
+                                                <div>
+                                                    <h3 class="account-info__title">Địa chỉ nhận hàng</h3>
+                                                    <p class="account-info__desc" id="profile-address">—</p>
+                                                </div>
+                                            </article>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart list (dynamic) -->
+                            <div class="col-12">
+                                <h2 class="cart-info__heading">Danh sách đã thêm vào giỏ hàng</h2>
+                                <p class="cart-info__desc profile__desc" id="cart-summary">—</p>
+                                <div id="favList"></div>
+                                <div class="separate" style="--margin: 12px"></div>
+                                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                                    <a class="btn btn--primary btn--rounded" href="@Url.Action("Index", "Checkout")">Xem giỏ hàng</a>
+                                    <a class="btn btn--outline btn--rounded" href="@Url.Action("Index", "Shipping")">Thanh toán</a>
+                                </div>
+                            </div>
+                            <!-- End cart list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal: confirm remove shopping cart item -->
+<div id="delete-confirm" class="modal modal--small hide">
+    <div class="modal__content">
+        <p class="modal__text">Bạn có chắc muốn xoá sản phẩm này khỏi giỏ hàng?</p>
+        <div class="modal__bottom">
+            <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-confirm" type="button">Huỷ</button>
+            <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle" toggle-target="#delete-confirm" type="button">Xoá</button>
+        </div>
+    </div>
+    <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/Content/js/profile-sidebar.js")"></script>
+    <script src="@Url.Content("~/Content/js/profile-page.js")"></script>
+}
+
