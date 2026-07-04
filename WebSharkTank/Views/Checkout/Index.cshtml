@@ -162,21 +162,80 @@
                     }
                     
                     if (!isLoggedIn) {
-                        // Chưa đăng nhập: Hiển thị SweetAlert
+                        // Chưa đăng nhập: Cho phép chọn Đăng nhập hoặc Guest Checkout
                         swal({
-                            title: "Cần đăng nhập",
-                            text: "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Bạn có muốn chuyển đến trang đăng nhập không?",
-                            icon: "warning",
+                            title: "Thanh toán đơn hàng",
+                            text: "Vui lòng đăng nhập/đăng ký để nhận nhiều ưu đãi, hoặc tiếp tục thanh toán dưới tư cách Khách.",
+                            icon: "info",
                             buttons: {
                                 cancel: "Hủy",
-                                confirm: {
-                                    text: "Đăng nhập",
-                                    value: true
+                                guest: {
+                                    text: "Mua không cần tài khoản",
+                                    value: "guest"
+                                },
+                                login: {
+                                    text: "Đăng nhập / Đăng ký",
+                                    value: "login"
                                 }
                             }
-                        }).then((willLogin) => {
-                            if (willLogin) {
+                        }).then((choice) => {
+                            if (choice === "login") {
                                 window.location.href = '@Url.Action("Login", "Account")?ReturnUrl=/Shipping';
+                            } else if (choice === "guest") {
+                                // Yêu cầu nhập Email
+                                swal({
+                                    title: "Nhập Email của bạn",
+                                    text: "Nhập email để nhận thông tin đơn hàng và theo dõi vận chuyển:",
+                                    content: {
+                                        element: "input",
+                                        attributes: {
+                                            placeholder: "customer@example.com",
+                                            type: "email",
+                                        },
+                                    },
+                                    button: {
+                                        text: "Xác nhận",
+                                        closeModal: false
+                                    }
+                                }).then((email) => {
+                                    if (email === null) {
+                                        swal.close();
+                                        return;
+                                    }
+                                    if (!email || !email.trim()) {
+                                        swal("Lỗi", "Vui lòng nhập Email của bạn", "error");
+                                        return;
+                                    }
+                                    
+                                    // Validate email
+                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                    if (!emailRegex.test(email.trim())) {
+                                        swal("Lỗi", "Vui lòng nhập định dạng Email hợp lệ", "error");
+                                        return;
+                                    }
+                                    
+                                    // Tạo session guest thông qua AJAX
+                                    fetch('/Account/StartGuestSession', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: `email=${encodeURIComponent(email.trim())}`
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            swal.close();
+                                            window.location.href = data.redirectUrl || '/Shipping';
+                                        } else {
+                                            swal("Lỗi", data.message || "Không thể tạo phiên khách hàng", "error");
+                                        }
+                                    })
+                                    .catch(err => {
+                                        console.error('[checkout] Lỗi tạo guest session:', err);
+                                        swal("Lỗi", "Đã xảy ra sự cố khi kết nối tới máy chủ", "error");
+                                    });
+                                });
                             }
                         });
                     } else {

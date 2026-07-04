@@ -114,22 +114,14 @@
     const currentUser = window.Auth?.getCurrentUser?.() || null;
     
     if (!currentUser || !currentUser.id) {
-      // Chưa đăng nhập: Bắt buộc đăng nhập
+      // Chưa đăng nhập: Lưu vào localStorage
+      cartStore.add(product);
+      renderMiniCart();
       swal({
-        title: "Cần đăng nhập",
-        text: 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Bạn có muốn chuyển đến trang đăng nhập không?',
-        icon: "warning",
-        buttons: {
-          cancel: "Hủy",
-          confirm: {
-            text: "Đăng nhập",
-            value: true
-          }
-        }
-      }).then((willLogin) => {
-        if (willLogin) {
-          window.location.href = '/Account/Login';
-        }
+        title: "Thành công!",
+        text: "Đã thêm sản phẩm vào giỏ hàng",
+        icon: "success",
+        button: "OK"
       });
       return;
     }
@@ -368,8 +360,8 @@
       renderMiniCart();
 
       const goto = buyBtn.dataset.goto;
-      if (goto === 'checkout') location.href = './checkout.html';
-      else if (goto === 'cart') location.href = './cart.html';
+      if (goto === 'checkout') location.href = '/Checkout';
+      else if (goto === 'cart') location.href = '/Checkout';
       else document.getElementById('miniCart')?.classList.add('is-open'); 
     });
   }

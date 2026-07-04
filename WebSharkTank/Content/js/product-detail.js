@@ -470,23 +470,21 @@
           }
           
           if (!isLoggedIn) {
-            // Chưa đăng nhập: Bắt buộc đăng nhập
-            swal({
-              title: "Cần đăng nhập",
-              text: 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng. Bạn có muốn chuyển đến trang đăng nhập không?',
-              icon: "warning",
-              buttons: {
-                cancel: "Hủy",
-                confirm: {
-                  text: "Đăng nhập",
-                  value: true
-                }
+            // Chưa đăng nhập: Lưu vào localStorage
+            if (window.cartStore) {
+              window.cartStore.add(item);
+              if (window.renderMiniCart) {
+                window.renderMiniCart();
               }
-            }).then((willLogin) => {
-              if (willLogin) {
-                window.location.href = '/Account/Login';
-              }
-            });
+              swal({
+                title: "Thành công!",
+                text: "Đã thêm sản phẩm vào giỏ hàng",
+                icon: "success",
+                button: "OK"
+              });
+            } else {
+              console.error('[product-detail] cartStore không tìm thấy');
+            }
             return;
           }
           

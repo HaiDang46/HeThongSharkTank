@@ -33,14 +33,25 @@ namespace WebSharkTank.Controllers
 
             var userId = Session["UserId"];
             var userEmail = Session["UserEmail"];
+            bool isGuest = Session["IsGuest"] != null && (bool)Session["IsGuest"];
+            ViewBag.IsGuest = isGuest;
             
             // Debug log
-            System.Diagnostics.Debug.WriteLine($"[Shipping] Index - UserId: {userId}, UserEmail: {userEmail}");
+            System.Diagnostics.Debug.WriteLine($"[Shipping] Index - UserId: {userId}, UserEmail: {userEmail}, IsGuest: {isGuest}");
 
             try
             {
                 int userIdInt = Convert.ToInt32(userId);
-                var addresses = db.Addresses.Where(a => a.UserId == userIdInt).OrderByDescending(a => a.IsDefault).ThenByDescending(a => a.CreatedAt).ToList();
+                List<Address> addresses;
+                if (isGuest)
+                {
+                    var guestAddrIds = Session["GuestAddressIds"] as List<int> ?? new List<int>();
+                    addresses = db.Addresses.Where(a => a.UserId == userIdInt && guestAddrIds.Contains(a.Id)).OrderByDescending(a => a.IsDefault).ThenByDescending(a => a.CreatedAt).ToList();
+                }
+                else
+                {
+                    addresses = db.Addresses.Where(a => a.UserId == userIdInt).OrderByDescending(a => a.IsDefault).ThenByDescending(a => a.CreatedAt).ToList();
+                }
                 ViewBag.Addresses = addresses;
                 ViewBag.RequireLogin = false;
                 System.Diagnostics.Debug.WriteLine($"[Shipping] User logged in, found {addresses.Count} addresses");
@@ -212,6 +223,14 @@ namespace WebSharkTank.Controllers
 
                     db.Addresses.Add(newAddress);
                     db.SaveChanges();
+
+                    // Nếu là Guest, ghi nhận AddressId vào danh sách GuestAddressIds của Session
+                    if (Session["IsGuest"] != null && (bool)Session["IsGuest"])
+                    {
+                        var guestAddrIds = Session["GuestAddressIds"] as List<int> ?? new List<int>();
+                        guestAddrIds.Add(newAddress.Id);
+                        Session["GuestAddressIds"] = guestAddrIds;
+                    }
 
                     return Json(new { success = true, message = "Đã lưu địa chỉ thành công!", addressId = newAddress.Id });
                 }

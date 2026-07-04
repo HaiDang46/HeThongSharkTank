@@ -241,6 +241,58 @@ namespace WebSharkTank.Controllers
             }
         }
 
+        // POST: Account/StartGuestSession
+        [HttpPost]
+        public ActionResult StartGuestSession(string email, string name = "Khách hàng")
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    return Json(new { success = false, message = "Vui lòng cung cấp Email hợp lệ" });
+                }
+
+                email = email.ToLower().Trim();
+                
+                if (db == null)
+                {
+                    return Json(new { success = false, message = "Lỗi kết nối database" });
+                }
+
+                // Check if user already exists
+                var user = db.Users.FirstOrDefault(u => u.Email == email);
+                if (user == null)
+                {
+                    // Create a new guest user
+                    user = new User
+                    {
+                        Email = email,
+                        Name = string.IsNullOrEmpty(name) ? "Khách hàng" : name.Trim(),
+                        PasswordHash = "GUEST_ACCOUNT_" + Guid.NewGuid().ToString("N"),
+                        CreatedAt = DateTime.Now,
+                        Role = 0
+                    };
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
+
+                // Set session
+                Session["UserId"] = user.Id;
+                Session["UserName"] = user.Name;
+                Session["UserEmail"] = user.Email;
+                Session["UserRole"] = user.Role;
+                Session["IsGuest"] = true;
+                Session["GuestAddressIds"] = new System.Collections.Generic.List<int>();
+
+                return Json(new { success = true, message = "Thiết lập phiên khách thành công!", redirectUrl = "/Shipping" });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"StartGuestSession Error: {ex.Message}");
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
